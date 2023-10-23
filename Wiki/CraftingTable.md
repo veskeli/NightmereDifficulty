@@ -2,6 +2,6 @@
 
 ### Copper Hopper
 Recipe:
-![CopperHopper](Images/javaw_FpMqs1TMi6.png)
+![CopperHopper](https://github.com/veskeli/NightmereDifficulty/blob/main/Images/javaw_FpMqs1TMi6.png?raw=true)
 Result:
-![Hopper](Images/javaw_lTGeaSc5zx.png)
+![Hopper](https://github.com/veskeli/NightmereDifficulty/blob/main/Images/javaw_lTGeaSc5zx.png?raw=true)
