@@ -124,9 +124,9 @@ function tick{
     #execute as @e[type=minecraft:arrow,tag=!arroweffect] at @s if entity @e[type=player,distance=..6,sort=nearest,limit=1] run tag @s add arroweffect
     #execute as @e[type=minecraft:arrow,nbt={inBlockState:{}},tag=arroweffect] at @s run function nightmare:effects/firebomb
     #execute as @e[type=minecraft:arrow,nbt={ inBlockState:{}},tag=arroweffect] run kill @s
-    
+
     execute at @e[tag=ritualspot] run function nightmare:particles/outercircle
-    
+
     #If player in air
     tag @a remove InAir
     #execute at @a ~ ~ ~ detect ~ ~-1 ~ air 0 tag @s add InAir
@@ -152,11 +152,11 @@ function tick{
 
     #Status effects
     function nightmare:effects/statuseffects
-    
+
     #Wands
     scoreboard objectives add wanduse minecraft.used:warped_fungus_on_a_stick 
     execute as @a if score @s wanduse matches 1.. run function nightmare:wands/checkwand
-    
+
     #Test
     #execute as @e[tag=door] at @s run tp @s ~ ~ ~ ~.3 ~
     #execute at @e[tag=door] run function nightmare:particles/alchemymod
@@ -183,7 +183,7 @@ function no_event_overworld_enemies{
 
     #Husk
     function nightmare:monsters/husk_spawn
-    
+
     #skeleton
     function nightmare:monsters/skeleton_spawn
 
