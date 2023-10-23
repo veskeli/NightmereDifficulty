@@ -1,0 +1,13 @@
+{
+    "criteria": {
+        "Unlocked": {
+            "trigger": "minecraft:recipe_unlocked",
+            "conditions": {
+                "recipe": "nightmare:basiccritcore"
+            }
+        }
+    },
+    "rewards": {
+        "function": "nightmare:customcrafts/basiccritcore"
+    }
+}

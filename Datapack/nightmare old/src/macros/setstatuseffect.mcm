@@ -1,0 +1,4 @@
+macro setstatuseffect{
+    execute as @a if predicate nightmare:$$0 as @s run scoreboard players set @s $$1 1
+    execute as @a[scores={$$1=1..}] unless predicate nightmare:$$0 as @s run scoreboard players set @s $$1 0
+}

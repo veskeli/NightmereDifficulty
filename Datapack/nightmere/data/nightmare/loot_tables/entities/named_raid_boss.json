@@ -1,0 +1,99 @@
+{
+    "type": "minecraft:chest",
+    "pools": [
+      {
+        "rolls": 1,
+        "bonus_rolls": 0,
+        "entries": [
+          {
+            "type": "minecraft:item",
+            "weight": 30,
+            "name": "minecraft:enchanted_book",
+            "functions": [
+              {
+                "function": "minecraft:set_enchantments",
+                "enchantments": {
+                  "minecraft:blast_protection": 5
+                }
+              }
+            ]
+          },
+          {
+            "type": "minecraft:item",
+            "weight": 30,
+            "name": "minecraft:enchanted_book",
+            "functions": [
+              {
+                "function": "minecraft:set_enchantments",
+                "enchantments": {
+                  "minecraft:protection": 5
+                }
+              }
+            ]
+          },
+          {
+            "type": "minecraft:item",
+            "weight": 30,
+            "name": "minecraft:enchanted_book",
+            "functions": [
+              {
+                "function": "minecraft:set_enchantments",
+                "enchantments": {
+                  "minecraft:fire_protection": 5
+                }
+              }
+            ]
+          },
+          {
+            "type": "minecraft:item",
+            "name": "minecraft:enchanted_book",
+            "functions": [
+              {
+                "function": "minecraft:set_enchantments",
+                "enchantments": {
+                  "minecraft:efficiency": 5
+                }
+              }
+            ]
+          },
+          {
+            "type": "minecraft:item",
+            "weight": 40,
+            "name": "minecraft:enchanted_golden_apple",
+            "functions": [
+              {
+                "function": "minecraft:set_count",
+                "count": {
+                  "min": 1,
+                  "max": 2
+                }
+              }
+            ]
+          },
+          {
+            "type": "minecraft:item",
+            "weight": 30,
+            "name": "minecraft:warped_fungus_on_a_stick",
+            "functions": [
+              {
+                "function": "minecraft:set_nbt",
+                "tag": "{CustomModelData:652119,display:{Name:'[{\"text\":\"Illager wand\",\"italic\":false,\"color\":\"green\"}]',Lore:['[{\"text\":\"Damage: \",\"italic\":false},{\"text\":\"6\",\"color\":\"yellow\"},{\"text\":\"\",\"color\":\"dark_purple\"}]','[{\"text\":\"Effect: \",\"italic\":false,\"color\":\"dark_purple\"},{\"text\":\"Wither 2(0:4)\",\"color\":\"yellow\"},{\"text\":\"\",\"color\":\"dark_purple\"}]','[{\"text\":\"Mana cost: \",\"italic\":false,\"color\":\"dark_purple\"},{\"text\":\"5\",\"color\":\"yellow\"},{\"text\":\"\",\"color\":\"dark_purple\"}]','[{\"text\":\"Use time: \",\"italic\":false,\"color\":\"dark_purple\"},{\"text\":\"1s\",\"color\":\"yellow\"},{\"text\":\"\",\"color\":\"dark_purple\"}]','[{\"text\":\"MRC: \",\"italic\":false,\"color\":\"dark_purple\"},{\"text\":\"2s\",\"color\":\"yellow\"},{\"text\":\"\",\"color\":\"dark_purple\"}]','[{\"text\":\"named wand\",\"italic\":true,\"color\":\"yellow\"}]']},wand:1b,illagerwand:1b}"
+              }
+            ]
+          },
+          {
+            "type": "minecraft:item",
+            "weight": 25,
+            "name": "minecraft:warped_fungus_on_a_stick",
+            "functions": [
+              {
+                "function": "minecraft:set_nbt",
+                "tag": "{CustomModelData:652119,display:{Name:'[{\"text\":\"Illager wand II\",\"italic\":false,\"color\":\"green\"}]',Lore:['[{\"text\":\"Damage: \",\"italic\":false},{\"text\":\"6\",\"color\":\"yellow\"},{\"text\":\"\",\"color\":\"dark_purple\"}]','[{\"text\":\"Effect: \",\"italic\":false,\"color\":\"dark_purple\"},{\"text\":\"Wither 2(0:4)\",\"color\":\"yellow\"},{\"text\":\"\",\"color\":\"dark_purple\"}]','[{\"text\":\"Type: \",\"italic\":false,\"color\":\"dark_purple\"},{\"text\":\"Pierce\",\"color\":\"yellow\"},{\"text\":\"\",\"color\":\"dark_purple\"}]','[{\"text\":\"Mana cost: \",\"italic\":false,\"color\":\"dark_purple\"},{\"text\":\"5\",\"color\":\"yellow\"},{\"text\":\"\",\"color\":\"dark_purple\"}]','[{\"text\":\"Use time: \",\"italic\":false,\"color\":\"dark_purple\"},{\"text\":\"0.5s\",\"color\":\"yellow\"},{\"text\":\"\",\"color\":\"dark_purple\"}]','[{\"text\":\"MRC: \",\"italic\":false,\"color\":\"dark_purple\"},{\"text\":\"2s\",\"color\":\"yellow\"},{\"text\":\"\",\"color\":\"dark_purple\"}]','[{\"text\":\"named wand\",\"italic\":true,\"color\":\"yellow\"}]']},wand:1b,illagerwand2:1b}"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+  

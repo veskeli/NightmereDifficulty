@@ -1,0 +1,33 @@
+#[Mana cost] [ManaRegeneration] [WandCooldown] [Wand name space]
+macro basic_start_raycast{
+    execute if entity @s[scores={Nightmare_UseDelay=0}] if entity @s[scores={Nightmare_Mana=$$0..}] run block{
+        #Manacost [Manacost] [ManaRegeneration] [WandCooldown]
+        manacost $$0 $$1 $$2
+        tag @s add raycasting
+        execute anchored eyes positioned ^ ^ ^ run function nightmare:wands/$$3/raycast
+        tag @s remove raycasting
+        scoreboard players reset .distance steps
+    }
+}
+#[Wand name space] [distance: 1000] [particle: <minecraft:smoke ~ ~ ~ 0 0 0 0 1 normal>]
+macro basic_raycast{
+    execute as @e[dx=0,type=!#nightmare:not_mob,tag=!raycasting] positioned ~-0.20 ~-0.20 ~-0.20 if entity @s[dx=0] positioned ~0.99 ~0.99 ~0.99 run function nightmare:wands/$$0/collide
+    scoreboard players add .distance steps 1
+
+    execute unless entity @s[distance=..3] run particle $$2
+
+    execute if score .distance steps matches ..$$1 positioned ^ ^ ^0.1 rotated ~ ~ if block ~ ~ ~ #nightmare:raycast_pass run function nightmare:wands/$$0/raycast
+    execute if score .distance steps matches ..$$1 positioned ^ ^ ^0.1 rotated ~ ~ unless block ~ ~ ~ #nightmare:raycast_pass run function nightmare:wands/$$0/collide_block
+}
+#[Unded mob effect: <instant_health 1 0 true>][mob: <instant_damage 1 0 true>][particle: <dust 1 0.318 0 2 ~ ~0.7 ~ 0.5 0.5 0.5 0 10>]
+macro basic_collide{
+    scoreboard players add .distance steps 1000
+    execute if entity @s[type=#nightmare:undead_mob] run effect give @s $$0
+    execute if entity @s[type=!#nightmare:undead_mob] run effect give @s $$1
+    playsound entity.arrow.hit_player player @a[distance=..30] ~ ~ ~ 0.1
+    execute at @s run particle $$2
+}
+#[particle: <dust 0.984 1 0 2 ~ ~ ~ 0.5 0.5 0.5 0 10>]
+macro basic_collide_block{
+    execute at @s run particle $$0
+}

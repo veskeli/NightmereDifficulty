@@ -1,0 +1,2 @@
+summon skeleton ~ ~ ~ 
+execute at @s run data merge entity @e[type=skeleton,tag=!nightmare,limit=1,distance=..1] {Attributes:[{Base:0.5d,Name:"generic.movement_speed"}],CanPickUpLoot:1b,Tags:["nightmare","slownessskeleton"]}

@@ -1,0 +1,13 @@
+{
+    "criteria": {
+        "Unlocked": {
+            "trigger": "minecraft:recipe_unlocked",
+            "conditions": {
+                "recipe": "nightmare:wandbook"
+            }
+        }
+    },
+    "rewards": {
+        "function": "nightmare:customcrafts/wandbook"
+    }
+}

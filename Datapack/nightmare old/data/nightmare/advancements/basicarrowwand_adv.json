@@ -1,0 +1,13 @@
+{
+    "criteria": {
+        "Unlocked": {
+            "trigger": "minecraft:recipe_unlocked",
+            "conditions": {
+                "recipe": "nightmare:basicarrowwand"
+            }
+        }
+    },
+    "rewards": {
+        "function": "nightmare:customcrafts/basicarrowwand"
+    }
+}

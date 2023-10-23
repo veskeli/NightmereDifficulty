@@ -1,0 +1,172 @@
+{
+    "pools": [
+      {
+        "rolls": 1,
+        "bonus_rolls": 0,
+        "entries": [
+          {
+            "type": "minecraft:item",
+            "weight": 50,
+            "name": "minecraft:leather_helmet",
+            "functions": [
+              {
+                "function": "minecraft:set_nbt",
+                "tag": "{display:{color:8606770,Name:'[{\"text\":\"Weak wizard hat\",\"italic\":false}]',Lore:['[{\"text\":\"while wearing: \",\"italic\":false},{\"text\":\"Max mana increase by 5\",\"color\":\"yellow\"}]']},weakwizardhat:1b}"
+              }
+            ]
+          },
+          {
+            "type": "minecraft:item",
+            "weight": 45,
+            "name": "minecraft:leather_helmet",
+            "functions": [
+              {
+                "function": "minecraft:set_nbt",
+                "tag": "{display:{color:8606770,Name:'[{\"text\":\"Lost wizard hat\",\"italic\":false}]',Lore:['[{\"text\":\"while wearing: \",\"italic\":false},{\"text\":\"Max mana increase by 10\",\"color\":\"yellow\"}]']},lostwizardhat:1b}"
+              }
+            ]
+          },
+          {
+            "type": "minecraft:item",
+            "weight": 40,
+            "name": "minecraft:golden_helmet",
+            "functions": [
+              {
+                "function": "minecraft:set_nbt",
+                "tag": "{display:{Name:'[{\"text\":\"Weak wizard hat\",\"italic\":false}]',Lore:['[{\"text\":\"while wearing: \",\"italic\":false},{\"text\":\"Max mana increase by 5\",\"color\":\"yellow\"}]']},weakwizardhat:1b}"
+              }
+            ]
+          },
+          {
+            "type": "minecraft:item",
+            "weight": 35,
+            "name": "minecraft:golden_helmet",
+            "functions": [
+              {
+                "function": "minecraft:set_nbt",
+                "tag": "{display:{Name:'[{\"text\":\"Lost wizard hat\",\"italic\":false}]',Lore:['[{\"text\":\"while wearing: \",\"italic\":false},{\"text\":\"Max mana increase by 10\",\"color\":\"yellow\"}]']},lostwizardhat:1b}"
+              }
+            ]
+          },
+          {
+            "type": "minecraft:item",
+            "weight": 30,
+            "name": "minecraft:iron_helmet",
+            "functions": [
+              {
+                "function": "minecraft:set_nbt",
+                "tag": "{display:{Name:'[{\"text\":\"Weak wizard hat\",\"italic\":false}]',Lore:['[{\"text\":\"while wearing: \",\"italic\":false},{\"text\":\"Max mana increase by 5\",\"color\":\"yellow\"}]']},weakwizardhat:1b}"
+              }
+            ]
+          },
+          {
+            "type": "minecraft:item",
+            "weight": 30,
+            "name": "minecraft:iron_helmet",
+            "functions": [
+              {
+                "function": "minecraft:set_nbt",
+                "tag": "{display:{Name:'[{\"text\":\"Lost wizard hat\",\"italic\":false}]',Lore:['[{\"text\":\"while wearing: \",\"italic\":false},{\"text\":\"Max mana increase by 10\",\"color\":\"yellow\"}]']},lostwizardhat:1b}"
+              }
+            ]
+          },
+          {
+            "type": "minecraft:item",
+            "weight": 50,
+            "name": "minecraft:golden_apple",
+            "functions": [
+              {
+                "function": "minecraft:set_count",
+                "count": {
+                  "min": 1,
+                  "max": 3
+                }
+              }
+            ]
+          },
+          {
+            "type": "minecraft:item",
+            "weight": 40,
+            "name": "minecraft:enchanted_golden_apple",
+            "functions": [
+              {
+                "function": "minecraft:set_count",
+                "count": {
+                  "min": 1,
+                  "max": 2
+                }
+              }
+            ]
+          },
+          {
+            "type": "minecraft:item",
+            "weight": 10,
+            "name": "minecraft:diamond_pickaxe",
+            "functions": [
+              {
+                "function": "minecraft:set_enchantments",
+                "enchantments": {
+                  "minecraft:efficiency": {
+                    "min": 0,
+                    "max": 4
+                  },
+                  "minecraft:silk_touch": {
+                    "min": 0,
+                    "max": 1
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "type": "minecraft:item",
+            "weight": 10,
+            "name": "minecraft:diamond_axe",
+            "functions": [
+              {
+                "function": "minecraft:set_enchantments",
+                "enchantments": {
+                  "minecraft:efficiency": {
+                    "min": 0,
+                    "max": 4
+                  },
+                  "minecraft:sharpness": {
+                    "min": 0,
+                    "max": 3
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "type": "minecraft:item",
+            "weight": 15,
+            "name": "minecraft:totem_of_undying"
+          },
+          {
+            "type": "minecraft:item",
+            "weight": 15,
+            "name": "minecraft:phantom_membrane",
+            "functions": [
+              {
+                "function": "minecraft:set_nbt",
+                "tag": "{upgradecore:1b,display:{Name:'[{\"text\":\"Upgrade core\",\"italic\":false,\"color\":\"dark_aqua\"}]',Lore:['[{\"text\":\"Effects: \",\"italic\":false},{\"text\":\"Upgrades current effect\",\"color\":\"yellow\"},{\"text\":\"\",\"color\":\"dark_purple\"}]','[{\"text\":\"Combine with effect wand\",\"italic\":true,\"color\":\"yellow\"}]']}}"
+              }
+            ]
+          },
+          {
+            "type": "minecraft:item",
+            "weight": 10,
+            "name": "minecraft:warped_fungus_on_a_stick",
+            "functions": [
+              {
+                "function": "minecraft:set_nbt",
+                "tag": "{CustomModelData:652119,display:{Name:'[{\"text\":\"Tormented wand\",\"italic\":false,\"color\":\"green\"}]',Lore:['[{\"text\":\"Damage: \",\"italic\":false},{\"text\":\"6\",\"color\":\"yellow\"},{\"text\":\"\",\"color\":\"dark_purple\"}]','[{\"text\":\"Crit chance: \",\"italic\":false,\"color\":\"dark_purple\"},{\"text\":\"25%\",\"color\":\"yellow\"},{\"text\":\"\",\"color\":\"dark_purple\"}]','[{\"text\":\"Mana cost: \",\"italic\":false,\"color\":\"dark_purple\"},{\"text\":\"5\",\"color\":\"yellow\"},{\"text\":\"\",\"color\":\"dark_purple\"}]','[{\"text\":\"Use time: \",\"italic\":false,\"color\":\"dark_purple\"},{\"text\":\"0.5s\",\"color\":\"yellow\"},{\"text\":\"\",\"color\":\"dark_purple\"}]','[{\"text\":\"MRC: \",\"italic\":false,\"color\":\"dark_purple\"},{\"text\":\"2s\",\"color\":\"yellow\"},{\"text\":\"\",\"color\":\"dark_purple\"}]','[{\"text\":\"named wand\",\"italic\":true,\"color\":\"yellow\"}]']},wand:1b,tormentedwand:1b}"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+  

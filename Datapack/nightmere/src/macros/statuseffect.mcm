@@ -1,0 +1,6 @@
+macro statuseffect{
+    execute if entity @a[scores={$$0=1}] as @a[scores={$$0=1}] run effect give @s $$1 999999 $$2 true
+    execute if entity @a[scores={$$0=1}] as @a[scores={$$0=1}] run scoreboard players set @s $$0 2
+    execute if entity @a[scores={$$0=0}] run effect clear @a[scores={$$0=0}] $$1
+    execute if entity @a[scores={$$0=0}] as @a[scores={$$0=0}] run scoreboard players set @s $$0 -1
+}

@@ -1,0 +1,13 @@
+{
+    "criteria": {
+        "Unlocked": {
+            "trigger": "minecraft:recipe_unlocked",
+            "conditions": {
+                "recipe": "nightmare:advancedglider"
+            }
+        }
+    },
+    "rewards": {
+        "function": "nightmare:customcrafts/advancedglider"
+    }
+}

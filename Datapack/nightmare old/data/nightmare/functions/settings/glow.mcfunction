@@ -1,0 +1,1 @@
+execute as @s run effect give @e glowing 60

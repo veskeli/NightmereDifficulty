@@ -1,0 +1,1 @@
+execute if entity @s[nbt={Inventory:[{tag:{healthboost:1b}},{Slot:100b}]}] as @s run effect give @s health_boost 1 2 true

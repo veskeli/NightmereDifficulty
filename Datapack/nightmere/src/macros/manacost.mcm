@@ -1,0 +1,22 @@
+macro manacost{
+    scoreboard players remove @s Nightmare_Mana $$0
+    execute if entity @s[scores={Nightmare_ManaRegneration=..$$1}] run block{
+        scoreboard players set @s Nightmare_ManaRegneration $$1
+        execute as @s[scores={Nightmare_ManaRegneration=..$$1}] if predicate nightmare:nether run scoreboard players add @s Nightmare_ManaRegneration $$1
+        execute as @s[scores={Nightmare_ManaRegneration=..$$1}] if predicate nightmare:nether run scoreboard players add @s Nightmare_ManaRegneration $$1
+    }
+    scoreboard players set @s Nightmare_UseDelay $$2
+    execute as @s if predicate nightmare:nether run scoreboard players add @s Nightmare_UseDelay $$2
+    execute as @s if predicate nightmare:nether run scoreboard players add @s Nightmare_UseDelay $$2
+}
+macro maxmanapotion{
+    execute if entity @s[scores={$$0=1..}] run tellraw @s {"text":"Already consumed!","color":"red"}
+    execute if entity @s[scores={$$0=0}] run block{
+        clear @s warped_fungus_on_a_stick{$$0:1b} 1
+        scoreboard players add @s $$0 1
+        scoreboard players add @s Nightmare_MaxMana $$1
+        title @s times 20 80 20
+        title @s subtitle ["",{"text":"Maximum mana increased to","color":"dark_aqua"},{"text":" "},{"score":{"name":"@s","objective":"Nightmare_MaxMana"},"color":"dark_green"}]
+        title @s title {"text":""}
+    }
+}

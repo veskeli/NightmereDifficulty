@@ -1,0 +1,35 @@
+macro customcrafting{
+    recipe take @s nightmare:$$0
+    advancement revoke @s only nightmare:$$0_adv
+    execute as @s run function nightmare:giveitem/$$0
+    clear @s minecraft:knowledge_book 1
+}
+macro floorwandcraft{
+    #@e[type=item,nbt={Item:{id:"minecraft:warped_fungus_on_a_stick",Count:1b,tag:{emeraldwand:1b}}}]
+    #@e[type=item,nbt={Item:{id:"minecraft:phantom_membrane",Count:1b,tag:{weaknesscore:1b}}}]
+    execute as @e[type=item,nbt={Item:{id:"minecraft:warped_fungus_on_a_stick",Count:1b,tag:{$$0:1b}}}] at @s if block ~ ~-1 ~ anvil at @s run execute as @e[type=item,nbt={Item:{id:"minecraft:phantom_membrane",Count:1b,tag:{$$1:1b}}},limit=1,sort=nearest,distance=..1] run block{
+        function nightmare:summonitem/$$2
+        execute as @s run playsound block.anvil.use block @a[distance=..5] ~ ~ ~
+        kill @e[type=item,nbt={Item:{id:"minecraft:warped_fungus_on_a_stick",Count:1b,tag:{$$0:1b}}},sort=nearest]
+        kill @s
+    }
+    execute as @e[type=item,nbt={Item:{id:"minecraft:warped_fungus_on_a_stick",Count:1b,tag:{$$2:1b}}}] at @s if block ~ ~-1 ~ grindstone at @s run block{
+        function nightmare:summonitem/$$0
+        function nightmare:summonitem/$$1
+        execute as @s run playsound block.grindstone.use block @a[distance=..5] ~ ~ ~
+        kill @s
+    }
+}
+macro floorwandcraftwithitem{
+    #@e[type=item,nbt={Item:{id:"minecraft:warped_fungus_on_a_stick",Count:1b,tag:{emeraldwand:1b}}}]
+    #@e[type=item,nbt={Item:{id:"minecraft:phantom_membrane",Count:1b,tag:{weaknesscore:1b}}}]
+    execute as @e[type=item,nbt={Item:{id:"minecraft:warped_fungus_on_a_stick",Count:1b,tag:{$$0:1b}}}] at @s if block ~ ~-1 ~ anvil at @s run execute as @e[type=item,nbt={Item:{id:"$$1",Count:1b}},limit=1,sort=nearest,distance=..1] run block{
+        function nightmare:summonitem/$$2
+        execute as @s run playsound block.anvil.use block @a[distance=..5] ~ ~ ~
+        kill @e[type=item,nbt={Item:{id:"minecraft:warped_fungus_on_a_stick",Count:1b,tag:{$$0:1b}}},sort=nearest]
+        kill @s
+    }
+}
+macro golem{
+    #execute if block 
+}

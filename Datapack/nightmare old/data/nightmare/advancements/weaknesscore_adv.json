@@ -1,0 +1,13 @@
+{
+    "criteria": {
+        "Unlocked": {
+            "trigger": "minecraft:recipe_unlocked",
+            "conditions": {
+                "recipe": "nightmare:weaknesscore"
+            }
+        }
+    },
+    "rewards": {
+        "function": "nightmare:customcrafts/weaknesscore"
+    }
+}

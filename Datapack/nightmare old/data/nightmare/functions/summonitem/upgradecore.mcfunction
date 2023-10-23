@@ -1,0 +1,3 @@
+#built using mc-build (https://github.com/mc-build/mc-build)
+
+execute as @s run summon item ~ ~ ~ {Item:{id:"minecraft:phantom_membrane",Count:1b,tag:{display:{Name:'[{"text":"Upgrade core","italic":false,"color":"dark_aqua"}]',Lore:['[{"text":"Effects: ","italic":false},{"text":"Upgrades current effect","color":"yellow"},{"text":"","color":"dark_purple"}]','[{"text":"Combine with effect wand","italic":true,"color":"yellow"}]']},upgradecore:1b}}}

@@ -1,0 +1,4 @@
+#Speed boy
+execute if predicate nightmare:50change run data merge entity @s[type=zombie,tag=!nightmare] {Attributes:[{Base:5.0d,Name:"generic.attack_damage"},{Base:0.6d,Name:"generic.movement_speed"}],CanPickUpLoot:1b,Tags:["nightmare","speedboy"],Name:zombie.spawn_reinforcements,Base:1,ArmorItems:[{id:"minecraft:leather_boots",Count:1b,tag:{display:{Lore:['[{"text":"Modifier: ","color":"light_purple","italic":false},{"text":"Speed boost IV","color":"yellow"}]']},SpeedBoyBoots:1b}},{},{},{}]}
+#strong boy
+execute as @s[type=zombie,tag=!nightmare] run data merge entity @s {Attributes:[{Base:12.0d,Name:"generic.attack_damage"},{Base:0.23d,Name:"generic.movement_speed"}],CanPickUpLoot:1b,Tags:["nightmare"],Name:zombie.spawn_reinforcements,Base:1}

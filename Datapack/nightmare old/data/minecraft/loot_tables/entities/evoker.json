@@ -1,0 +1,89 @@
+{
+  "type": "minecraft:entity",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:totem_of_undying"
+        }
+      ],
+      "rolls": 1.0
+    },
+    {
+      "bonus_rolls": 0.0,
+      "conditions": [
+        {
+          "condition": "minecraft:killed_by_player"
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 1.0,
+                "min": 0.0
+              },
+              "function": "minecraft:set_count"
+            },
+            {
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 1.0,
+                "min": 0.0
+              },
+              "function": "minecraft:looting_enchant"
+            }
+          ],
+          "name": "minecraft:emerald"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:phantom_membrane",
+          "functions": [
+            {
+              "function": "minecraft:set_nbt",
+              "tag": "{upgradecore:1b,display:{Name:'[{\"text\":\"Upgrade core\",\"italic\":false,\"color\":\"dark_aqua\"}]',Lore:['[{\"text\":\"Effects: \",\"italic\":false},{\"text\":\"Upgrades current effect\",\"color\":\"yellow\"},{\"text\":\"\",\"color\":\"dark_purple\"}]','[{\"text\":\"Combine with effect wand\",\"italic\":true,\"color\":\"yellow\"}]']}}"
+            },
+            {
+              "function": "minecraft:set_count",
+              "count": 1
+            }
+          ],
+          "conditions": [
+            {
+              "condition": "minecraft:random_chance",
+              "chance": 0.8
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:warped_fungus_on_a_stick",
+          "functions": [
+            {
+              "function": "minecraft:set_nbt",
+              "tag": "{CustomModelData:72450,display:{Name:'[{\"text\":\"Potion of Evoker\",\"italic\":false,\"color\":\"green\"}]',Lore:['[{\"text\":\"Increase max mana by 3\",\"italic\":false,\"color\":\"blue\"}]']},potionofevoker:1b}"
+            },
+            {
+              "function": "minecraft:set_count",
+              "count": 1
+            }
+          ],
+          "conditions": [
+            {
+              "condition": "minecraft:random_chance",
+              "chance": 0.5
+            }
+          ]
+        }
+      ],
+      "rolls": 1.0
+    }
+  ]
+}

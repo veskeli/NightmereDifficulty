@@ -1,0 +1,28 @@
+[
+    {
+      "function": "minecraft:set_lore",
+      "entity": "this",
+      "lore": [
+        [
+          {
+            "text": "Modifier: "
+          },
+          {
+            "text": "Jump boost 2",
+            "color": "yellow"
+          }
+        ]
+      ],
+      "conditions": [
+        {
+          "condition": "minecraft:match_tool",
+          "predicate": {
+            "items": [
+              "minecraft:leather_boots"
+            ]
+          }
+        }
+      ]
+    }
+  ]
+  

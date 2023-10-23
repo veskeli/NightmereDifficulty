@@ -1,0 +1,3 @@
+#built using mc-build (https://github.com/mc-build/mc-build)
+
+execute as @s run summon item ~ ~ ~ {Item:{id:"minecraft:warped_fungus_on_a_stick",Count:1b,tag:{CustomModelData:652119,display:{Name:'[{"text":"Rider wand","italic":false,"color":"dark_aqua"}]',Lore:['[{"text":"Mana Cost: ","italic":false},{"text":"5","color":"yellow"},{"text":"","color":"dark_purple"}]','[{"text":"Mana regeneration cooldown: ","italic":false,"color":"dark_purple"},{"text":"2s","color":"yellow"},{"text":"","color":"dark_purple"}]','[{"text":"Description: ","italic":false,"color":"dark_purple"},{"text":"Ride entity","color":"yellow"}]']},wand:1b,riderwand:1b}}}

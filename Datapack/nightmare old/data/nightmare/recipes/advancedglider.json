@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "#S#",
+        "#/#",
+        " / "
+    ],
+    "key": {
+        "#": {
+            "item": "minecraft:leather"
+        },
+        "S": {
+            "item": "minecraft:saddle"
+        },
+        "/": {
+            "item": "minecraft:blaze_rod"
+        }
+    },
+  "result": {
+    "item": "minecraft:knowledge_book"
+  }
+}

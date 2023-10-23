@@ -1,0 +1,78 @@
+{
+  "type": "minecraft:chest",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 3.0,
+                "min": 1.0
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "minecraft:book",
+          "weight": 20
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 7.0,
+                "min": 2.0
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "minecraft:paper",
+          "weight": 20
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:map"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:phantom_membrane",
+          "weight": 40,
+          "functions": [
+            {
+              "function": "minecraft:set_nbt",
+              "tag": "{tempcore15:1b,display:{Name:'[{\"text\":\"dshifuhiusd\",\"italic\":false,\"color\":\"green\",\"obfuscated\":true},{\"text\":\" Core\",\"obfuscated\":false}]',Lore:['[{\"text\":\"Effects: \",\"italic\":false},{\"text\":\"dfgfdgoiudg\",\"obfuscated\":true,\"color\":\"yellow\"},{\"text\":\"\",\"obfuscated\":false,\"color\":\"dark_purple\"}]','[{\"text\":\"Combine with \",\"italic\":true,\"color\":\"yellow\"},{\"text\":\"Basic wand\",\"obfuscated\":true},{\"text\":\"\",\"obfuscated\":false,\"color\":\"dark_purple\",\"italic\":false}]','[{\"text\":\"After more wands, update throw this above crafting\",\"italic\":false,\"color\":\"white\",\"underlined\":true}]','[{\"text\":\"table to refresh\",\"italic\":false,\"color\":\"white\",\"underlined\":true}]']}}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:compass"
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:enchant_with_levels",
+              "levels": 30.0,
+              "treasure": true
+            }
+          ],
+          "name": "minecraft:book",
+          "weight": 10
+        }
+      ],
+      "rolls": {
+        "type": "minecraft:uniform",
+        "max": 10.0,
+        "min": 2.0
+      }
+    }
+  ]
+}
