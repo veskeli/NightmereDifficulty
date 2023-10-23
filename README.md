@@ -2,7 +2,7 @@
 > Minecraft Datapack
 
 ![State](https://img.shields.io/badge/Build_State-Not_yet_available-lightgray)
-![State](https://img.shields.io/badge/Build-1-teal)
+![State](https://img.shields.io/badge/Build-0-teal)
 
 # Go to [Wiki](Wiki/Home.md)
 
