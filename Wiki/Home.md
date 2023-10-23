@@ -1,12 +1,10 @@
-> [!Important]
-> Nightmere Difficulty is not ready yet
-# Crafting
+# Wiki
+## Crafting
 #### - [Crafting Table Additions](CraftingTable.md)
 #### - [Custom Crafting](Crafting.md)
 
-# Enemies
+## Enemies
 #### - [Default Enemy Changes](DefaultEnemies.md)
-
 
 
 > [!WARNING]
