@@ -1,4 +1,5 @@
 # Wiki
+> Go to [Readme](https://github.com/veskeli/NightmereDifficulty/blob/main/README.md)
 ## Crafting
 #### - [Crafting Table Additions](CraftingTable.md)
 #### - [Custom Crafting](Crafting.md)
