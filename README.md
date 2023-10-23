@@ -4,7 +4,7 @@
 # Nightmere Difficulty
 #### Minecraft Datapack
 
-# [Wiki](Wiki/Home)
+# [Wiki](Wiki/Home.md)
 
 > [!WARNING]
 > This site is working progress.
