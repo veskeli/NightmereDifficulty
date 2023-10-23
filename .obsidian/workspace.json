@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Wiki/CraftingTable.md",
+                "file": "Wiki/Home.md",
                 "mode": "source",
                 "source": false
               }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Wiki/CraftingTable.md",
+                "file": "Wiki/Home.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Wiki/CraftingTable.md",
+                "file": "Wiki/Home.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Wiki/CraftingTable.md"
+                "file": "Wiki/Home.md"
               }
             }
           }
@@ -148,8 +148,13 @@
   },
   "active": "1c0f7a47842aa003",
   "lastOpenFiles": [
-    "Wiki/Home.md",
+    "Images/Blocks.png",
     "Wiki/CraftingTable.md",
+    "Images/Icons/icon_zccUTffyK4.png",
+    "Images/Icons/opera_zccUTffyK4.png",
+    "Images/Icons",
+    "Images/New folder",
+    "Wiki/Home.md",
     "Images/javaw_lTGeaSc5zx.png",
     "Wiki/Crafting.md",
     "Wiki/DefaultEnemies.md",

@@ -1,7 +1,7 @@
 # Wiki
 > Go to [Readme](https://github.com/veskeli/NightmereDifficulty/blob/main/README.md)
 ## Crafting
-#### - [Crafting Table Additions](CraftingTable.md)
+#### - [![CraftingTable](https://github.com/veskeli/NightmereDifficulty/blob/main/Images/Icons/icon_zccUTffyK4.png?raw=true) Crafting Table Additions](CraftingTable.md)
 #### - [Custom Crafting](Crafting.md)
 
 ## Enemies
