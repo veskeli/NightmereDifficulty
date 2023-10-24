@@ -6,4 +6,6 @@ execute as @a run function nightmare:nightmareloaded
 execute as @a run function nightmare:nightmareversion
 scoreboard objectives add currentevent dummy
 scoreboard players add $overworld currentevent 0
+scoreboard objectives add SummonCircle_Vindicator dummy
 execute as @a[tag=Nightmare_joined] run function nightmare:__generated__/block/0
+say test 6

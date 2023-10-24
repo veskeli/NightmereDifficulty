@@ -1,7 +1,7 @@
 [
   [
     "lastUpdate",
-    "Tue Oct 24 2023 17:29:16 GMT+0300 (Eastern European Summer Time)"
+    "Tue Oct 24 2023 23:37:46 GMT+0300 (Eastern European Summer Time)"
   ],
   [
     "INTERNAL/VIRTUAL_FILE_SYSTEM",
@@ -19,10 +19,12 @@
         "data\\nightmare\\functions\\nightmareversion.mcfunction": 2288212113,
         "data\\nightmare\\functions\\nightmareloaded.mcfunction": 3167937127,
         "data\\nightmare\\functions\\__generated__\\block\\0.mcfunction": 3434445175,
-        "data\\nightmare\\functions\\load.mcfunction": 1362589564,
+        "data\\nightmare\\functions\\load.mcfunction": 3872459030,
         "data\\nightmare\\functions\\__generated__\\block\\1.mcfunction": 3036549921,
-        "data\\nightmare\\functions\\tick.mcfunction": 3235054595,
-        "data\\nightmare\\functions\\commandfeedback.mcfunction": 1766207705
+        "data\\nightmare\\functions\\tick.mcfunction": 1611895357,
+        "data\\nightmare\\functions\\commandfeedback.mcfunction": 1766207705,
+        "data\\nightmare\\functions\\monsters\\no_event_overworld_enemies.mcfunction": 2704524304,
+        "data\\nightmare\\functions\\monsters\\zombie_spawn.mcfunction": 2441538500
       },
       "src\\macros": {},
       "src\\macros\\wands.mcm": {},
