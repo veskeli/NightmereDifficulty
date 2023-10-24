@@ -4,14 +4,18 @@ NewDatapack := A_ScriptDir "\Datapack\nightmare"
 OldDatapackDir := ReadLocationFromFile(PathToFile)
 OldDatapack := OldDatapackDir "\nightmare"
 
-if(OldDatapackDir == "")
-    return
-
-if(FileExist(NewDatapack) and FileExist(OldDatapackDir))
+if(DirExist(NewDatapack) and DirExist(OldDatapackDir))
 {
-    if(FileExist(OldDatapack))
-        FileDelete(OldDatapack)
-    FileCopy(NewDatapack,OldDatapackDir "\nightmare",true)
+    if(DirExist(OldDatapack))
+    {
+        MsgBox(OldDatapack)
+        DirDelete(OldDatapack)
+    }
+    DirCopy(NewDatapack,OldDatapackDir "\nightmare",true)
+}
+else
+{
+    MsgBox("Old or new folder not found")
 }
 return
 
