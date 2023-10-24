@@ -1,3 +1,3 @@
-#built using mc-build (https://github.com/mc-build/mc-build)
+#Nightmare Difficulty Generated
 
 gamerule sendCommandFeedback true

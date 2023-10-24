@@ -1,4 +1,4 @@
-#built using mc-build (https://github.com/mc-build/mc-build)
+#Nightmare Difficulty Generated
 
 scoreboard objectives add Nightmare_INTERNAL dummy
 execute run gamerule commandBlockOutput false

@@ -1,4 +1,4 @@
-#built using mc-build (https://github.com/mc-build/mc-build)
+#Nightmare Difficulty Generated
 
 execute run gamerule commandBlockOutput false
 execute as @a run function nightmare:nightmareloaded
