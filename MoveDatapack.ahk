@@ -8,8 +8,7 @@ if(DirExist(NewDatapack) and DirExist(OldDatapackDir))
 {
     if(DirExist(OldDatapack))
     {
-        MsgBox(OldDatapack)
-        DirDelete(OldDatapack)
+        DirDelete(OldDatapack,1)
     }
     DirCopy(NewDatapack,OldDatapackDir "\nightmare",true)
 }
