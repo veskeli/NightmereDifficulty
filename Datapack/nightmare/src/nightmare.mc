@@ -25,11 +25,17 @@ function load{
 
     #<--------Scoreboards-------->
     #Current events
-    scoreboard objectives add currentevent dummy
-    scoreboard players add $overworld currentevent 0
+    scoreboard objectives add Nightmare_currentevent dummy
+    scoreboard players add $overworld Nightmare_currentevent 0
 
     #Summon circle
-    scoreboard objectives add SummonCircle_Vindicator dummy
+    scoreboard objectives add Nightmare_SummonCircle_Vindicator dummy
+    schedule function nightmare:particles/summons_schedules/summoncirlce_vindicator 0.2s
+
+    #Witch test
+    scoreboard objectives add Nightmare_WitchSummonTimer dummy
+    scoreboard objectives add Nightmare_WitchHealth dummy
+    schedule function nightmare:development/schedule_witchsummon 1s
 
     #<--------Show join text-------->
     execute as @a[tag=Nightmare_joined] run block{
@@ -38,7 +44,7 @@ function load{
 
     !IF(config.dev)
     {
-        say test 6
+        
     }
 }
 
@@ -51,11 +57,17 @@ function tick{
     }
 
     #<--------No event overworld enemies-------->
-    execute if score $overworld currentevent matches 0 run function nightmare:monsters/no_event_overworld_enemies
+    execute if score $overworld Nightmare_currentevent matches 0 run function nightmare:monsters/no_event_overworld_enemies
 
     #<--------Summon circles-------->
+    #Handle circle timer
     function nightmare:particles/summons/summoncirlce_vindicator
-    execute at @e[tag=SummonCircle_Vindicator] run function nightmare:particles/summoncircle_vindicator
+
+    !IF(config.dev)
+    {
+        function nightmare:development/testwitch
+        function nightmare:development/witchhurtdetect
+    }
 }
 
 function commandfeedback{
@@ -109,8 +121,11 @@ dir monsters{
     }
     dir summons{
         function summoncirlce_vindicator{
+            #Summon vindicator
             execute at @s run summon minecraft:vindicator ~ ~ ~ {CustomName:"\"Summoned vindicator\"",CustomNameVisible:0b}
+            #Spawn particle
             execute at @s run particle cloud ~ ~ ~ 0 0 0 0.1 100
+            #kill executing entity (Should be armorstand)
             kill @s
         }
     }
@@ -118,9 +133,22 @@ dir monsters{
 dir particles{
     dir summons{
         function summoncirlce_vindicator{
-            execute as @e[type=minecraft:armor_stand,scores={SummonCircle_Vindicator=..1},tag=SummonCircle_Vindicator] run function nightmare:monsters/summons/summoncirlce_vindicator
-            execute at @e[type=minecraft:armor_stand,scores={SummonCircle_Vindicator=..1},tag=SummonCircle_Vindicator] run spreadplayers ~ ~ 2 5 false @e[type=minecraft:armor_stand,sort=nearest,limit=1]
-            scoreboard players remove @e[type=minecraft:armor_stand,tag=SummonCircle_Vindicator] SummonCircle_Vindicator 1
+            #Summon vindicator if score lower then 1
+            execute as @e[type=minecraft:armor_stand,scores={Nightmare_SummonCircle_Vindicator=..1},tag=SummonCircle_Vindicator] run function nightmare:monsters/summons/summoncirlce_vindicator
+            #Spread armorstand and then add tag (summon particle circle)
+            execute at @e[type=minecraft:armor_stand,scores={Nightmare_SummonCircle_Vindicator=50},name="SummonCircle_Vindicator"] run spreadplayers ~ ~ 1 4 false @e[type=minecraft:armor_stand,sort=nearest,limit=1]
+            execute as @e[type=minecraft:armor_stand,scores={Nightmare_SummonCircle_Vindicator=50},name="SummonCircle_Vindicator"] run data merge entity @s {Tags:["SummonCircle_Vindicator"]}
+
+            #Timer scoreboard
+            scoreboard players remove @e[type=minecraft:armor_stand,tag=SummonCircle_Vindicator] Nightmare_SummonCircle_Vindicator 1
+        }
+    }
+    dir summons_schedules{
+        function summoncirlce_vindicator{
+            #Spawn particles circle based on tag
+            execute at @e[tag=SummonCircle_Vindicator] run function nightmare:particles/summoncircle_vindicator
+            #Timer schedule
+            schedule function nightmare:particles/summons_schedules/summoncirlce_vindicator 0.2s
         }
     }
 }
@@ -128,8 +156,37 @@ dir particles{
 {
     dir development{
         function summonarmorstand{
-            summon minecraft:armor_stand ~ ~1 ~ {CustomName:'{"text":"SummonCircle_Vindicator"}',Tags:["SummonCircle_Vindicator"],Invisible:1b,Invulnerable:1b}
-            scoreboard players set @e[type=minecraft:armor_stand,name="SummonCircle_Vindicator",limit=1,sort=nearest] SummonCircle_Vindicator 100
+            #Spawn armorstand with summon settings
+            summon minecraft:armor_stand ~ ~1 ~ {CustomName:'{"text":"SummonCircle_Vindicator"}',Invisible:1b,Invulnerable:1b}
+            #set scoreboar timer
+            scoreboard players set @e[type=minecraft:armor_stand,name="SummonCircle_Vindicator",limit=1,sort=nearest] Nightmare_SummonCircle_Vindicator 50
+        }
+        function testwitch{
+            execute as @e[type=witch,tag=!nightmare,limit=1] run block{
+                #Set timer scoreboard
+                scoreboard players set @e[type=witch,tag=!nightmare,limit=1] Nightmare_WitchSummonTimer 3
+                #Add tag
+                data merge entity @s {Tags:["nightmare"]}
+                #Debug particle
+                execute at @s run particle cloud ~ ~ ~ 0 0 0 0.1 100
+            }
+        }
+        function schedule_witchsummon{
+            #Spawn Summoning circle
+            execute at @e[type=witch,tag=nightmare,scores={Nightmare_WitchSummonTimer=1}] run function nightmare:development/summonarmorstand
+
+            #Timer scoreboard
+            scoreboard players remove @e[type=witch,tag=nightmare] Nightmare_WitchSummonTimer 1
+            schedule function nightmare:development/schedule_witchsummon 1s
+        }
+        function witchhurtdetect{
+            execute at @e[tag=SummonCircle_Vindicator] run execute as @e[type=witch,nbt={HurtTime:10s},distance=..10] run block{
+                execute at @e[distance=..10,type=armor_stand,tag=SummonCircle_Vindicator] run block{
+                        function nightmare:particles/summoncircle_vindicator_blocked
+                        execute at @s run particle cloud ~ ~ ~ 0 0 0 0.1 100
+                    }
+                execute as @e[distance=..10,type=armor_stand,tag=SummonCircle_Vindicator] run kill @s
+            }
         }
     }
 }
