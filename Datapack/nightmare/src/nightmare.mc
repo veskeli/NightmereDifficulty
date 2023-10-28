@@ -44,7 +44,9 @@ function load{
 
     !IF(config.dev)
     {
-        
+        tellraw @a {"text":"\n "}
+        tellraw @a {"text":"Testing Build!","color":"red"}
+        tellraw @a {"text":"\n "}
     }
 }
 
@@ -65,8 +67,8 @@ function tick{
 
     !IF(config.dev)
     {
-        function nightmare:development/testwitch
-        function nightmare:development/witchhurtdetect
+        #function nightmare:development/testwitch
+        #function nightmare:development/witchhurtdetect
     }
 }
 
@@ -77,20 +79,19 @@ function commandfeedback{
 dir monsters{
     #//////////////////////////////////[No event overwold enemies]//////////////////////////////////
     function no_event_overworld_enemies{
-    #creeper
-    #function nightmare:monsters/creeper_spawn
 
-    #<--------Zombie-------->
+    #<--------Creeper-------->
+    function nightmare:monsters/creeper_spawn
+
+    #<----------------Zombies---------------->
+    #Zombie
     function nightmare:monsters/zombie_spawn
-
-    #VillagerZombie
-    #function nightmare:monsters/villagerzombie_spawn
-
-    #Drowned
-    #function nightmare:monsters/drowned_spawn
-
     #Husk
-    #function nightmare:monsters/husk_spawn
+    function nightmare:monsters/husk_spawn
+    #VillagerZombie
+    function nightmare:monsters/villagerzombie_spawn
+    #Drowned
+    function nightmare:monsters/drowned_spawn
 
     #<--------Skeleton-------->
     function nightmare:monsters/skeleton_spawn
@@ -99,7 +100,7 @@ dir monsters{
     function nightmare:monsters/spider_spawn
     }
 
-    #//////////////////////////////////[Zombie]//////////////////////////////////
+    #//////////////////////////////////[Zombies]//////////////////////////////////
     function zombie_spawn{
         #Strong and speedboy
         #execute if predicate nightmare:25change run execute as @e[type=zombie,tag=!nightmare,limit=1] run function nightmare:monsters/customnormalzombie
@@ -109,16 +110,34 @@ dir monsters{
         #<--------Vanilla Zombie-------->
         data_damage_speed zombie 9 0.3
     }
+    function husk_spawn{
+        #<--------Vanilla Husk-------->
+        data_damage_speed husk 9 0.3
+    }
+    function villagerzombie_spawn{
+        data merge entity @e[type=zombie_villager,tag=!nightmare,limit=1] {Health:30f,Attributes:[{Base:10.0d,Name:"generic.attack_damage"},{Base:0.28d,Name:"generic.movement_speed"}],CanPickUpLoot:1b,Tags:["nightmare"]}
+    }
+    function drowned_spawn{
+        #execute if predicate nightmare:speedboy run data merge entity @e[type=drowned,tag=!nightmare,limit=1] {Attributes:[{Base:5.0d,Name:"generic.attack_damage"},{Base:0.6d,Name:"generic.movement_speed"}],IsBaby:0b,CanPickUpLoot:1b,Tags:["nightmare"],CustomName:'{"text":"Speed boy"}',Name:zombie.spawn_reinforcements,Base:1}
+        data merge entity @e[type=drowned,tag=!nightmare,limit=1] {Attributes:[{Base:10.0d,Name:"generic.attack_damage"},{Base:0.3d,Name:"generic.movement_speed"}],CanPickUpLoot:1b,Tags:["nightmare"]}
+    }
+    #//////////////////////////////////[Skeleton]//////////////////////////////////
     function skeleton_spawn{
         #<--------Vanilla Skeleton-------->
         data_damage_speed skeleton 9 0.3
     }
+    #//////////////////////////////////[Spider]//////////////////////////////////
     function spider_spawn{
         #execute if predicate nightmare:25change run data merge entity @e[type=spider,tag=!nightmare,limit=1] {Health:8f,Attributes:[{Base:10.0d,Name:"generic.attack_damage"},{Base:0.1d,Name:"generic.movement_speed"}],Tags:["nightmare"]}
         #execute if predicate nightmare:25change run data merge entity @e[type=spider,tag=!nightmare,limit=1] {Attributes:[{Base:3.0d,Name:"generic.attack_damage"},{Base:0.7d,Name:"generic.movement_speed"}],Tags:["nightmare","speedboy"]}
         #execute if predicate nightmare:25change run data merge entity @e[type=spider,tag=!nightmare,limit=1] {Health:20f,Attributes:[{Base:4.0d,Name:"generic.attack_damage"},{Base:0.4d,Name:"generic.movement_speed"}],Tags:["nightmare"]}
-        data_damage_speed spider 6 0.4
+        data_damage_speed spider 6 0.42
     }
+    #//////////////////////////////////[Creeper]//////////////////////////////////
+    function creeper_spawn{
+        data merge entity @e[type=creeper,tag=!nightmare,limit=1] {ExplosionRadius:5,Tags:["nightmare"]}
+    }
+    #//////////////////////////////////[Summons]//////////////////////////////////
     dir summons{
         function summoncirlce_vindicator{
             #Summon vindicator
@@ -136,7 +155,7 @@ dir particles{
             #Summon vindicator if score lower then 1
             execute as @e[type=minecraft:armor_stand,scores={Nightmare_SummonCircle_Vindicator=..1},tag=SummonCircle_Vindicator] run function nightmare:monsters/summons/summoncirlce_vindicator
             #Spread armorstand and then add tag (summon particle circle)
-            execute at @e[type=minecraft:armor_stand,scores={Nightmare_SummonCircle_Vindicator=50},name="SummonCircle_Vindicator"] run spreadplayers ~ ~ 1 4 false @e[type=minecraft:armor_stand,sort=nearest,limit=1]
+            execute at @e[type=minecraft:armor_stand,scores={Nightmare_SummonCircle_Vindicator=50},name="SummonCircle_Vindicator"] run spreadplayers ~ ~ -0 4 false @e[type=minecraft:armor_stand,sort=nearest,limit=1]
             execute as @e[type=minecraft:armor_stand,scores={Nightmare_SummonCircle_Vindicator=50},name="SummonCircle_Vindicator"] run data merge entity @s {Tags:["SummonCircle_Vindicator"]}
 
             #Timer scoreboard
@@ -174,6 +193,7 @@ dir particles{
         function schedule_witchsummon{
             #Spawn Summoning circle
             execute at @e[type=witch,tag=nightmare,scores={Nightmare_WitchSummonTimer=1}] run function nightmare:development/summonarmorstand
+            execute as @e[type=witch,tag=nightmare,scores={Nightmare_WitchSummonTimer=1}] run scoreboard players set @s Nightmare_WitchSummonTimer 5
 
             #Timer scoreboard
             scoreboard players remove @e[type=witch,tag=nightmare] Nightmare_WitchSummonTimer 1
