@@ -1,4 +1,5 @@
 ﻿#Requires AutoHotkey v2.0
+#SingleInstance Force
 PathToFile := A_ScriptDir "\location.txt"
 NewDatapack := A_ScriptDir "\Datapack\nightmare"
 OldDatapackDir := ReadLocationFromFile(PathToFile)
