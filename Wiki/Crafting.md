@@ -12,3 +12,5 @@ Throw items on top of the cauldron in order to craft items.
 | Recipe name   	| Recipe                                                                                                         	| Result                                                                                                   	|
 |---------------	|----------------------------------------------------------------------------------------------------------------	|----------------------------------------------------------------------------------------------------------	|
 | Rotten hearth 	| (exactly) 16x rotten flesh 	| Rotten hearth |
+
+If the cauldron is removed or emptied, you won't get items back.
