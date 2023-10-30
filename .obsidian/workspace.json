@@ -37,13 +37,26 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Wiki/DefaultEnemies.md",
+                "file": "Wiki/Crafting.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "7e1ee2a6d46f7c21",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Wiki/CraftingTable.md",
                 "mode": "source",
                 "source": false
               }
             }
           }
-        ]
+        ],
+        "currentTab": 2
       }
     ],
     "direction": "vertical"
@@ -109,7 +122,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "README.md",
+                "file": "Wiki/Crafting.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -126,7 +139,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "README.md",
+                "file": "Wiki/Crafting.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -149,7 +162,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "README.md"
+                "file": "Wiki/Crafting.md"
               }
             }
           }
@@ -170,29 +183,28 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "1c0f7a47842aa003",
+  "active": "a3e6aaafafd236d8",
   "lastOpenFiles": [
-    "Datapack/nightmare/nightmare.zip",
-    "Wiki/Home.md",
-    "Wiki/DefaultEnemies.md",
-    "README.md",
-    "Datapack/Latest/nightmare.zip",
-    "Datapack/Latest",
-    "Datapack/New folder",
-    "Datapack/Builds/Build 1/nightmare.zip",
-    "Datapack/Builds/Build 1",
-    "Datapack/Builds/New folder",
-    "Datapack/Builds",
-    "Datapack/nightmare.zip",
     "Wiki/CraftingTable.md",
-    "Datapack/nightmare/data/nightmare/functions/monsters/creeper_spawn.mcfunction",
-    "Datapack/nightmare/data/nightmare/functions/monsters/drowned_spawn.mcfunction",
+    "README.md",
+    "Wiki/Home.md",
+    "Wiki/Crafting.md",
+    "Wiki/DefaultEnemies.md",
+    "Datapack/nightmare/data/nightmare/functions/development/__generated__/execute/28.mcfunction",
+    "Datapack/nightmare/data/nightmare/functions/development/__generated__/execute",
+    "Datapack/nightmare/data/nightmare/functions/development/rottenhearth_armor_stand_check.mcfunction",
+    "Datapack/nightmare/data/nightmare/functions/development/rottenheart_progress_1.mcfunction",
+    "Datapack/nightmare/data/nightmare/functions/development/rottenhearth_score_reset.mcfunction",
+    "Datapack/nightmare/data/nightmare/functions/development/__generated__/block/6.mcfunction",
+    "Datapack/nightmare/data/nightmare/functions/development/rottenhearth_craft_check.mcfunction",
+    "Datapack/nightmare/data/nightmare/functions/development/rottenhearth_craft.mcfunction",
+    "Datapack/nightmare/data/nightmare/functions/development/__generated__/block/5.mcfunction",
+    "Datapack/nightmare/data/nightmare/functions/development/rottenheart_craft.mcfunction",
     "Images/javaw_FpMqs1TMi6.png",
     "Images/javaw_LKCVj1mfJc.png",
     "Images/Blocks.png",
     "Images/Icons/icon_zccUTffyK4.png",
     "Images/Icons/opera_zccUTffyK4.png",
-    "Images/javaw_lTGeaSc5zx.png",
-    "Wiki/Crafting.md"
+    "Images/javaw_lTGeaSc5zx.png"
   ]
 }

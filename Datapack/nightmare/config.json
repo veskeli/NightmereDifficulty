@@ -3,7 +3,7 @@
     "onBuildSuccess": null
   },
   "mc": {
-    "dev": false,
+    "dev": true,
     "header": "#Nightmare Difficulty Generated",
     "internalScoreboard": "Nightmare_INTERNAL",
     "generatedDirectory": "__generated__",

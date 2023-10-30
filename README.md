@@ -9,5 +9,5 @@
 # Go to [Wiki](Wiki/Home.md)
 
 > [!WARNING]
-> This site is working progress.
+> This site is a work in progress.
 > Links and text may not be correct!

@@ -154,7 +154,7 @@ function tick{
     function nightmare:effects/statuseffects
 
     #Wands
-    scoreboard objectives add wanduse minecraft.used:warped_fungus_on_a_stick 
+    scoreboard objectives add wanduse minecraft.used:warped_fungus_on_a_stick
     execute as @a if score @s wanduse matches 1.. run function nightmare:wands/checkwand
 
     #Test
