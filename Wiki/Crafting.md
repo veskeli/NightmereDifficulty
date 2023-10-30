@@ -5,7 +5,7 @@
 > Links and text may not be correct.
 ## Lava Cauldron craft
 
-![Success_Craft](https://i.imgur.com/m7zC8S3.gif)
+![Success_Craft](https://github.com/veskeli/NightmereDifficulty/blob/main/Images/gifs/javaw_EgZr3b95kJ.gif?raw=true)
 
 Throw items on top of the cauldron in order to craft items.
 
