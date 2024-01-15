@@ -2,7 +2,7 @@
 import ./macros/datamergelib.mcm
 import ./macros/wands.mcm
 function nightmareversion{
-    tellraw @s ["",{"text":"Nightmare","bold":true,"color":"red"},{"text":" Build: "},{"text":"1","underlined":true,"color":"yellow"},{"text":"\n"},{"text":"Rewrite","color":"aqua"},{"text":" update"}]
+    tellraw @s ["",{"text":"Nightmare","bold":true,"color":"red"},{"text":" Build: "},{"text":"2","underlined":true,"color":"yellow"},{"text":"\n"},{"text":"Rewrite","color":"aqua"},{"text":" update"}]
 }
 
 function nightmareloaded{
@@ -28,6 +28,7 @@ function load{
     #Current events
     scoreboard objectives add Nightmare_currentevent dummy
     scoreboard players add $overworld Nightmare_currentevent 0
+    scoreboard players add $nether Nightmare_currentevent 0
 
     #Wands
     scoreboard objectives add Nightmare_Wanduse minecraft.used:warped_fungus_on_a_stick
@@ -44,6 +45,14 @@ function load{
     scoreboard objectives add Nightmare_WitchSummonTimer dummy
     scoreboard objectives add Nightmare_WitchHealth dummy
     schedule function nightmare:development/schedule_witchsummon 1s
+
+    #speedboy
+    schedule function nightmare:particles/mob_schedules/speedboy_particle 1s
+
+    #<--------Custom-------->
+    execute run gamerule doImmediateRespawn true
+    scoreboard objectives add DeathCount deathCount
+    scoreboard objectives add Nightmare_Death deathCount
 
     #<--------Show join text-------->
     execute as @a[tag=Nightmare_joined] run block{
@@ -69,6 +78,9 @@ function tick{
     #<--------No event overworld enemies-------->
     execute if score $overworld Nightmare_currentevent matches 0 run function nightmare:monsters/no_event_overworld_enemies
 
+    #<--------No event nether enemies-------->
+    execute if score $nether Nightmare_currentevent matches 0 run function nightmare:monsters/no_event_nether_enemies
+
     #<--------Summon circles-------->
     #Handle circle timer
     function nightmare:particles/summons/summoncirlce_vindicator
@@ -76,6 +88,9 @@ function tick{
     #<--------Custom Crafting-------->
     function nightmare:custom_crafting/lava_cauldron/rottenhearth_craft_check
     function nightmare:custom_crafting/lava_cauldron/rottenhearth_armor_stand_check
+
+    #Death
+    execute as @a[scores={Nightmare_Death=1..}] run function nightmare:death/handle_death
 
     !IF(config.dev)
     {
@@ -113,6 +128,12 @@ dir monsters{
     function nightmare:monsters/spider_spawn
     }
 
+    function no_event_nether_enemies{
+        #ghast
+        function nightmare:monsters/ghast_spawn
+    }
+
+    #//////////////////////////////////[No event overworld]//////////////////////////////////
     #//////////////////////////////////[Zombies]//////////////////////////////////
     function zombie_spawn{
         #Strong and speedboy
@@ -120,10 +141,16 @@ dir monsters{
         #Rain zombie
         #execute if predicate nightmare:raining run data merge entity @e[type=zombie,tag=!nightmare,limit=1] {CanBreakDoors:1b,Tags:["nightmare"],HandItems:[{id:"minecraft:trident",Count:1b},{}],HandDropChances:[0.000F,0.085F],Attributes:[{Name:generic.movement_speed,Base:0.3},{Name:zombie.spawn_reinforcements,Base:1}]}
 
+        #custom small zombie with stick
+        execute if predicate nightmare:2change run execute as @e[type=zombie,tag=!nightmare,limit=1] run data merge entity @s {IsBaby:1b,Tags:["nightmare"],HandItems:[{id:"minecraft:stick",Count:1b,tag:{display:{Name:'{"text":"Big Boy"}'},Enchantments:[{id:"minecraft:knockback",lvl:8s}],HandDropChances:[0.000F,0.085F]}},{}],ArmorItems:[{},{},{},{id:"minecraft:leather_helmet",Count:1b,tag:{Trim:{material:"minecraft:lapis",pattern:"minecraft:dune"}}}],Attributes:[{Name:"generic.max_health",Base:1},{Name:"generic.movement_speed",Base:0.4},{Name:"generic.attack_damage",Base:8}]}
+        #Speedboy
+        execute if predicate nightmare:10change run data_damage_speed_speedboy zombie 5 0.55
         #<--------Vanilla Zombie-------->
         data_damage_speed zombie 9 0.3
     }
     function husk_spawn{
+        #speedboy
+        execute if predicate nightmare:10change run data_damage_speed_speedboy husk 5 0.55
         #<--------Vanilla Husk-------->
         data_damage_speed husk 9 0.3
     }
@@ -136,6 +163,8 @@ dir monsters{
     }
     #//////////////////////////////////[Skeleton]//////////////////////////////////
     function skeleton_spawn{
+        #speedboy
+        execute if predicate nightmare:10change run data_damage_speed_speedboy skeleton 5 0.55
         #<--------Vanilla Skeleton-------->
         data_damage_speed skeleton 9 0.3
     }
@@ -148,6 +177,11 @@ dir monsters{
     }
     #//////////////////////////////////[Creeper]//////////////////////////////////
     function creeper_spawn{
+        #nuke
+        execute if predicate nightmare:10change run data merge entity @e[type=creeper,tag=!nightmare,limit=1] {ExplosionRadius:8b,Fuse:35,Tags:["nightmare"],Attributes:[{Name:"generic.movement_speed",Base:0.2}]}
+        #insta
+        execute if predicate nightmare:10change run data merge entity @e[type=creeper,tag=!nightmare,limit=1] {ExplosionRadius:4b,Fuse:15,Tags:["nightmare"],Attributes:[{Name:generic.max_health,Base:2}]}
+        #def
         data merge entity @e[type=creeper,tag=!nightmare,limit=1] {ExplosionRadius:5,Tags:["nightmare"]}
     }
     #//////////////////////////////////[Summons]//////////////////////////////////
@@ -161,15 +195,21 @@ dir monsters{
             kill @s
         }
     }
+    #//////////////////////////////////[No event nether]//////////////////////////////////
+    function ghast_spawn{
+        data merge entity @e[type=fireball,tag=!nightmare,limit=1] {ExplosionPower:3,Tags:["nightmare"]}
+        tag @e[type=fireball,tag=!nightmare] add nightmare
+    }
 }
 dir custom_crafting{
     dir lava_cauldron{
         function rottenhearth_craft_check{
             execute as @e[type=item,nbt={Item:{id:"minecraft:rotten_flesh",Count:16b}}] at @s if block ~ ~-1 ~ lava_cauldron at @s run block{
                 #Summon armor stand (handles crafting check)
-                summon armor_stand ~ ~ ~ {Tags:[rottenhearth],Invulnerable:1b,NoGravity:1b,Invisible:1b}
+                #summon armor_stand ~ ~ ~ {Tags:[rottenhearth],Invulnerable:1b,NoGravity:1b,Invisible:1b}
+                summon item_display ~ ~ ~ {item:{id:"minecraft:rotten_flesh",Count:1b},Tags:[rottenhearth],billboard:"vertical"}
                 #Center armor stand
-                execute at @s align xyz run tp @e[type=armor_stand,tag=rottenhearth,sort=nearest,limit=1] ~.5 ~.5 ~.5
+                execute at @s align xyz run tp @e[type=item_display,tag=rottenhearth,sort=nearest,limit=1] ~.5 ~.5 ~.5
 
                 #Show particles
                 execute at @s run function nightmare:particles/effects/lava_cauldron_craft_start
@@ -194,10 +234,18 @@ dir custom_crafting{
         }
         function rottenhearth_armor_stand_check{
             #if score/timer then craft
-            execute as @e[type=armor_stand,tag=rottenhearth,limit=1,scores={Nightmare_FloorCraft_RottenHeartCooldown=50..}] run function nightmare:custom_crafting/lava_cauldron/rottenhearth_craft
+            execute as @e[type=item_display,tag=rottenhearth,limit=1,scores={Nightmare_FloorCraft_RottenHeartCooldown=50..}] run function nightmare:custom_crafting/lava_cauldron/rottenhearth_craft
             #Timer
-            scoreboard players add @e[type=armor_stand,tag=rottenhearth] Nightmare_FloorCraft_RottenHeartCooldown 1
+            scoreboard players add @e[type=item_display,tag=rottenhearth] Nightmare_FloorCraft_RottenHeartCooldown 1
         }
+    }
+}
+dir death{
+    function handle_death{
+        #execute at @s run spawnpoint @s
+        summon armor_stand
+        #gamemode spectator @s
+        scoreboard players reset @s Nightmare_Death
     }
 }
 dir particles{
@@ -233,6 +281,14 @@ dir particles{
         function lava_cauldron_craft_start{
             execute at @s run particle cloud ~ ~ ~ 0 0 0 0.1 100 force
             playsound minecraft:item.trident.return block @a ~ ~ ~
+        }
+    }
+    dir mob_schedules{
+        function speedboy_particle{
+            #Spawn particles circle based on tag
+            execute as @e[tag=nightmare_speedboy] at @s run particle soul_fire_flame ~ ~0.2 ~ .2 .1 .2 0 30 force
+            #Timer schedule
+            schedule function nightmare:particles/mob_schedules/speedboy_particle 0.4s
         }
     }
 }

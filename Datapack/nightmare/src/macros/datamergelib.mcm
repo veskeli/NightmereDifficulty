@@ -2,6 +2,9 @@
 macro data_damage_speed{
     execute as @e[type=$$0,tag=!nightmare,limit=1] run data merge entity @s {Attributes:[{Base:$$1,Name:"generic.attack_damage"},{Base:$$2,Name:"generic.movement_speed"}], CanPickUpLoot:1b,Tags:["nightmare"]}
 }
+macro data_damage_speed_speedboy{
+    execute as @e[type=$$0,tag=!nightmare,limit=1] run data merge entity @s {Attributes:[{Base:$$1,Name:"generic.attack_damage"},{Base:$$2,Name:"generic.movement_speed"}], CanPickUpLoot:1b,Tags:["nightmare","nightmare_speedboy"]}
+}
 macro data_tag{
     execute as @e[type=$$0,tag=!nightmare,limit=1] run data merge entity @s {Tags:["nightmare"]}
 }
