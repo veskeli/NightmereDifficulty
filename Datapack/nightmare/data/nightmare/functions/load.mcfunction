@@ -16,7 +16,14 @@ scoreboard objectives add Nightmare_WitchSummonTimer dummy
 scoreboard objectives add Nightmare_WitchHealth dummy
 schedule function nightmare:development/schedule_witchsummon 1s
 schedule function nightmare:particles/mob_schedules/speedboy_particle 1s
-execute run gamerule doImmediateRespawn true
+scoreboard objectives add Nightmare_Item_use minecraft.used:warped_fungus_on_a_stick
+scoreboard objectives add Nightmare_Item_Ray_steps dummy
+scoreboard objectives add Nightmare_Item_Ray_Return dummy
+scoreboard objectives add Nightmare_snowballs_used minecraft.used:minecraft.snowball
+execute run gamerule doImmediateRespawn false
 scoreboard objectives add DeathCount deathCount
 scoreboard objectives add Nightmare_Death deathCount
 execute as @a[tag=Nightmare_joined] run function nightmare:__generated__/block/0
+tellraw @a {"text":"\n "}
+tellraw @a {"text":"Testing Build!","color":"red"}
+tellraw @a {"text":"\n "}

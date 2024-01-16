@@ -1,7 +1,7 @@
 macro customcrafting{
     recipe take @s nightmare:$$0
     advancement revoke @s only nightmare:$$0_adv
-    execute as @s run function nightmare:giveitem/$$0
+    execute as @s run function nightmare:items/give_items/$$0
     clear @s minecraft:knowledge_book 1
 }
 macro floorwandcraft{
@@ -29,7 +29,4 @@ macro floorwandcraftwithitem{
         kill @e[type=item,nbt={Item:{id:"minecraft:warped_fungus_on_a_stick",Count:1b,tag:{$$0:1b}}},sort=nearest]
         kill @s
     }
-}
-macro golem{
-    #execute if block 
 }

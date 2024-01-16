@@ -12,6 +12,8 @@ if(DirExist(NewDatapack) and DirExist(OldDatapackDir))
         DirDelete(OldDatapack,1)
     }
     DirCopy(NewDatapack,OldDatapackDir "\nightmare",true)
+    SoundPlay(A_WinDir "\Media\ding.wav")
+    sleep 350
 }
 else
 {

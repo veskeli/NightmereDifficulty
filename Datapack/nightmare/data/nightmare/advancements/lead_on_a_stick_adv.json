@@ -1,0 +1,13 @@
+{
+    "criteria": {
+        "Unlocked": {
+            "trigger": "minecraft:recipe_unlocked",
+            "conditions": {
+                "recipe": "nightmare:lead_on_a_stick"
+            }
+        }
+    },
+    "rewards": {
+        "function": "nightmare:custom_crafting/crafting_table/lead_on_a_stick"
+    }
+}

@@ -8,6 +8,7 @@
 | Creeper | Default | ExplosionRadius: 5 (Vanilla: 3) | Default | Nightmare |  |  |
 | Nuke Creeper | Default | ExplosionRadius: 8 | 0.2 | Nightmare | Fuse:35 |  |
 | Insta Creeper | 1 Hearth | ExplosionRadius: 4 | Default | Nightmare | Fuse:15 |  |
+| Sneak Creeper | def | ExplosionRadius: 2 | 0.35 | Nightmare | Fuse:35 |  |
 ### Zombies
 | Name | Health | Damage | Speed | Tags | Special | Notes |
 | ---- | ---- | ---- | ---- | ---- | ---- | ---- |
@@ -22,6 +23,8 @@
 | ---- | ---- | ---- | ---- | ---- | ---- | ---- |
 | Skeleton | Default | 9 (melee) | 0.3 | Nightmare |  |  |
 | Speed Skeleton | Default | 5 (melee) | 0.55 | nightmare_speeboy |  | blue flame |
+| shadowstalker |  |  |  |  |  |  |
+| melee skele | def | 7 | 0.3 | Nightmare |  |  |
 ### Spider
 | Name | Health | Damage | Speed | Tags | Special | Notes |
 | ---- | ---- | ---- | ---- | ---- | ---- | ---- |
