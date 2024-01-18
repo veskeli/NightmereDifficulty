@@ -1,15 +1,14 @@
 #built using mc-build (https://github.com/mc-build/mc-build) :D
 import ./macros/datamergelib.mcm
-import ./macros/wands.mcm
 import ./macros/customcrafting.mcm
 function nightmareversion{
     tellraw @s ["",{"text":"Nightmare","bold":true,"color":"red"},{"text":" Build: "},{"text":"3","underlined":true,"color":"yellow"},{"text":"\n"},{"text":"Rewrite","color":"aqua"},{"text":" update"}]
+    tellraw @a {"text":"\n "}
 }
 
 function nightmareloaded{
     tellraw @a {"text":"\n "}
     tellraw @a ["",{"text":"Nightmare difficulty loaded!","color":"red"},{"text":" ["},{"text":"Open Settings","color":"green","clickEvent":{"action":"run_command","value":"/function nightmare:settings/settings"}},{"text":"]"}]
-    tellraw @a {"text":"\n "}
 }
 
 #//////////////////////////////////[load]//////////////////////////////////
@@ -30,10 +29,6 @@ function load{
     scoreboard objectives add Nightmare_currentevent dummy
     scoreboard players add $overworld Nightmare_currentevent 0
     scoreboard players add $nether Nightmare_currentevent 0
-
-    #Wands
-    scoreboard objectives add Nightmare_Wanduse minecraft.used:warped_fungus_on_a_stick
-    scoreboard objectives add Nightmare_Wand_steps dummy
 
     #Summon circle
     scoreboard objectives add Nightmare_SummonCircle_Vindicator dummy
@@ -59,14 +54,14 @@ function load{
     scoreboard objectives add Nightmare_snowballs_used minecraft.used:minecraft.snowball
 
     #<--------Custom-------->
-    execute run gamerule doImmediateRespawn false
     scoreboard objectives add DeathCount deathCount
-    scoreboard objectives add Nightmare_Death deathCount
 
     #<--------Show join text-------->
     execute as @a[tag=Nightmare_joined] run block{
         tellraw @s {"text":"Profile loaded: ","extra":[{"selector":"@s"}]}
     }
+
+    function nightmare_nether_survival:custom_load
 
     !IF(config.dev)
     {
@@ -75,7 +70,11 @@ function load{
         tellraw @a {"text":"\n "}
     }
 }
-
+function interact_test{
+    advancement revoke @s only nightmare:interact_detect
+    tell @a dasda
+    tell @s 2222
+}
 #//////////////////////////////////[Tick]//////////////////////////////////
 function tick{
     #<--------Join system-------->
@@ -83,6 +82,9 @@ function tick{
         tag @s add Nightmare_joined
         tellraw @s {"text":"Profile Created!"}
     }
+
+    #Health system
+    execute if score $overworld Nightmare_UseHealthSystem matches 1 run function nightmare_healthsystem:custom_tick
 
     #<--------No event overworld enemies-------->
     execute if score $overworld Nightmare_currentevent matches 0 run function nightmare:monsters/no_event_overworld_enemies
@@ -94,8 +96,6 @@ function tick{
     function nightmare:custom_crafting/lava_cauldron/rottenhearth_craft_check
     function nightmare:custom_crafting/lava_cauldron/rottenhearth_armor_stand_check
 
-    #Death
-    execute as @a[scores={Nightmare_Death=1..}] run function nightmare:death/handle_death
 
     #Items
     execute as @a if score @s Nightmare_Item_use matches 1.. run function nightmare:items/check_items
@@ -111,7 +111,6 @@ function tick{
 
         #function nightmare:development/testwitch
         #function nightmare:development/witchhurtdetect
-        execute as @a if score @s Nightmare_Wanduse matches 1.. run function nightmare:magic/wands/checkwand
     }
 }
 
@@ -141,6 +140,9 @@ dir monsters{
 
     #<--------Spider-------->
     function nightmare:monsters/spider_spawn
+
+    #<--------mini bosses-------->
+    function nightmare:monsters/mini_bosses/check_for_spawns
     }
 
     function no_event_nether_enemies{
@@ -239,6 +241,19 @@ dir monsters{
             }
         }
     }
+    dir mini_bosses{
+        function check_for_spawns{
+            #spectral_phantom
+            execute if predicate nightmare:50change run execute as @e[type=enderman,tag=!nightmare,limit=1,predicate=nightmare:overworldcheck] run function nightmare:monsters/mini_bosses/spectral_phantom
+
+            execute as @e[type=enderman,tag=!nightmare,limit=1,predicate=nightmare:overworldcheck] run data merge entity @s {Tags:["nightmare"]}
+        }
+        function spectral_phantom{
+            execute at @s run summon zombie ~ ~ ~ {Tags:["nightmare"],CustomName:'{"text":"Spectral Phantom","color":"blue"}',HandItems:[{id:"minecraft:phantom_membrane",Count:1b,tag:{display:{Name:'{"text":"Spectral Essence Amplifier","color":"blue"}',Lore:['{"text":"A vial containing the captured essence of elusive Spectral Phantoms"}']},AttributeModifiers:[{AttributeName:"generic.attack_damage",Name:"generic.attack_damage",Amount:0.25,Operation:0,UUID:[I;-1388588687,-1355660294,-2084419156,-1944371442],Slot:"offhand"}]}},{id:"minecraft:ender_pearl",Count:1b}],HandDropChances:[1.000F,0.085F],ArmorItems:[{id:"minecraft:netherite_boots",Count:1b,tag:{Trim:{material:"minecraft:diamond",pattern:"minecraft:snout"}}},{id:"minecraft:netherite_leggings",Count:1b,tag:{Trim:{material:"minecraft:diamond",pattern:"minecraft:snout"}}},{id:"minecraft:netherite_chestplate",Count:1b,tag:{Trim:{material:"minecraft:diamond",pattern:"minecraft:snout"}}},{id:"minecraft:netherite_helmet",Count:1b,tag:{Trim:{material:"minecraft:diamond",pattern:"minecraft:snout"}}}],ArmorDropChances:[0.000F,0.000F,0.000F,0.000F],Attributes:[{Name:generic.follow_range,Base:60},{Name:generic.movement_speed,Base:0.28},{Name:generic.attack_damage,Base:20},{Name:zombie.spawn_reinforcements,Base:1}]}
+            data merge entity @s {Silent:1b,DeathLootTable:"/"}
+            kill @s
+        }
+    }
     #//////////////////////////////////[Summons]//////////////////////////////////
     dir summons{
         function summoncirlce_vindicator{
@@ -271,10 +286,22 @@ dir custom_crafting{
                 #Destroy craft items (rotten flesh)
                 kill @s
             }
+            execute as @e[type=item,nbt={Item:{id:"minecraft:magma_cream",Count:5b}}] at @s if block ~ ~-1 ~ lava_cauldron at @s run block{
+                #Summon armor stand (handles crafting check)
+                #summon armor_stand ~ ~ ~ {Tags:[rottenhearth],Invulnerable:1b,NoGravity:1b,Invisible:1b}
+                summon item_display ~ ~ ~ {item:{id:"minecraft:rotten_flesh",Count:1b},Tags:[rottenhearth],billboard:"vertical"}
+                #Center armor stand
+                execute at @s align xyz run tp @e[type=item_display,tag=rottenhearth,sort=nearest,limit=1] ~.5 ~.5 ~.5
+
+                #Show particles
+                execute at @s run function nightmare:particles/effects/lava_cauldron_craft_start
+                #Destroy craft items (rotten flesh)
+                kill @s
+            }
         }
         function rottenhearth_craft{
             #Summon item
-            execute at @s if block ~ ~-1 ~ lava_cauldron run summon item ~ ~ ~ {Item:{id:"minecraft:phantom_membrane",Count:1b,tag:{display:{Name:'[{"text":"Rotten hearth","italic":false,"color":"dark_purple"}]',Lore:['[{"text":"Revive player with 1 hearth","italic":false,"color":"yellow"}]']},rottenhearth:1b}}}
+            execute at @s if block ~ ~-1 ~ lava_cauldron run function nightmare:items/summon_items/rottenheart
             #show particle success
             execute at @s if block ~ ~-1 ~ lava_cauldron run function nightmare:particles/effects/lava_cauldron_craft_success
 
@@ -301,14 +328,6 @@ dir custom_crafting{
         function stick_horse{
             customcrafting stick_horse
         }
-    }
-}
-dir death{
-    function handle_death{
-        #execute at @s run spawnpoint @s
-        #summon armor_stand
-        #gamemode spectator @s
-        scoreboard players reset @s Nightmare_Death
     }
 }
 dir particles{
@@ -518,39 +537,9 @@ dir items{
             give @s warped_fungus_on_a_stick{display:{Name:'{"text":"Stick horse","italic":false}'},nightmare:1b,stick_horse:1b,CustomModelData:652111} 1
         }
     }
-}
-dir magic{
-    dir wands{
-        function checkwand{
-            scoreboard players reset @s Nightmare_Wanduse
-
-            #execute if entity @s[nbt={SelectedItem:{id:"minecraft:warped_fungus_on_a_stick",tag:{emeraldwand:1b}}}] at @s run handle_wand_start_raycast emeraldwand
-            execute if entity @s[nbt={SelectedItem:{id:"minecraft:warped_fungus_on_a_stick",tag:{emeraldwand:1b}}}] at @s run function nightmare:magic/wands/emeraldwand/start_raycast
-        }
-        dir emeraldwand{
-            function start_raycast{
-                tag @s add raycasting
-                execute anchored eyes positioned ^ ^ ^ run function nightmare:magic/wands/emeraldwand/raycast
-                tag @s remove raycasting
-                scoreboard players reset .distance Nightmare_Wand_steps
-            }
-            function raycast{
-                execute as @e[dx=0,type=!#nightmare:not_mob,tag=!raycasting] positioned ~-0.99 ~-0.99 ~-0.99 if entity @s[dx=0] positioned ~0.99 ~0.99 ~0.99 run function nightmare:magic/wands/emeraldwand/collide
-                scoreboard players add .distance Nightmare_Wand_steps 1
-
-                execute unless entity @s[distance=..3] run particle minecraft:smoke ~ ~ ~ 0 0 0 0 1 normal
-
-                execute if score .distance Nightmare_Wand_steps matches ..700 positioned ^ ^ ^0.1 rotated ~ ~ if block ~ ~ ~ #nightmare:raycast_pass run function nightmare:magic/wands/emeraldwand/raycast
-                #execute if score .distance Nightmare_Wand_steps matches ..700 positioned ^ ^ ^0.1 rotated ~ ~ unless block ~ ~ ~ #nightmare:raycast_pass run particle dust 0.984 1 0 2 ~ ~ ~ 0.5 0.5 0.5 0 10
-                execute if score .distance Nightmare_Wand_steps matches ..700 positioned ^ ^ ^0.1 rotated ~ ~ unless block ~ ~ ~ #nightmare:raycast_pass run teleport @a[limit=1,tag=raycasting,sort=nearest,nbt={SelectedItem:{id:"minecraft:warped_fungus_on_a_stick",tag:{emeraldwand:1b}}}] ~ ~1 ~
-            }
-            function collide{
-                scoreboard players add .distance Nightmare_Wand_steps 700
-                #damage @s 4 magic by @a[limit=1,tag=raycasting,sort=nearest,nbt={SelectedItem:{id:"minecraft:warped_fungus_on_a_stick",tag:{emeraldwand:1b}}}]
-                ride @a[limit=1,tag=raycasting,sort=nearest,nbt={SelectedItem:{id:"minecraft:warped_fungus_on_a_stick",tag:{emeraldwand:1b}}}] mount @s
-                playsound entity.arrow.hit_player player @a[distance=..30] ~ ~ ~ 0.1
-                execute at @s run particle dust 1 0.318 0 2 ~ ~0.7 ~ 0.5 0.5 0.5 0 10
-            }
+    dir summon_items{
+        function rottenheart{
+            summon item ~ ~ ~ {Item:{id:"minecraft:phantom_membrane",Count:1b,tag:{display:{Name:'[{"text":"Rotten hearth","italic":false,"color":"dark_purple"}]',Lore:['[{"text":"Revive player with 3 hearts","italic":false,"color":"yellow"}]']},rottenhearth:1b}}}
         }
     }
 }

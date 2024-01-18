@@ -4,6 +4,12 @@ macro customcrafting{
     execute as @s run function nightmare:items/give_items/$$0
     clear @s minecraft:knowledge_book 1
 }
+macro nether_customcrafting{
+    recipe take @s nightmare_nether_survival:$$0
+    advancement revoke @s only nightmare_nether_survival:$$0_adv
+    execute as @s run function nightmare_nether_survival:custom_crafting/give_items/$$0
+    clear @s minecraft:knowledge_book 1
+}
 macro floorwandcraft{
     #@e[type=item,nbt={Item:{id:"minecraft:warped_fungus_on_a_stick",Count:1b,tag:{emeraldwand:1b}}}]
     #@e[type=item,nbt={Item:{id:"minecraft:phantom_membrane",Count:1b,tag:{weaknesscore:1b}}}]
@@ -27,6 +33,22 @@ macro floorwandcraftwithitem{
         function nightmare:summonitem/$$2
         execute as @s run playsound block.anvil.use block @a[distance=..5] ~ ~ ~
         kill @e[type=item,nbt={Item:{id:"minecraft:warped_fungus_on_a_stick",Count:1b,tag:{$$0:1b}}},sort=nearest]
+        kill @s
+    }
+}
+macro soul_forge_smelt{
+    execute as @e[type=item,nbt={Item:{id:$$0,Count:1b}}] at @s if block ~ ~-1 ~ iron_block at @s run block{
+        #execute unless block ~ ~1 ~ air run return 1
+        #execute unless blocks ~4 ~ ~4 ~-4 ~ ~-4 0 200 0 all run return 1
+
+        #Check
+        scoreboard players reset @s Nightmare_Item_Ray_Return
+        execute store result score @s Nightmare_Item_Ray_Return run function nightmare_nether_survival:custom_crafting/soul_forge/soultest
+        #if not then return
+        execute unless score @s Nightmare_Item_Ray_Return matches 0 run return 1
+
+        #Craft success
+        summon item ~ ~ ~ {Item:{id:$$1,Count:1b}}
         kill @s
     }
 }

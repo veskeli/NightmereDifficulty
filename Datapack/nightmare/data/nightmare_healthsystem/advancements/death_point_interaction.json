@@ -1,0 +1,16 @@
+{
+    "criteria": {
+      "nightmare": {
+        "trigger": "minecraft:player_interacted_with_entity",
+        "conditions": {
+          "entity": {
+            "type": "minecraft:interaction",
+            "nbt": "{Tags:[GraveInteractable]}"
+          }
+        }
+      }
+    },
+    "rewards": {
+      "function": "nightmare_healthsystem:handle_revive_from_grave"
+    }
+}

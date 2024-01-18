@@ -7,8 +7,6 @@ execute as @a run function nightmare:nightmareversion
 scoreboard objectives add Nightmare_currentevent dummy
 scoreboard players add $overworld Nightmare_currentevent 0
 scoreboard players add $nether Nightmare_currentevent 0
-scoreboard objectives add Nightmare_Wanduse minecraft.used:warped_fungus_on_a_stick
-scoreboard objectives add Nightmare_Wand_steps dummy
 scoreboard objectives add Nightmare_SummonCircle_Vindicator dummy
 schedule function nightmare:particles/summons_schedules/summoncirlce_vindicator 0.2s
 scoreboard objectives add Nightmare_FloorCraft_RottenHeartCooldown dummy
@@ -20,10 +18,6 @@ scoreboard objectives add Nightmare_Item_use minecraft.used:warped_fungus_on_a_s
 scoreboard objectives add Nightmare_Item_Ray_steps dummy
 scoreboard objectives add Nightmare_Item_Ray_Return dummy
 scoreboard objectives add Nightmare_snowballs_used minecraft.used:minecraft.snowball
-execute run gamerule doImmediateRespawn false
 scoreboard objectives add DeathCount deathCount
-scoreboard objectives add Nightmare_Death deathCount
 execute as @a[tag=Nightmare_joined] run function nightmare:__generated__/block/0
-tellraw @a {"text":"\n "}
-tellraw @a {"text":"Testing Build!","color":"red"}
-tellraw @a {"text":"\n "}
+function nightmare_nether_survival:custom_load

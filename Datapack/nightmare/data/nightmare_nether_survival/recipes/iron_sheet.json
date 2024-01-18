@@ -1,0 +1,23 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        " c#",
+        "ccN",
+        "NNN"
+    ],
+    "key": {
+        "#": {
+            "item": "minecraft:gold_nugget"
+        },
+        "c": {
+            "item": "minecraft:copper_ingot"
+        },
+        "N": {
+            "item": "minecraft:nether_brick"
+        }
+    },
+    "result": {
+        "item": "create:iron_sheet",
+        "count": 1
+    }
+}

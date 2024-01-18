@@ -1,0 +1,33 @@
+#Nightmare Difficulty Generated
+
+execute if block ~ ~ ~-1 soul_fire run scoreboard players add @s Nightmare_Item_Ray_Return 1
+execute if block ~ ~ ~1 soul_fire run scoreboard players add @s Nightmare_Item_Ray_Return 1
+execute if block ~-1 ~ ~ soul_fire run scoreboard players add @s Nightmare_Item_Ray_Return 1
+execute if block ~1 ~ ~ soul_fire run scoreboard players add @s Nightmare_Item_Ray_Return 1
+execute if block ~-1 ~0 ~-1 air run scoreboard players remove @s Nightmare_Item_Ray_Return 1
+execute if block ~ ~0 ~-1 air run scoreboard players remove @s Nightmare_Item_Ray_Return 1
+execute if block ~1 ~0 ~-1 air run scoreboard players remove @s Nightmare_Item_Ray_Return 1
+execute if block ~-1 ~0 ~ air run scoreboard players remove @s Nightmare_Item_Ray_Return 1
+execute if block ~ ~0 ~ air run scoreboard players remove @s Nightmare_Item_Ray_Return 1
+execute if block ~1 ~0 ~ air run scoreboard players remove @s Nightmare_Item_Ray_Return 1
+execute if block ~-1 ~0 ~1 air run scoreboard players remove @s Nightmare_Item_Ray_Return 1
+execute if block ~ ~0 ~1 air run scoreboard players remove @s Nightmare_Item_Ray_Return 1
+execute if block ~1 ~0 ~1 air run scoreboard players remove @s Nightmare_Item_Ray_Return 1
+execute if block ~-1 ~1 ~-1 air run scoreboard players remove @s Nightmare_Item_Ray_Return 1
+execute if block ~ ~1 ~-1 air run scoreboard players remove @s Nightmare_Item_Ray_Return 1
+execute if block ~1 ~1 ~-1 air run scoreboard players remove @s Nightmare_Item_Ray_Return 1
+execute if block ~-1 ~1 ~ air run scoreboard players remove @s Nightmare_Item_Ray_Return 1
+execute if block ~ ~1 ~ air run scoreboard players remove @s Nightmare_Item_Ray_Return 1
+execute if block ~1 ~1 ~ air run scoreboard players remove @s Nightmare_Item_Ray_Return 1
+execute if block ~-1 ~1 ~1 air run scoreboard players remove @s Nightmare_Item_Ray_Return 1
+execute if block ~ ~1 ~1 air run scoreboard players remove @s Nightmare_Item_Ray_Return 1
+execute if block ~1 ~1 ~1 air run scoreboard players remove @s Nightmare_Item_Ray_Return 1
+execute if block ~-1 ~-1 ~-1 air run scoreboard players remove @s Nightmare_Item_Ray_Return 1
+execute if block ~ ~-1 ~-1 air run scoreboard players remove @s Nightmare_Item_Ray_Return 1
+execute if block ~1 ~-1 ~-1 air run scoreboard players remove @s Nightmare_Item_Ray_Return 1
+execute if block ~-1 ~-1 ~ air run scoreboard players remove @s Nightmare_Item_Ray_Return 1
+execute if block ~ ~-1 ~ air run scoreboard players remove @s Nightmare_Item_Ray_Return 1
+execute if block ~1 ~-1 ~ air run scoreboard players remove @s Nightmare_Item_Ray_Return 1
+execute if block ~-1 ~-1 ~1 air run scoreboard players remove @s Nightmare_Item_Ray_Return 1
+execute if block ~ ~-1 ~1 air run scoreboard players remove @s Nightmare_Item_Ray_Return 1
+execute if block ~1 ~-1 ~1 air run scoreboard players remove @s Nightmare_Item_Ray_Return 1

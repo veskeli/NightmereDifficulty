@@ -7,3 +7,4 @@ function nightmare:monsters/villagerzombie_spawn
 function nightmare:monsters/drowned_spawn
 function nightmare:monsters/skeleton_spawn
 function nightmare:monsters/spider_spawn
+function nightmare:monsters/mini_bosses/check_for_spawns

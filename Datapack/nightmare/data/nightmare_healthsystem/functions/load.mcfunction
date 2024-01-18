@@ -1,0 +1,22 @@
+#Nightmare Difficulty Generated
+
+execute run gamerule doImmediateRespawn false
+scoreboard objectives add Nightmare_Death deathCount
+scoreboard objectives add Nightmare_Health health
+scoreboard objectives add Nightmare_MaxHealth dummy
+scoreboard objectives add Nightmare_UseHealthSystem dummy
+scoreboard objectives add Nightmare_WaitingForRevive dummy
+scoreboard objectives add Nightmare_Testing dummy
+bossbar add waiting_for_revive {"text":"Waiting for revive"}
+scoreboard objectives add Nightmare_ReviveTimer dummy
+scoreboard objectives add Nightmare_DeathBlockTimer dummy
+scoreboard objectives add Nightmare_ReviveItemBlock dummy
+scoreboard players set $overworld Nightmare_UseHealthSystem 1
+scoreboard objectives add Nightmare_GoldenAppleEat minecraft.used:minecraft.golden_apple
+scoreboard objectives add Nightmare_GoldenCarrotEat minecraft.used:minecraft.golden_carrot
+scoreboard objectives add Nightmare_HoneyBottleEat minecraft.used:minecraft.honey_bottle
+scoreboard objectives add Nightmare_AbsortionHearths dummy
+scoreboard objectives add Nightmare_AbsortionHearths_return dummy
+scoreboard objectives add Nightmare_AbsortionHearths_Dirty dummy
+scoreboard objectives add Nightmare_AbsortionHearths_Div dummy
+scoreboard objectives add Nightmare_AbsortionHearths_NewTest dummy
