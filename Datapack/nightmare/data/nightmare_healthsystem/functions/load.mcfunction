@@ -15,8 +15,8 @@ scoreboard players set $overworld Nightmare_UseHealthSystem 1
 scoreboard objectives add Nightmare_GoldenAppleEat minecraft.used:minecraft.golden_apple
 scoreboard objectives add Nightmare_GoldenCarrotEat minecraft.used:minecraft.golden_carrot
 scoreboard objectives add Nightmare_HoneyBottleEat minecraft.used:minecraft.honey_bottle
-scoreboard objectives add Nightmare_AbsortionHearths dummy
-scoreboard objectives add Nightmare_AbsortionHearths_return dummy
-scoreboard objectives add Nightmare_AbsortionHearths_Dirty dummy
-scoreboard objectives add Nightmare_AbsortionHearths_Div dummy
-scoreboard objectives add Nightmare_AbsortionHearths_NewTest dummy
+scoreboard objectives add Nightmare_AbsortionHearts dummy
+scoreboard objectives add Nightmare_AbsortionHearts_return dummy
+scoreboard objectives add Nightmare_AbsortionHearts_Dirty dummy
+scoreboard objectives add Nightmare_AbsortionHearts_Div dummy
+scoreboard objectives add Nightmare_AbsortionHearts_NewTest dummy
