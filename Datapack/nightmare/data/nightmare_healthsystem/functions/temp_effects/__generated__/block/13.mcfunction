@@ -1,7 +1,4 @@
 #Nightmare Difficulty Generated
 
-title @s actionbar {"text":"You feel sick"}
-effect give @s hunger 60 0 true
-effect give @s weakness 30 0 true
-effect give @s nausea 10 0 true
-effect give @s absorption infinite 4 true
+tag @s remove honey_absortion
+execute if score @s Nightmare_AbsortionHearts matches 4.. run function nightmare_healthsystem:temp_effects/__generated__/block/14

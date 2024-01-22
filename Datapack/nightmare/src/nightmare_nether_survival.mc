@@ -30,17 +30,17 @@ dir custom_crafting{
     dir soul_forge{
         function soul_forge_check{
             #gravel to copper
-            soul_forge_smelt "minecraft:gravel" "create:copper_nugget"
+            soul_forge_smelt "minecraft:gravel" "create:copper_nugget" 1
             #basalt to zinc
-            soul_forge_smelt "minecraft:quartz" "create:zinc_nugget"
+            soul_forge_smelt "minecraft:quartz" "create:zinc_nugget" 4
             #blackstone to stone
-            soul_forge_smelt "minecraft:blackstone" "minecraft:stone"
+            soul_forge_smelt "minecraft:blackstone" "minecraft:stone" 1
             #basalt to andesite
-            soul_forge_smelt "minecraft:basalt" "minecraft:andesite"
+            soul_forge_smelt "minecraft:basalt" "minecraft:andesite" 1
             #
-            soul_forge_smelt "minecraft:soul_sand" "minecraft:sand"
+            soul_forge_smelt "minecraft:soul_sand" "minecraft:sand" 1
             #kelp
-            soul_forge_smelt "minecraft:twisting_vines" "minecraft:dried_kelp"
+            soul_forge_smelt "minecraft:twisting_vines" "minecraft:dried_kelp" 1
         }
         function soultest{
             execute if block ~ ~ ~-1 soul_fire run scoreboard players add @s Nightmare_Item_Ray_Return 1
@@ -117,4 +117,8 @@ dir tools{
             effect give @s slowness 3 0
         }
     }
+}
+
+function custom_func{
+    data merge entity @e[type=piglin_brute,limit=1,sort=nearest] {ArmorItems:[{id:"minecraft:netherite_boots",Count:1b,tag:{Trim:{material:"minecraft:quartz",pattern:"minecraft:coast"}}},{id:"minecraft:netherite_leggings",Count:1b,tag:{Trim:{material:"minecraft:quartz",pattern:"minecraft:coast"}}},{id:"minecraft:netherite_chestplate",Count:1b,tag:{Trim:{material:"minecraft:quartz",pattern:"minecraft:coast"}}},{id:"minecraft:wither_skeleton_skull",Count:1b}]}
 }

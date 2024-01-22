@@ -21,14 +21,15 @@ execute if score @s Nightmare_AbsortionHearts matches 17 run effect give @s abso
 execute if score @s Nightmare_AbsortionHearts matches 18 run effect give @s absorption infinite 8 true
 execute if score @s Nightmare_AbsortionHearts matches 19 run effect give @s absorption infinite 9 true
 execute if score @s Nightmare_AbsortionHearts matches 20 run effect give @s absorption infinite 9 true
-execute if score @s Nightmare_AbsortionHearts matches 1 run damage @s 2
-execute if score @s Nightmare_AbsortionHearts matches 3 run damage @s 2
-execute if score @s Nightmare_AbsortionHearts matches 5 run damage @s 2
-execute if score @s Nightmare_AbsortionHearts matches 7 run damage @s 2
-execute if score @s Nightmare_AbsortionHearts matches 9 run damage @s 2
-execute if score @s Nightmare_AbsortionHearts matches 11 run damage @s 2
-execute if score @s Nightmare_AbsortionHearts matches 13 run damage @s 2
-execute if score @s Nightmare_AbsortionHearts matches 15 run damage @s 2
-execute if score @s Nightmare_AbsortionHearts matches 17 run damage @s 2
-execute if score @s Nightmare_AbsortionHearts matches 19 run damage @s 2
-execute if score @s Nightmare_AbsortionHearts matches 11 run function nightmare_healthsystem:temp_effects/__generated__/block/13
+execute if score @s Nightmare_AbsortionHearts matches 1 run damage @s 2 minecraft:starve
+execute if score @s Nightmare_AbsortionHearts matches 3 run damage @s 2 minecraft:starve
+execute if score @s Nightmare_AbsortionHearts matches 5 run damage @s 2 minecraft:starve
+execute if score @s Nightmare_AbsortionHearts matches 7 run damage @s 2 minecraft:starve
+execute if score @s Nightmare_AbsortionHearts matches 9 run damage @s 2 minecraft:starve
+execute if score @s Nightmare_AbsortionHearts matches 11 run damage @s 2 minecraft:starve
+execute if score @s Nightmare_AbsortionHearts matches 13 run damage @s 2 minecraft:starve
+execute if score @s Nightmare_AbsortionHearts matches 15 run damage @s 2 minecraft:starve
+execute if score @s Nightmare_AbsortionHearts matches 17 run damage @s 2 minecraft:starve
+execute if score @s Nightmare_AbsortionHearts matches 19 run damage @s 2 minecraft:starve
+execute as @s[tag=honey_absortion] run function nightmare_healthsystem:temp_effects/__generated__/block/13
+execute if score @s Nightmare_AbsortionHearts matches 21.. run function nightmare_healthsystem:temp_effects/__generated__/block/15

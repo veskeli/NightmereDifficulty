@@ -48,7 +48,7 @@ macro soul_forge_smelt{
         execute unless score @s Nightmare_Item_Ray_Return matches 0 run return 1
 
         #Craft success
-        summon item ~ ~ ~ {Item:{id:$$1,Count:1b}}
+        summon item ~ ~ ~ {Item:{id:$$1,Count:$$2b}}
         kill @s
     }
 }

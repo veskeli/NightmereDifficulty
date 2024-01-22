@@ -225,9 +225,11 @@ dir temp_effects{
 
             #Check and update current absortion hearts score
             function nightmare_healthsystem:temp_effects/check_current_absortion
+            tag @s add honey_absortion
             #Add and update absortion
             scoreboard players add @s Nightmare_AbsortionHearts 1
             scoreboard players add @s Nightmare_AbsortionHearts_Dirty 1
+
             #effect clear @s absorption
             #effect give @s absorption infinite 0 true
         }
@@ -258,19 +260,28 @@ dir temp_effects{
             }
             loopSize = loopSize / 2
             for (let u=0; u<loopSize; u++) {
-                emit(`execute if score @s Nightmare_AbsortionHearts matches ${c} run damage @s 2`)
+                emit(`execute if score @s Nightmare_AbsortionHearts matches ${c} run damage @s 2 minecraft:starve`)
                 c++
                 c++
             }
         %%>
 
-        execute if score @s Nightmare_AbsortionHearts matches 11 run block{
+        execute as @s[tag=honey_absortion] run block{
+            tag @s remove honey_absortion
+            execute if score @s Nightmare_AbsortionHearts matches 4.. run block{
+                effect give @s poison 15 0 true
+                scoreboard players set @s Nightmare_AbsortionHearts 3
+                function nightmare_healthsystem:temp_effects/absortion_hearts_update
+            }
+        }
+        execute if score @s Nightmare_AbsortionHearts matches 21.. run block{
             title @s actionbar {"text":"You feel sick"}
             effect give @s hunger 60 0 true
             effect give @s weakness 30 0 true
             effect give @s nausea 10 0 true
             #TODO if drink milk make it worse or ..
-            effect give @s absorption infinite 4 true
+            effect give @s absorption infinite 9 true
+            scoreboard players set @s Nightmare_AbsortionHearts 20
         }
 
         #LOOP(10,i){
@@ -303,6 +314,8 @@ dir temp_effects{
         #TODO add math to calculate if half absortion heart is missing
         scoreboard players add @s Nightmare_AbsortionHearts_return 1
         scoreboard players operation @s Nightmare_AbsortionHearts_return /= @s Nightmare_AbsortionHearts_Div
+
+        execute if score @s Nightmare_AbsortionHearts_return matches ..-1 run scoreboard players set @s Nightmare_AbsortionHearts_return 0
     }
     function calculate_overflow_in_half_hearts{
         #Calulcate current overflow health
@@ -315,8 +328,6 @@ dir temp_effects{
         #tellraw @s ["",{"text":"New abs level return: "},{"score":{"name":"@s","objective":"Nightmare_AbsortionHearts"}}]
         #Calulcate current overflow health
         function nightmare_healthsystem:temp_effects/calculate_overflow_health
-
-        #TODO Clear effect and check if not full hp and calculate real full heart amount
 
         #tellraw @s ["",{"text":"Current level return: "},{"score":{"name":"@s","objective":"Nightmare_AbsortionHearts_return"}}]
 

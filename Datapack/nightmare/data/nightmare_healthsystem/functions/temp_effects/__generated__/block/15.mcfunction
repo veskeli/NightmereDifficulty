@@ -1,5 +1,8 @@
 #Nightmare Difficulty Generated
 
-execute if score @s Nightmare_AbsortionHearts_return matches 1.. run function nightmare_healthsystem:temp_effects/__generated__/block/16
-execute if score @s Nightmare_AbsortionHearts matches ..-1 run scoreboard players reset @s Nightmare_AbsortionHearts
-function nightmare_healthsystem:temp_effects/absortion_hearts_update
+title @s actionbar {"text":"You feel sick"}
+effect give @s hunger 60 0 true
+effect give @s weakness 30 0 true
+effect give @s nausea 10 0 true
+effect give @s absorption infinite 9 true
+scoreboard players set @s Nightmare_AbsortionHearts 20
