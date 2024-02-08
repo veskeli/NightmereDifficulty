@@ -1,0 +1,4 @@
+#Nightmare Difficulty Generated
+
+function nightmare_healthsystem:temp_effects/apply_absortion_hearts
+scoreboard players reset @s Nightmare_AbsortionHearts_Dirty

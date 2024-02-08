@@ -14,7 +14,9 @@ scoreboard objectives add Nightmare_GoldenAppleEat minecraft.used:minecraft.gold
 scoreboard objectives add Nightmare_GoldenCarrotEat minecraft.used:minecraft.golden_carrot
 scoreboard objectives add Nightmare_HoneyBottleEat minecraft.used:minecraft.honey_bottle
 scoreboard objectives add Nightmare_AbsortionHearts dummy
+scoreboard objectives add Nightmare_AbsortionHearts_Current_Health dummy
 scoreboard objectives add Nightmare_AbsortionHearts_return dummy
+scoreboard objectives add Nightmare_AbsortionHearts_return1 dummy
 scoreboard objectives add Nightmare_AbsortionHearts_Dirty dummy
 scoreboard objectives add Nightmare_AbsortionHearts_Div dummy
 scoreboard objectives add Nightmare_AbsortionHearts_NewTest dummy

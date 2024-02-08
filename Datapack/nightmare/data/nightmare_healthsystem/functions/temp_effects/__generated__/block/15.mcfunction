@@ -5,4 +5,4 @@ effect give @s hunger 60 0 true
 effect give @s weakness 30 0 true
 effect give @s nausea 10 0 true
 effect give @s absorption infinite 9 true
-scoreboard players set @s Nightmare_AbsortionHearts 20
+scoreboard players set @s Nightmare_AbsortionHearts 40

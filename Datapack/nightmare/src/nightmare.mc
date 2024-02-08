@@ -16,12 +16,6 @@ function load{
     #Dont remove or edit ------------->
     scoreboard objectives add Nightmare_INTERNAL dummy
     execute run gamerule commandBlockOutput false
-
-    #Loaded Text
-    execute as @a run function nightmare:nightmareloaded
-
-    #Version Text
-    execute as @a run function nightmare:nightmareversion
     #Dont remove or edit <-------------
 
     #<--------Scoreboards-------->
@@ -56,9 +50,6 @@ function load{
     #<--------Custom-------->
     scoreboard objectives add DeathCount deathCount
 
-
-    function nightmare_nether_survival:custom_load
-
     !IF(config.dev)
     {
         tellraw @a {"text":"\n "}
@@ -81,6 +72,7 @@ function tick{
     execute if score $nether Nightmare_currentevent matches 0 run function nightmare:monsters/no_event_nether_enemies
 
     #<--------Custom Crafting-------->
+    #TODO: add health crafts to health system
     function nightmare:custom_crafting/lava_cauldron/rottenhearth_craft_check
     function nightmare:custom_crafting/lava_cauldron/rottenhearth_armor_stand_check
 

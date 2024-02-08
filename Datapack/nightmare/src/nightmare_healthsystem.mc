@@ -25,7 +25,9 @@ function custom_load{
     scoreboard objectives add Nightmare_GoldenCarrotEat minecraft.used:minecraft.golden_carrot
     scoreboard objectives add Nightmare_HoneyBottleEat minecraft.used:minecraft.honey_bottle
     scoreboard objectives add Nightmare_AbsortionHearts dummy
+    scoreboard objectives add Nightmare_AbsortionHearts_Current_Health dummy
     scoreboard objectives add Nightmare_AbsortionHearts_return dummy
+    scoreboard objectives add Nightmare_AbsortionHearts_return1 dummy
     scoreboard objectives add Nightmare_AbsortionHearts_Dirty dummy
     scoreboard objectives add Nightmare_AbsortionHearts_Div dummy
     scoreboard objectives add Nightmare_AbsortionHearts_NewTest dummy
@@ -34,6 +36,9 @@ function custom_tick{
     #Handle death
     execute as @a[scores={Nightmare_Death=1..}] run function nightmare_healthsystem:handle_death
     execute as @a[scores={Nightmare_Death=3..,Nightmare_Health=1..}] run function nightmare_healthsystem:handle_after_death
+
+    #check absortion
+    execute as @a run function nightmare_healthsystem:temp_effects/check_update_absortion_hearts_score
 
     #Check revive
     function nightmare_healthsystem:revive/revive_tick
@@ -131,6 +136,9 @@ dir revive{
     function force_revive{
         scoreboard players reset @s Nightmare_WaitingForRevive
         gamemode survival @s
+        #Set health
+        attribute @p generic.max_health base set 20
+        execute as @p run scoreboard players set @s Nightmare_MaxHealth 20
     }
     function summon_rottenheart_item_display{
         execute if score @s Nightmare_ReviveItemBlock matches 1 run return 1
@@ -225,62 +233,67 @@ dir temp_effects{
             function nightmare_healthsystem:temp_effects/check_current_absortion
             tag @s add honey_absortion
             #Add and update absortion
-            scoreboard players add @s Nightmare_AbsortionHearts 1
+            scoreboard players add @s Nightmare_AbsortionHearts 2
             scoreboard players add @s Nightmare_AbsortionHearts_Dirty 1
 
             #effect clear @s absorption
             #effect give @s absorption infinite 0 true
         }
 
-        execute as @a[scores={Nightmare_AbsortionHearts_Dirty=1..}] run function nightmare_healthsystem:temp_effects/check_real_absortion
+        execute as @a[scores={Nightmare_AbsortionHearts_Dirty=1..}] run function nightmare_healthsystem:temp_effects/update_absortion_hearts
 
     }
-    function absortion_hearts_update{
+    function apply_absortion_hearts{
         #tellraw @s ["",{"text":"Set absortion to: "},{"score":{"name":"@s","objective":"Nightmare_AbsortionHearts"}}]
 
-        #TODO add abs hearts
+        #clear current absortion
         execute as @s run effect clear @s absorption
 
         <%%
-            let loopSize = 20
+            let loopSize = 40
             let stepsize = 0
             let i = 1
             let y = 0
             let c = 1
+            let e = 3
             for (let u=0; u<loopSize; u++) {
                 emit(`execute if score @s Nightmare_AbsortionHearts matches ${i} run effect give @s absorption infinite ${y} true`)
                 i++
                 stepsize++
-                if(stepsize == 2){
+                if(stepsize == 4){
                     stepsize = 0
                     y++
                 }
             }
-            loopSize = loopSize / 2
+            loopSize = loopSize / 4
             for (let u=0; u<loopSize; u++) {
-                emit(`execute if score @s Nightmare_AbsortionHearts matches ${c} run damage @s 2 minecraft:starve`)
-                c++
-                c++
+                emit(`execute if score @s Nightmare_AbsortionHearts matches ${c} run damage @s 3 minecraft:starve`)
+                emit(`execute if score @s Nightmare_AbsortionHearts matches ${c+1} run damage @s 2 minecraft:starve`)
+                emit(`execute if score @s Nightmare_AbsortionHearts matches ${c+2} run damage @s 1 minecraft:starve`)
+                c = c + 4
             }
         %%>
 
         execute as @s[tag=honey_absortion] run block{
             tag @s remove honey_absortion
-            execute if score @s Nightmare_AbsortionHearts matches 4.. run block{
+            execute if score @s Nightmare_AbsortionHearts matches 7.. run block{
                 effect give @s poison 15 0 true
-                scoreboard players set @s Nightmare_AbsortionHearts 3
-                function nightmare_healthsystem:temp_effects/absortion_hearts_update
+                scoreboard players set @s Nightmare_AbsortionHearts 6
+                function nightmare_healthsystem:temp_effects/apply_absortion_hearts
             }
         }
-        execute if score @s Nightmare_AbsortionHearts matches 21.. run block{
+        execute if score @s Nightmare_AbsortionHearts matches 41.. run block{
             title @s actionbar {"text":"You feel sick"}
             effect give @s hunger 60 0 true
             effect give @s weakness 30 0 true
             effect give @s nausea 10 0 true
             #TODO if drink milk make it worse or ..
             effect give @s absorption infinite 9 true
-            scoreboard players set @s Nightmare_AbsortionHearts 20
+            scoreboard players set @s Nightmare_AbsortionHearts 40
         }
+
+        #update current abs current health
+        scoreboard players operation @s Nightmare_AbsortionHearts_Current_Health = @s Nightmare_Health
 
         #LOOP(10,i){
             #execute if score @s Nightmare_AbsortionHearts matches <%i%> run effect give @s absorption infinite <%i%> true
@@ -288,65 +301,39 @@ dir temp_effects{
     }
 
     function check_current_absortion{
-        #Calulcate current overflow health
-        function nightmare_healthsystem:temp_effects/calculate_overflow_health
-        #Remove score based on missing health
-        execute if score @s Nightmare_AbsortionHearts matches 0.. run block{
-            #Reset score
-            scoreboard players reset @s Nightmare_AbsortionHearts_NewTest
-            #Calculate missing hearts
-            scoreboard players operation @s Nightmare_AbsortionHearts_NewTest = @s Nightmare_AbsortionHearts
-            scoreboard players operation @s Nightmare_AbsortionHearts_NewTest -= @s Nightmare_AbsortionHearts_return
-
-            #Return if no change
-            execute if score @s Nightmare_AbsortionHearts_NewTest matches 0 run return 1
-            #Update score
-            scoreboard players operation @s Nightmare_AbsortionHearts -= @s Nightmare_AbsortionHearts_NewTest
-        }
-    }
-    function calculate_overflow_health{
-        #Calulcate current overflow health
-        function nightmare_healthsystem:temp_effects/calculate_overflow_in_half_hearts
-        #Convert to full hearts
-        scoreboard players set @s Nightmare_AbsortionHearts_Div 2
-        #TODO add math to calculate if half absortion heart is missing
-        scoreboard players add @s Nightmare_AbsortionHearts_return 1
-        scoreboard players operation @s Nightmare_AbsortionHearts_return /= @s Nightmare_AbsortionHearts_Div
-
-        execute if score @s Nightmare_AbsortionHearts_return matches ..-1 run scoreboard players set @s Nightmare_AbsortionHearts_return 0
-    }
-    function calculate_overflow_in_half_hearts{
-        #Calulcate current overflow health
+        #reset Nightmare_AbsortionHearts_return
         execute as @s run scoreboard players set @s Nightmare_AbsortionHearts_return 0
+
+        #Get current health and store it in Nightmare_AbsortionHearts_return
         scoreboard players operation @s Nightmare_AbsortionHearts_return = @s Nightmare_Health
-        scoreboard players operation @s Nightmare_AbsortionHearts_return -= @s Nightmare_MaxHealth
+        #Subtract last current health to get the difference
+        scoreboard players operation @s Nightmare_AbsortionHearts_return -= @s Nightmare_AbsortionHearts_Current_Health
+
+        #update current abs current health
+        scoreboard players operation @s Nightmare_AbsortionHearts_Current_Health = @s Nightmare_Health
+
+        #if player gained health then return
+        execute if score @s Nightmare_AbsortionHearts_return matches 0.. run return 0
+
+        #if player has absortion hearts then check if they have lost any
+        execute if score @s Nightmare_AbsortionHearts matches 1.. run scoreboard players operation @s Nightmare_AbsortionHearts += @s Nightmare_AbsortionHearts_return
+        #if negative set abs hearths to 0 and return
+        execute if score @s Nightmare_AbsortionHearts matches ..-1 run scoreboard players set @s Nightmare_AbsortionHearts 0
     }
-    function check_real_absortion{
-        #tellraw @s {"text":"\n "}
-        #tellraw @s ["",{"text":"New abs level return: "},{"score":{"name":"@s","objective":"Nightmare_AbsortionHearts"}}]
-        #Calulcate current overflow health
-        function nightmare_healthsystem:temp_effects/calculate_overflow_health
+    function update_absortion_hearts{
+        #Update hearts
+        function nightmare_healthsystem:temp_effects/apply_absortion_hearts
 
-        #tellraw @s ["",{"text":"Current level return: "},{"score":{"name":"@s","objective":"Nightmare_AbsortionHearts_return"}}]
-
-
-        execute if score @s Nightmare_AbsortionHearts matches 0.. run block{
-            #If player already has absortion hearts do some math
-            execute if score @s Nightmare_AbsortionHearts_return matches 1.. run block{
-                scoreboard players operation @s Nightmare_AbsortionHearts_NewTest = @s Nightmare_AbsortionHearts
-                scoreboard players operation @s Nightmare_AbsortionHearts_NewTest -= @s Nightmare_AbsortionHearts_return
-                execute if score @s Nightmare_AbsortionHearts_NewTest matches 0 run scoreboard players operation @s Nightmare_AbsortionHearts -= @s Nightmare_AbsortionHearts_return
-                #tellraw @s ["",{"text":"math: "},{"score":{"name":"@s","objective":"Nightmare_AbsortionHearts_NewTest"}}]
-            }
-
-            #tellraw @s ["",{"text":"Current return: "},{"score":{"name":"@s","objective":"Nightmare_AbsortionHearts_return"}},{"text":" And add hearts: "},{"score":{"name":"@s","objective":"Nightmare_AbsortionHearts"}}]
-
-            #No negative numbers
-            execute if score @s Nightmare_AbsortionHearts matches ..-1 run scoreboard players reset @s Nightmare_AbsortionHearts
-            #Update hearts
-            function nightmare_healthsystem:temp_effects/absortion_hearts_update
-        }
-        execute if score @s Nightmare_AbsortionHearts matches ..-1 run scoreboard players reset @s Nightmare_AbsortionHearts
+        #reset dirty
         scoreboard players reset @s Nightmare_AbsortionHearts_Dirty
+    }
+    function check_update_absortion_hearts_score{
+        #check if health has changed
+        scoreboard players operation @s Nightmare_AbsortionHearts_return = @s Nightmare_Health
+        scoreboard players operation @s Nightmare_AbsortionHearts_return1 = @s Nightmare_AbsortionHearts_Current_Health
+        scoreboard players operation @s Nightmare_AbsortionHearts_return -= @s Nightmare_AbsortionHearts_return1
+
+        execute if score @s Nightmare_AbsortionHearts_return matches 1.. run function nightmare_healthsystem:temp_effects/check_current_absortion
+        execute if score @s Nightmare_AbsortionHearts_return matches ..-1 run function nightmare_healthsystem:temp_effects/check_current_absortion
     }
 }

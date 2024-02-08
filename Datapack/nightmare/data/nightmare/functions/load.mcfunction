@@ -2,8 +2,6 @@
 
 scoreboard objectives add Nightmare_INTERNAL dummy
 execute run gamerule commandBlockOutput false
-execute as @a run function nightmare:nightmareloaded
-execute as @a run function nightmare:nightmareversion
 scoreboard objectives add Nightmare_currentevent dummy
 scoreboard players add $overworld Nightmare_currentevent 0
 scoreboard players add $nether Nightmare_currentevent 0
@@ -19,4 +17,3 @@ scoreboard objectives add Nightmare_Item_Ray_steps dummy
 scoreboard objectives add Nightmare_Item_Ray_Return dummy
 scoreboard objectives add Nightmare_snowballs_used minecraft.used:minecraft.snowball
 scoreboard objectives add DeathCount deathCount
-function nightmare_nether_survival:custom_load

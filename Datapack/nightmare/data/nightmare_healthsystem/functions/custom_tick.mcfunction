@@ -2,6 +2,7 @@
 
 execute as @a[scores={Nightmare_Death=1..}] run function nightmare_healthsystem:handle_death
 execute as @a[scores={Nightmare_Death=3..,Nightmare_Health=1..}] run function nightmare_healthsystem:handle_after_death
+execute as @a run function nightmare_healthsystem:temp_effects/check_update_absortion_hearts_score
 function nightmare_healthsystem:revive/revive_tick
 bossbar set waiting_for_revive players @a[scores={Nightmare_WaitingForRevive=1}]
 scoreboard players add @e[type=item_display,tag=GraveInteractable] Nightmare_DeathBlockTimer 1
