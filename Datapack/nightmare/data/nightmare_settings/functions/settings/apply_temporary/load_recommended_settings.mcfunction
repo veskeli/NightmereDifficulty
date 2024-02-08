@@ -1,0 +1,6 @@
+#Nightmare Difficulty Generated
+
+function nightmare_settings:settings/apply_settings/player_sleeping_procentage_enable
+function nightmare_settings:settings/apply_settings/disable_insomnia_enable
+function nightmare_settings:settings/apply_settings/health_system_enable
+function nightmare_settings:settings/text_blocks/opensettings

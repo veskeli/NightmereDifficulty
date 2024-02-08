@@ -1,3 +1,0 @@
-gamerule sendCommandFeedback false
-tellraw @s ["",{"text":"\n\nNightmere settings: ","color":"yellow"},{"text":"\nDisable insomnia (phantoms) ["},{"text":"Click me!","color":"green","clickEvent":{"action":"run_command","value":"/function nightmare:settings/disableinsomnia"}},{"text":"]\nOnly one player needs to sleep ["},{"text":"Click me!","color":"green","clickEvent":{"action":"run_command","value":"/function nightmare:settings/onlyoneplayerneedstosleep"}},{"text":"]"}]
-schedule function nightmare:commandfeedback 1t replace

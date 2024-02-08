@@ -1,0 +1,5 @@
+#Nightmare Difficulty Generated
+
+scoreboard players set $overworld Nightmare_UseHealthSystem 1
+function nightmare_settings:settings/text_blocks/opensettings
+function nightmare_healthsystem:custom_load

@@ -1,7 +1,7 @@
 [
   [
     "lastUpdate",
-    "Sat Jan 20 2024 17:45:36 GMT+0200 (Eastern European Standard Time)"
+    "Thu Feb 08 2024 20:20:55 GMT+0200 (Eastern European Standard Time)"
   ],
   [
     "INTERNAL/VIRTUAL_FILE_SYSTEM",
@@ -31,7 +31,7 @@
         "data\\nightmare\\functions\\monsters\\villagerzombie_spawn.mcfunction": 1951931446,
         "data\\nightmare\\functions\\monsters\\drowned_spawn.mcfunction": 2640585702,
         "data\\nightmare\\functions\\monsters\\__generated__\\block\\2.mcfunction": 2786590730,
-        "data\\nightmare\\functions\\monsters\\skeleton_spawn.mcfunction": 3477441971,
+        "data\\nightmare\\functions\\monsters\\skeleton_spawn.mcfunction": 3825685845,
         "data\\nightmare\\functions\\monsters\\spider_spawn.mcfunction": 945036885,
         "data\\nightmare\\functions\\monsters\\creeper_spawn.mcfunction": 1551195631,
         "data\\nightmare\\functions\\monsters\\entities\\snowball_damage\\snowball_check.mcfunction": 467217278,
@@ -98,7 +98,7 @@
         "data\\nightmare_healthsystem\\functions\\temp_effects\\__generated__\\block\\14.mcfunction": 753450106,
         "data\\nightmare_healthsystem\\functions\\temp_effects\\__generated__\\block\\13.mcfunction": 3079534314,
         "data\\nightmare_healthsystem\\functions\\temp_effects\\__generated__\\block\\15.mcfunction": 865898575,
-        "data\\nightmare_healthsystem\\functions\\temp_effects\\absortion_hearts_update.mcfunction": 1836646242,
+        "data\\nightmare_healthsystem\\functions\\temp_effects\\absortion_hearts_update.mcfunction": 1020817538,
         "data\\nightmare_healthsystem\\functions\\temp_effects\\__generated__\\block\\16.mcfunction": 1382182367,
         "data\\nightmare_healthsystem\\functions\\temp_effects\\check_current_absortion.mcfunction": 4169560661,
         "data\\nightmare_healthsystem\\functions\\temp_effects\\calculate_overflow_health.mcfunction": 3477948196,
@@ -109,29 +109,35 @@
       },
       "src\\macros": {},
       "src\\nightmare_nether_survival.mc": {
-        "data\\minecraft\\tags\\functions\\load.json": 1695319373,
-        "data\\minecraft\\tags\\functions\\tick.json": 4232955164,
-        "data\\nightmare_nether_survival\\functions\\load.mcfunction": 764228208,
-        "data\\nightmare_nether_survival\\functions\\tick.mcfunction": 2470593096,
+        "data\\minecraft\\tags\\functions\\load.json": 4270121447,
+        "data\\minecraft\\tags\\functions\\tick.json": 2790429846,
+        "data\\nightmare_nether_survival\\functions\\custom_load.mcfunction": 764228208,
+        "data\\nightmare_nether_survival\\functions\\custom_tick.mcfunction": 2470593096,
         "data\\nightmare_nether_survival\\functions\\teleport_to_nether.mcfunction": 1975913625,
         "data\\nightmare_nether_survival\\functions\\custom_crafting\\check_crafts.mcfunction": 1656987781,
-        "data\\nightmare_nether_survival\\functions\\custom_crafting\\soul_forge\\\"create:copper_nugget\".mcfunction": 1933178892,
-        "data\\nightmare_nether_survival\\functions\\custom_crafting\\soul_forge\\\"create:zinc_nugget\".mcfunction": 464328268,
-        "data\\nightmare_nether_survival\\functions\\custom_crafting\\soul_forge\\\"minecraft:stone\".mcfunction": 4074382952,
-        "data\\nightmare_nether_survival\\functions\\custom_crafting\\soul_forge\\\"minecraft:andesite\".mcfunction": 177168174,
-        "data\\nightmare_nether_survival\\functions\\custom_crafting\\soul_forge\\\"minecraft:sand\".mcfunction": 1676011251,
-        "data\\nightmare_nether_survival\\functions\\custom_crafting\\soul_forge\\\"minecraft:dried_kelp\".mcfunction": 3575713048,
-        "data\\nightmare_nether_survival\\functions\\custom_crafting\\soul_forge\\soul_forge_check.mcfunction": 3267302615,
+        "data\\nightmare_nether_survival\\functions\\custom_crafting\\soul_forge\\__generated__\\block\\0.mcfunction": 1933178892,
+        "data\\nightmare_nether_survival\\functions\\custom_crafting\\soul_forge\\__generated__\\block\\1.mcfunction": 464328268,
+        "data\\nightmare_nether_survival\\functions\\custom_crafting\\soul_forge\\__generated__\\block\\2.mcfunction": 4074382952,
+        "data\\nightmare_nether_survival\\functions\\custom_crafting\\soul_forge\\__generated__\\block\\3.mcfunction": 177168174,
+        "data\\nightmare_nether_survival\\functions\\custom_crafting\\soul_forge\\__generated__\\block\\4.mcfunction": 1676011251,
+        "data\\nightmare_nether_survival\\functions\\custom_crafting\\soul_forge\\__generated__\\block\\5.mcfunction": 3575713048,
+        "data\\nightmare_nether_survival\\functions\\custom_crafting\\soul_forge\\soul_forge_check.mcfunction": 2867662270,
         "data\\nightmare_nether_survival\\functions\\custom_crafting\\soul_forge\\soultest.mcfunction": 2232085359,
         "data\\nightmare_nether_survival\\functions\\custom_crafting\\soul_forge\\templates\\return_test_1.mcfunction": 1135705575,
         "data\\nightmare_nether_survival\\functions\\custom_crafting\\soul_forge\\templates\\add_score_test.mcfunction": 3234542423,
         "data\\nightmare_nether_survival\\functions\\custom_crafting\\crafting_table\\grave_digger.mcfunction": 3108385164,
         "data\\nightmare_nether_survival\\functions\\custom_crafting\\give_items\\grave_digger.mcfunction": 2658522552,
-        "data\\nightmare_nether_survival\\functions\\tools\\__generated__\\block\\0.mcfunction": 3760484890,
-        "data\\nightmare_nether_survival\\functions\\tools\\check_iron_tools.mcfunction": 3891176993,
+        "data\\nightmare_nether_survival\\functions\\tools\\__generated__\\block\\6.mcfunction": 3760484890,
+        "data\\nightmare_nether_survival\\functions\\tools\\check_iron_tools.mcfunction": 2030623911,
         "data\\nightmare_nether_survival\\functions\\custom_func.mcfunction": 2967966789
       },
-      "src\\macros\\customcrafting.mcm": {}
+      "src\\macros\\customcrafting.mcm": {},
+      "src\\nightmare_settings.mc": {
+        "data\\minecraft\\tags\\functions\\load.json": 4270121447,
+        "data\\minecraft\\tags\\functions\\tick.json": 2790429846,
+        "data\\nightmare_settings\\functions\\load.mcfunction": 3071536699,
+        "data\\nightmare_settings\\functions\\tick.mcfunction": 2021819159
+      }
     }
   ]
 ]

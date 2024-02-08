@@ -2,13 +2,13 @@
 import ./macros/datamergelib.mcm
 import ./macros/customcrafting.mcm
 function nightmareversion{
-    tellraw @s ["",{"text":"Nightmare","bold":true,"color":"red"},{"text":" Build: "},{"text":"3","underlined":true,"color":"yellow"},{"text":"\n"},{"text":"Rewrite","color":"aqua"},{"text":" update"}]
-    tellraw @a {"text":"\n "}
+    #tellraw @s ["",{"text":"Nightmare","bold":true,"color":"red"},{"text":" Build: "},{"text":"3","underlined":true,"color":"yellow"},{"text":"\n"},{"text":"Rewrite","color":"aqua"},{"text":" update"}]
+    #tellraw @a {"text":"\n "}
 }
 
 function nightmareloaded{
-    tellraw @a {"text":"\n "}
-    tellraw @a ["",{"text":"Nightmare difficulty loaded!","color":"red"},{"text":" ["},{"text":"Open Settings","color":"green","clickEvent":{"action":"run_command","value":"/function nightmare:settings/settings"}},{"text":"]"}]
+    #tellraw @a {"text":"\n "}
+    #tellraw @a ["",{"text":"Nightmare difficulty loaded!","color":"red"},{"text":" ["},{"text":"Open Settings","color":"green","clickEvent":{"action":"run_command","value":"/function nightmare:settings/settings"}},{"text":"]"}]
 }
 
 #//////////////////////////////////[load]//////////////////////////////////
@@ -82,9 +82,6 @@ function tick{
         tag @s add Nightmare_joined
         tellraw @s {"text":"Profile Created!"}
     }
-
-    #Health system
-    execute if score $overworld Nightmare_UseHealthSystem matches 1 run function nightmare_healthsystem:custom_tick
 
     #<--------No event overworld enemies-------->
     execute if score $overworld Nightmare_currentevent matches 0 run function nightmare:monsters/no_event_overworld_enemies

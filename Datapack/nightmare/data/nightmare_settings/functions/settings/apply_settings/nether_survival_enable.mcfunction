@@ -1,0 +1,5 @@
+#Nightmare Difficulty Generated
+
+scoreboard players set $overworld Nightmare_Settings_NetherSurvival 1
+function nightmare_settings:settings/text_blocks/opensettings
+function nightmare_nether_survival:custom_load

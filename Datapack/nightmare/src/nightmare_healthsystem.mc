@@ -1,11 +1,10 @@
 
-function load{
+function custom_load{
     execute run gamerule doImmediateRespawn false
 
     scoreboard objectives add Nightmare_Death deathCount
     scoreboard objectives add Nightmare_Health health
     scoreboard objectives add Nightmare_MaxHealth dummy
-    scoreboard objectives add Nightmare_UseHealthSystem dummy
     scoreboard objectives add Nightmare_WaitingForRevive dummy
 
     scoreboard objectives add Nightmare_Testing dummy
@@ -20,7 +19,6 @@ function load{
 
     #block loops
     scoreboard objectives add Nightmare_ReviveItemBlock dummy
-    scoreboard players set $overworld Nightmare_UseHealthSystem 1
 
     #Reset health
     scoreboard objectives add Nightmare_GoldenAppleEat minecraft.used:minecraft.golden_apple

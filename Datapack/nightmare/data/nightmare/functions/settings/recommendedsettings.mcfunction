@@ -1,1 +1,0 @@
-tellraw @a {"text":"Recommended settings loaded!"}

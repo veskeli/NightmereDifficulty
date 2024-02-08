@@ -1,10 +1,10 @@
 import ./macros/customcrafting.mcm
 
-function load{
-    tellraw @a ["",{"text":"Nether addon loaded!","color":"yellow"}]
+function custom_load{
+    #tellraw @a ["",{"text":"Nether addon loaded!","color":"yellow"}]
     scoreboard objectives add Nightmare_HeatLevel dummy
 }
-function tick{
+function custom_tick{
     #Check teleports
     execute in minecraft:the_nether as @a if entity @s[nbt={Dimension:"minecraft:overworld"}] run execute as @s run function nightmare_nether_survival:teleport_to_nether
     execute in minecraft:the_nether as @a if entity @s[nbt={Dimension:"minecraft:the_end"}] run execute as @s run function nightmare_nether_survival:teleport_to_nether
