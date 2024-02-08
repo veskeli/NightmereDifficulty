@@ -3,3 +3,4 @@
 scoreboard players set $overworld Nightmare_Settings_NetherSurvival 1
 function nightmare_settings:settings/text_blocks/opensettings
 function nightmare_nether_survival:custom_load
+function nightmare_settings:settings/recipes/nether_survival_recipes_give

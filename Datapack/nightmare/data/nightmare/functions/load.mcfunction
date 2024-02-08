@@ -19,5 +19,4 @@ scoreboard objectives add Nightmare_Item_Ray_steps dummy
 scoreboard objectives add Nightmare_Item_Ray_Return dummy
 scoreboard objectives add Nightmare_snowballs_used minecraft.used:minecraft.snowball
 scoreboard objectives add DeathCount deathCount
-execute as @a[tag=Nightmare_joined] run function nightmare:__generated__/block/0
 function nightmare_nether_survival:custom_load

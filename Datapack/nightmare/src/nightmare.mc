@@ -56,10 +56,6 @@ function load{
     #<--------Custom-------->
     scoreboard objectives add DeathCount deathCount
 
-    #<--------Show join text-------->
-    execute as @a[tag=Nightmare_joined] run block{
-        tellraw @s {"text":"Profile loaded: ","extra":[{"selector":"@s"}]}
-    }
 
     function nightmare_nether_survival:custom_load
 
@@ -77,11 +73,6 @@ function interact_test{
 }
 #//////////////////////////////////[Tick]//////////////////////////////////
 function tick{
-    #<--------Join system-------->
-    execute as @a[tag=!Nightmare_joined] run block{
-        tag @s add Nightmare_joined
-        tellraw @s {"text":"Profile Created!"}
-    }
 
     #<--------No event overworld enemies-------->
     execute if score $overworld Nightmare_currentevent matches 0 run function nightmare:monsters/no_event_overworld_enemies

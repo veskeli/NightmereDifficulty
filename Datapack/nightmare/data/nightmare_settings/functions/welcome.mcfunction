@@ -1,5 +1,11 @@
 #Nightmare Difficulty Generated
 
+tellraw @a [{"text": "\n"}]
+tellraw @a [{"text": "\n"}]
+tellraw @a [{"text": "\n"}]
+tellraw @a [{"text": "\n"}]
+tellraw @a [{"text": "\n"}]
+tellraw @a [{"text": "\n"}]
 tellraw @a ["",{"text":"Nightmare difficulty ","bold":true,"color":"gold"},{"text":"Settings:","bold":true}]
 tellraw @a ["",{"text":"["},{"text":"OpenSettings","color":"green","clickEvent":{"action":"run_command","value":"/function nightmare_settings:settings/text_blocks/opensettings"}},{"text":"]"}]
 tellraw @a [{"text": "\n"}]

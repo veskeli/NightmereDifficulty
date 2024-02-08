@@ -1,6 +1,6 @@
 #Nightmare Difficulty Generated
 
-execute as @e[dx=0,type=!#nightmare:not_mob,tag=!raycasting,limit=1] positioned ~-0.99 ~-0.99 ~-0.99 if entity @s[dx=0] positioned ~0.99 ~0.99 ~0.99 run function nightmare:items/lead_on_a_stick/__generated__/block/5
+execute as @e[dx=0,type=!#nightmare:not_mob,tag=!raycasting,limit=1] positioned ~-0.99 ~-0.99 ~-0.99 if entity @s[dx=0] positioned ~0.99 ~0.99 ~0.99 run function nightmare:items/lead_on_a_stick/__generated__/block/3
 execute as @e[dx=0,type=!#nightmare:not_mob,tag=!raycasting,limit=1] positioned ~-0.99 ~-0.99 ~-0.99 if entity @s[dx=0] positioned ~0.99 ~0.99 ~0.99 run return 1
 execute unless block ~ ~ ~ #nightmare:raycast_pass run return 2
 execute if score .distance Nightmare_Item_Ray_steps matches 130 run return 3

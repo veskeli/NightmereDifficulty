@@ -1,5 +1,4 @@
 #Nightmare Difficulty Generated
 
-tag @s add Nightmare_joined
-recipe give @a *
+schedule function nightmare_settings:__generated__/clock/0 4s
 function nightmare_settings:settings/recipes/check_recipes

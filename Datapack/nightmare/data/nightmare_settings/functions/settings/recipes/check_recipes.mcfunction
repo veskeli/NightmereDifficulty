@@ -1,0 +1,4 @@
+#Nightmare Difficulty Generated
+
+execute unless score $overworld Nightmare_Settings_NetherSurvival matches 1 run function nightmare_settings:settings/recipes/nether_survival_recipes_take
+execute if score $overworld Nightmare_Settings_NetherSurvival matches 1 run function nightmare_settings:settings/recipes/nether_survival_recipes_give

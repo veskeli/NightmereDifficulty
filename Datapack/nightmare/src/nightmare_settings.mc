@@ -7,7 +7,16 @@ function load{
     scoreboard objectives add Nightmare_Settings_PlayerSleepingProcentage dummy
     scoreboard objectives add Nightmare_Settings_DisableInsomnia dummy
 
+    #welcome message
     function nightmare_settings:welcome
+
+    #Load forced settings
+    gamerule doLimitedCrafting true
+
+    #<--------Show join text-------->
+    execute as @a[tag=Nightmare_joined] run block{
+        #tellraw @s {"text":"Profile loaded: ","extra":[{"selector":"@s"}]}
+    }
 
     #nether survival
     execute if score $overworld Nightmare_Settings_NetherSurvival matches 1 run function nightmare_nether_survival:custom_load
@@ -15,8 +24,18 @@ function load{
     execute if score $overworld Nightmare_UseHealthSystem matches 1 run function nightmare_healthsystem:custom_load
 }
 function tick{
+    #<--------Join system-------->
+    execute as @a[tag=!Nightmare_joined] run block{
+        tag @s add Nightmare_joined
+        #give all recipes on join
+        recipe give @a *
+        function nightmare_settings:settings/recipes/check_recipes
+        #tellraw @s {"text":"Profile Created!"}
+    }
+
     #nether survival
     execute if score $overworld Nightmare_Settings_NetherSurvival matches 1 run function nightmare_nether_survival:custom_tick
+
     #Health system
     execute if score $overworld Nightmare_UseHealthSystem matches 1 run function nightmare_healthsystem:custom_tick
     execute unless score $overworld Nightmare_UseHealthSystem matches 1 run block{
@@ -27,8 +46,18 @@ function tick{
     }
 }
 
+clock 4s{
+    function nightmare_settings:settings/recipes/check_recipes
+}
+
 function welcome{
     #Generate welcome message
+    tellraw @a [{"text": "\n"}]
+    tellraw @a [{"text": "\n"}]
+    tellraw @a [{"text": "\n"}]
+    tellraw @a [{"text": "\n"}]
+    tellraw @a [{"text": "\n"}]
+    tellraw @a [{"text": "\n"}]
     tellraw @a ["",{"text":"Nightmare difficulty ","bold":true,"color":"gold"},{"text":"Settings:","bold":true}]
     tellraw @a ["",{"text":"["},{"text":"OpenSettings","color":"green","clickEvent":{"action":"run_command","value":"/function nightmare_settings:settings/text_blocks/opensettings"}},{"text":"]"}]
     tellraw @a [{"text": "\n"}]
@@ -75,19 +104,19 @@ dir settings{
             tellraw @s [{"text": "\n"}]
             tellraw @s [{"text": "\n"}]
 
-            tellraw @s {"text":"Systems:","color":"dark_aqua"}
+            tellraw @s {"text":"Systems:","color":"dark_aqua","bold":true}
 
             #Health system
             execute unless score $overworld Nightmare_UseHealthSystem matches 1 run tellraw @s ["",{"text":"Health system","color":"dark_green"},{"text":" ["},{"text":"Enable","color":"green","clickEvent":{"action":"run_command","value":"/function nightmare_settings:settings/apply_settings/health_system_enable"}},{"text":"]"}]
             execute if score $overworld Nightmare_UseHealthSystem matches 1 run tellraw @s ["",{"text":"Health system","color":"dark_green"},{"text":" ["},{"text":"Disable","color":"red","clickEvent":{"action":"run_command","value":"/function nightmare_settings:settings/apply_settings/health_system_disable"}},{"text":"]"}]
 
-            tellraw @s {"text":"Custom gamemodes:","color":"dark_aqua"}
+            tellraw @s {"text":"Custom gamemodes:","color":"dark_aqua","bold":true}
             #Nether only survival
             execute unless score $overworld Nightmare_Settings_NetherSurvival matches 1 run tellraw @s ["",{"text":"Nether only survival","color":"red"},{"text":" ["},{"text":"Enable","color":"green","clickEvent":{"action":"run_command","value":"/function nightmare_settings:settings/apply_settings/nether_survival_enable"}},{"text":"]"}]
             execute if score $overworld Nightmare_Settings_NetherSurvival matches 1 run tellraw @s ["",{"text":"Nether only survival","color":"red"},{"text":" ["},{"text":"Disable","color":"red","clickEvent":{"action":"run_command","value":"/function nightmare_settings:settings/apply_settings/nether_survival_disable"}},{"text":"]"}]
 
             #Debug
-            tellraw @s {"text":"Debug:","color":"dark_aqua"}
+            tellraw @s {"text":"Debug:","color":"dark_aqua","bold":true}
             tellraw @s ["",{"text":"Effect give glowing ["},{"text":"Apply","color":"green","clickEvent":{"action":"run_command","value":"/function nightmare_settings:settings/apply_temporary/glowing_enable"}},{"text":"]"}]
             tellraw @s ["",{"text":"Force revive ["},{"text":"Apply","color":"green","clickEvent":{"action":"run_command","value":"/function nightmare_settings:settings/apply_temporary/force_revive"}},{"text":"]"}]
 
@@ -123,10 +152,14 @@ dir settings{
             function nightmare_settings:settings/text_blocks/opensettings
             #Remeber to load if enabled
             function nightmare_nether_survival:custom_load
+            #add recipes
+            function nightmare_settings:settings/recipes/nether_survival_recipes_give
         }
         function nether_survival_disable{
             scoreboard players set $overworld Nightmare_Settings_NetherSurvival 0
             function nightmare_settings:settings/text_blocks/opensettings
+            #remove recipes
+            function nightmare_settings:settings/recipes/nether_survival_recipes_take
         }
         #health system
         function health_system_enable{
@@ -157,6 +190,42 @@ dir settings{
             function nightmare_settings:settings/apply_settings/health_system_enable
             #settings text
             function nightmare_settings:settings/text_blocks/opensettings
+        }
+    }
+    dir recipes{
+        function check_recipes{
+            #clear recipes if nether survival is disabled
+            execute unless score $overworld Nightmare_Settings_NetherSurvival matches 1 run function nightmare_settings:settings/recipes/nether_survival_recipes_take
+            #add recipes if nether survival is enabled
+            execute if score $overworld Nightmare_Settings_NetherSurvival matches 1 run function nightmare_settings:settings/recipes/nether_survival_recipes_give
+        }
+        function nether_survival_recipes_take{
+            recipe take @a nightmare_nether_survival:create_belt_twisting
+            recipe take @a nightmare_nether_survival:create_belt_weeping
+            recipe take @a nightmare_nether_survival:grave_digger
+            recipe take @a nightmare_nether_survival:honey_bottle
+            recipe take @a nightmare_nether_survival:honey_bottle_f
+            recipe take @a nightmare_nether_survival:iron_sheet
+            recipe take @a nightmare_nether_survival:paper_from_twisting
+            recipe take @a nightmare_nether_survival:paper_from_weeping
+            recipe take @a nightmare_nether_survival:redstone_from_nether
+            recipe take @a nightmare_nether_survival:slime_from_magmasline
+            recipe take @a nightmare_nether_survival:spout_twisting
+            recipe take @a nightmare_nether_survival:torch_from_charge
+        }
+        function nether_survival_recipes_give{
+            recipe give @a nightmare_nether_survival:create_belt_twisting
+            recipe give @a nightmare_nether_survival:create_belt_weeping
+            recipe give @a nightmare_nether_survival:grave_digger
+            recipe give @a nightmare_nether_survival:honey_bottle
+            recipe give @a nightmare_nether_survival:honey_bottle_f
+            recipe give @a nightmare_nether_survival:iron_sheet
+            recipe give @a nightmare_nether_survival:paper_from_twisting
+            recipe give @a nightmare_nether_survival:paper_from_weeping
+            recipe give @a nightmare_nether_survival:redstone_from_nether
+            recipe give @a nightmare_nether_survival:slime_from_magmasline
+            recipe give @a nightmare_nether_survival:spout_twisting
+            recipe give @a nightmare_nether_survival:torch_from_charge
         }
     }
     function commandfeedback{
