@@ -3,6 +3,8 @@ function load{
     scoreboard objectives add Nightmare_Settings_NetherSurvival dummy
     #health system
     scoreboard objectives add Nightmare_UseHealthSystem dummy
+    #equipment system
+    scoreboard objectives add Nightmare_UseEquipmentSystem dummy
     #settings
     scoreboard objectives add Nightmare_Settings_PlayerSleepingProcentage dummy
     scoreboard objectives add Nightmare_Settings_DisableInsomnia dummy
@@ -22,6 +24,8 @@ function load{
     execute if score $overworld Nightmare_Settings_NetherSurvival matches 1 run function nightmare_nether_survival:custom_load
     #health system
     execute if score $overworld Nightmare_UseHealthSystem matches 1 run function nightmare_healthsystem:custom_load
+    #equipment system
+    execute if score $overworld Nightmare_UseEquipmentSystem matches 1 run function nightmare_equipment:custom_load
 }
 function tick{
     #<--------Join system-------->
@@ -44,6 +48,8 @@ function tick{
             scoreboard players reset @s Nightmare_Death
         }
     }
+    #Equipment system
+    execute if score $overworld Nightmare_UseEquipmentSystem matches 1 run function nightmare_equipment:custom_tick
 }
 
 clock 4s{
@@ -110,6 +116,10 @@ dir settings{
             execute unless score $overworld Nightmare_UseHealthSystem matches 1 run tellraw @s ["",{"text":"Health system","color":"dark_green"},{"text":" ["},{"text":"Enable","color":"green","clickEvent":{"action":"run_command","value":"/function nightmare_settings:settings/apply_settings/health_system_enable"}},{"text":"]"}]
             execute if score $overworld Nightmare_UseHealthSystem matches 1 run tellraw @s ["",{"text":"Health system","color":"dark_green"},{"text":" ["},{"text":"Disable","color":"red","clickEvent":{"action":"run_command","value":"/function nightmare_settings:settings/apply_settings/health_system_disable"}},{"text":"]"}]
 
+            #equipment system
+            execute unless score $overworld Nightmare_UseEquipmentSystem matches 1 run tellraw @s ["",{"text":"(Alpha)","color":"yellow"},{"text":" Equipment system","color":"dark_green"},{"text":" ["},{"text":"Enable","color":"green","clickEvent":{"action":"run_command","value":"/function nightmare_settings:settings/apply_settings/equipment_system_enable"}},{"text":"]"}]
+            execute if score $overworld Nightmare_UseEquipmentSystem matches 1 run tellraw @s ["",{"text":"(Alpha)","color":"yellow"},{"text":" Equipment system","color":"dark_green"},{"text":" ["},{"text":"Disable","color":"red","clickEvent":{"action":"run_command","value":"/function nightmare_settings:settings/apply_settings/equipment_system_disable"}},{"text":"]"}]
+
             tellraw @s {"text":"Custom gamemodes:","color":"dark_aqua","bold":true}
             #Nether only survival
             execute unless score $overworld Nightmare_Settings_NetherSurvival matches 1 run tellraw @s ["",{"text":"Nether only survival","color":"red"},{"text":" ["},{"text":"Enable","color":"green","clickEvent":{"action":"run_command","value":"/function nightmare_settings:settings/apply_settings/nether_survival_enable"}},{"text":"]"}]
@@ -170,6 +180,17 @@ dir settings{
         }
         function health_system_disable{
             scoreboard players set $overworld Nightmare_UseHealthSystem 0
+            function nightmare_settings:settings/text_blocks/opensettings
+        }
+        #equipment system
+        function equipment_system_enable{
+            scoreboard players set $overworld Nightmare_UseEquipmentSystem 1
+            function nightmare_settings:settings/text_blocks/opensettings
+            #remeber to load if enabled
+            function nightmare_equipment:custom_load
+        }
+        function equipment_system_disable{
+            scoreboard players set $overworld Nightmare_UseEquipmentSystem 0
             function nightmare_settings:settings/text_blocks/opensettings
         }
     }

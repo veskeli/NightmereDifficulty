@@ -2,6 +2,7 @@
 
 scoreboard objectives add Nightmare_Settings_NetherSurvival dummy
 scoreboard objectives add Nightmare_UseHealthSystem dummy
+scoreboard objectives add Nightmare_UseEquipmentSystem dummy
 scoreboard objectives add Nightmare_Settings_PlayerSleepingProcentage dummy
 scoreboard objectives add Nightmare_Settings_DisableInsomnia dummy
 function nightmare_settings:welcome
@@ -9,3 +10,4 @@ gamerule doLimitedCrafting true
 execute as @a[tag=Nightmare_joined] run function nightmare_settings:__generated__/block/0
 execute if score $overworld Nightmare_Settings_NetherSurvival matches 1 run function nightmare_nether_survival:custom_load
 execute if score $overworld Nightmare_UseHealthSystem matches 1 run function nightmare_healthsystem:custom_load
+execute if score $overworld Nightmare_UseEquipmentSystem matches 1 run function nightmare_equipment:custom_load

@@ -1,0 +1,139 @@
+function custom_load{
+    #Scoreboards
+    scoreboard objectives add Nm_Warped_Fungus_Used minecraft.used:warped_fungus_on_a_stick
+    scoreboard objectives add Nm_Item_Ray_Return dummy
+    scoreboard objectives add Nm_Item_Ray_steps dummy
+
+    scoreboard objectives add Nm_testingwandblock dummy
+}
+function custom_tick{
+    function nightmare_equipment:equipment/check_equipment
+}
+dir equipment{
+    function check_equipment{
+        #Check if player has wand in hand
+        execute as @a[nbt={SelectedItem:{id:"minecraft:warped_fungus_on_a_stick",tag:{Nightmare_Wand:1b}}}] run title @s actionbar ["",{"text":"====| ","color":"yellow"},{"text":"Mana:","color":"aqua"},{"text":"□ ■ ■","color":"green"},{"text":" |====","color":"yellow"}]
+
+        function nightmare_equipment:equipment/check_wand_effects
+        execute as @a if score @s Nm_Warped_Fungus_Used matches 1.. run function nightmare_equipment:equipment/check_wands
+    }
+    function check_wands{
+        scoreboard players reset @s Nm_Warped_Fungus_Used
+
+        #testing_wand
+        execute if entity @s[nbt={SelectedItem:{id:"minecraft:warped_fungus_on_a_stick",tag:{testing_wand:1b}}}] at @s run function nightmare_equipment:equipment/wands/testing_wand/start_raycast
+        execute if entity @s[nbt={SelectedItem:{id:"minecraft:warped_fungus_on_a_stick",tag:{testing_wand_jump:1b}}}] at @s run function nightmare_equipment:equipment/wands/testing_wand_jump/start_raycast
+    }
+    function check_wand_effects{
+        execute as @e[type=item_display,nbt={item:{id:"minecraft:stone",Count:1b,tag:{testingwandblock:1b}}}] run block{
+            execute if score @s Nm_testingwandblock matches 12.. run block{
+                execute at @s run fill ~ ~ ~ ~ ~ ~ air
+                kill @s
+            }
+
+            scoreboard players add @s Nm_testingwandblock 1
+        }
+    }
+    dir wands{
+        dir testing_wand{
+            function start_raycast{
+            #Reset scoreboards
+            scoreboard players reset @s Nm_Item_Ray_Return
+            scoreboard players reset .distance Nm_Item_Ray_steps
+
+            #Raycast
+            tag @s add raycasting
+            execute anchored eyes positioned ^ ^ ^ store result score @s Nm_Item_Ray_Return run function nightmare_equipment:equipment/wands/testing_wand/raycast
+            tag @s remove raycasting
+
+            #Returns score to "@s" "Nm_Item_Ray_Return" base on hit: 1 entity, 2 block, 3 no hit
+            #scoreboard players set @s Nm_testing_wand_active 1
+            }
+            function raycast{
+                #If hit entity
+                execute as @e[dx=0,type=!#nightmare:not_mob,tag=!raycasting,limit=1] positioned ~-0.99 ~-0.99 ~-0.99 if entity @s[dx=0] positioned ~0.99 ~0.99 ~0.99 run block{
+                    data modify entity @s Leash.UUID set from entity @a[limit=1,tag=raycasting,sort=nearest,nbt={SelectedItem:{id:"minecraft:warped_fungus_on_a_stick",tag:{testing_wand:1b}}}] UUID
+                    clear @a[limit=1,tag=raycasting,sort=nearest,nbt={SelectedItem:{id:"minecraft:warped_fungus_on_a_stick",tag:{testing_wand:1b}}}] lead 1
+                }
+                execute as @e[dx=0,type=!#nightmare:not_mob,tag=!raycasting,limit=1] positioned ~-0.99 ~-0.99 ~-0.99 if entity @s[dx=0] positioned ~0.99 ~0.99 ~0.99 run return 1
+                #If hit block
+                execute unless block ~ ~ ~ #nightmare:raycast_pass run return 2
+                #If too many steps
+                execute if score .distance Nm_Item_Ray_steps matches 130 run return 3
+
+
+                #Update steps
+                scoreboard players add .distance Nm_Item_Ray_steps 1
+                #Loop
+                execute positioned ^ ^ ^0.1 rotated ~ ~ run function nightmare_equipment:equipment/wands/testing_wand/raycast
+            }
+            function give{
+                #Give wand
+                give @s minecraft:warped_fungus_on_a_stick{testing_wand:1b,Nightmare_Wand:1b}
+            }
+        }
+        dir testing_wand_jump{
+            function start_raycast{
+                #Without raycast
+
+                execute as @s at @s run summon minecraft:item_display ~-2 ~ ~-1 {item:{id:"minecraft:stone",Count:1b,tag:{testingwandblock:1b}}}
+                execute as @s at @s run summon minecraft:item_display ~-2 ~ ~0 {item:{id:"minecraft:stone",Count:1b,tag:{testingwandblock:1b}}}
+                execute as @s at @s run summon minecraft:item_display ~-2 ~ ~1 {item:{id:"minecraft:stone",Count:1b,tag:{testingwandblock:1b}}}
+                execute as @s at @s run summon minecraft:item_display ~-1 ~ ~-2 {item:{id:"minecraft:stone",Count:1b,tag:{testingwandblock:1b}}}
+                execute as @s at @s run summon minecraft:item_display ~-1 ~ ~2 {item:{id:"minecraft:stone",Count:1b,tag:{testingwandblock:1b}}}
+                execute as @s at @s run summon minecraft:item_display ~0 ~ ~-2 {item:{id:"minecraft:stone",Count:1b,tag:{testingwandblock:1b}}}
+                execute as @s at @s run summon minecraft:item_display ~0 ~ ~2 {item:{id:"minecraft:stone",Count:1b,tag:{testingwandblock:1b}}}
+                execute as @s at @s run summon minecraft:item_display ~1 ~ ~-2 {item:{id:"minecraft:stone",Count:1b,tag:{testingwandblock:1b}}}
+                execute as @s at @s run summon minecraft:item_display ~1 ~ ~2 {item:{id:"minecraft:stone",Count:1b,tag:{testingwandblock:1b}}}
+                execute as @s at @s run summon minecraft:item_display ~2 ~ ~-1 {item:{id:"minecraft:stone",Count:1b,tag:{testingwandblock:1b}}}
+                execute as @s at @s run summon minecraft:item_display ~2 ~ ~0 {item:{id:"minecraft:stone",Count:1b,tag:{testingwandblock:1b}}}
+                execute as @s at @s run summon minecraft:item_display ~2 ~ ~1 {item:{id:"minecraft:stone",Count:1b,tag:{testingwandblock:1b}}}
+
+                execute as @s at @s run summon minecraft:item_display ~-2 ~1 ~-1 {item:{id:"minecraft:stone",Count:1b,tag:{testingwandblock:1b}}}
+                execute as @s at @s run summon minecraft:item_display ~-2 ~1 ~0 {item:{id:"minecraft:stone",Count:1b,tag:{testingwandblock:1b}}}
+                execute as @s at @s run summon minecraft:item_display ~-2 ~1 ~1 {item:{id:"minecraft:stone",Count:1b,tag:{testingwandblock:1b}}}
+                execute as @s at @s run summon minecraft:item_display ~-1 ~1 ~-2 {item:{id:"minecraft:stone",Count:1b,tag:{testingwandblock:1b}}}
+                execute as @s at @s run summon minecraft:item_display ~-1 ~1 ~2 {item:{id:"minecraft:stone",Count:1b,tag:{testingwandblock:1b}}}
+                execute as @s at @s run summon minecraft:item_display ~0 ~1 ~-2 {item:{id:"minecraft:stone",Count:1b,tag:{testingwandblock:1b}}}
+                execute as @s at @s run summon minecraft:item_display ~0 ~1 ~2 {item:{id:"minecraft:stone",Count:1b,tag:{testingwandblock:1b}}}
+                execute as @s at @s run summon minecraft:item_display ~1 ~1 ~-2 {item:{id:"minecraft:stone",Count:1b,tag:{testingwandblock:1b}}}
+                execute as @s at @s run summon minecraft:item_display ~1 ~1 ~2 {item:{id:"minecraft:stone",Count:1b,tag:{testingwandblock:1b}}}
+                execute as @s at @s run summon minecraft:item_display ~2 ~1 ~-1 {item:{id:"minecraft:stone",Count:1b,tag:{testingwandblock:1b}}}
+                execute as @s at @s run summon minecraft:item_display ~2 ~1 ~0 {item:{id:"minecraft:stone",Count:1b,tag:{testingwandblock:1b}}}
+                execute as @s at @s run summon minecraft:item_display ~2 ~1 ~1 {item:{id:"minecraft:stone",Count:1b,tag:{testingwandblock:1b}}}
+
+
+                execute as @s at @s run fill ~-2 ~ ~-1 ~-2 ~ ~-1 minecraft:stone
+                execute as @s at @s run fill ~-2 ~ ~0 ~-2 ~ ~0 minecraft:stone
+                execute as @s at @s run fill ~-2 ~ ~1 ~-2 ~ ~1 minecraft:stone
+                execute as @s at @s run fill ~-1 ~ ~-2 ~-1 ~ ~-2 minecraft:stone
+                execute as @s at @s run fill ~-1 ~ ~2 ~-1 ~ ~2 minecraft:stone
+                execute as @s at @s run fill ~0 ~ ~-2 ~0 ~ ~-2 minecraft:stone
+                execute as @s at @s run fill ~0 ~ ~2 ~0 ~ ~2 minecraft:stone
+                execute as @s at @s run fill ~1 ~ ~-2 ~1 ~ ~-2 minecraft:stone
+                execute as @s at @s run fill ~1 ~ ~2 ~1 ~ ~2 minecraft:stone
+                execute as @s at @s run fill ~2 ~ ~-1 ~2 ~ ~-1 minecraft:stone
+                execute as @s at @s run fill ~2 ~ ~0 ~2 ~ ~0 minecraft:stone
+                execute as @s at @s run fill ~2 ~ ~1 ~2 ~ ~1 minecraft:stone
+
+                execute as @s at @s run fill ~-2 ~1 ~-1 ~-2 ~1 ~-1 minecraft:stone
+                execute as @s at @s run fill ~-2 ~1 ~0 ~-2 ~1 ~0 minecraft:stone
+                execute as @s at @s run fill ~-2 ~1 ~1 ~-2 ~1 ~1 minecraft:stone
+                execute as @s at @s run fill ~-1 ~1 ~-2 ~-1 ~1 ~-2 minecraft:stone
+                execute as @s at @s run fill ~-1 ~1 ~2 ~-1 ~1 ~2 minecraft:stone
+                execute as @s at @s run fill ~0 ~1 ~-2 ~0 ~1 ~-2 minecraft:stone
+                execute as @s at @s run fill ~0 ~1 ~2 ~0 ~1 ~2 minecraft:stone
+                execute as @s at @s run fill ~1 ~1 ~-2 ~1 ~1 ~-2 minecraft:stone
+                execute as @s at @s run fill ~1 ~1 ~2 ~1 ~1 ~2 minecraft:stone
+                execute as @s at @s run fill ~2 ~1 ~-1 ~2 ~1 ~-1 minecraft:stone
+                execute as @s at @s run fill ~2 ~1 ~0 ~2 ~1 ~0 minecraft:stone
+                execute as @s at @s run fill ~2 ~1 ~1 ~2 ~1 ~1 minecraft:stone
+
+            }
+            function give{
+                #Give wand
+                give @s minecraft:warped_fungus_on_a_stick{testing_wand_jump:1b,Nightmare_Wand:1b}
+            }
+        }
+    }
+}
