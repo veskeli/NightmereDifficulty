@@ -192,7 +192,7 @@ dir revive{
                 execute at @s run scoreboard players set @e[limit=1,sort=nearest,nbt={Item:{id:"minecraft:phantom_membrane",Count:1b,tag:{rottenhearth:1b}}}] Nightmare_ReviveItemBlock 1
 
                 #effect
-                execute at @s run function nightmare:particles/effects/lava_cauldron_craft_fail
+                execute at @s run function nightmare_particle:particles/effects/lava_cauldron_craft_fail
 
                 #kill revive
                 kill @s

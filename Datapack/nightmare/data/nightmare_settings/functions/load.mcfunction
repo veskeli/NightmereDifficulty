@@ -1,5 +1,6 @@
 #Nightmare Difficulty Generated
 
+scoreboard objectives add Nightmare_CustomMobs dummy
 scoreboard objectives add Nightmare_Settings_NetherSurvival dummy
 scoreboard objectives add Nightmare_UseHealthSystem dummy
 scoreboard objectives add Nightmare_UseEquipmentSystem dummy

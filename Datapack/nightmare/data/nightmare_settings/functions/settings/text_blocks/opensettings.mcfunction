@@ -13,7 +13,8 @@ execute if score $overworld Nightmare_Settings_DisableInsomnia matches 1 run tel
 tellraw @s [{"text": "\n"}]
 tellraw @s [{"text": "\n"}]
 tellraw @s [{"text": "\n"}]
-tellraw @s [{"text": "\n"}]
+execute unless score $overworld Nightmare_CustomMobs matches 1 run tellraw @s ["",{"text":"Block Custom mobs","color":"dark_green"},{"text":" ["},{"text":"Enable","color":"green","clickEvent":{"action":"run_command","value":"/function nightmare_settings:settings/apply_settings/custom_mobs_enable"}},{"text":"]"}]
+execute if score $overworld Nightmare_CustomMobs matches 1 run tellraw @s ["",{"text":"Block Custom mobs","color":"dark_green"},{"text":" ["},{"text":"Disable","color":"red","clickEvent":{"action":"run_command","value":"/function nightmare_settings:settings/apply_settings/custom_mobs_disable"}},{"text":"]"}]
 tellraw @s {"text":"Systems:","color":"dark_aqua","bold":true}
 execute unless score $overworld Nightmare_UseHealthSystem matches 1 run tellraw @s ["",{"text":"Health system","color":"dark_green"},{"text":" ["},{"text":"Enable","color":"green","clickEvent":{"action":"run_command","value":"/function nightmare_settings:settings/apply_settings/health_system_enable"}},{"text":"]"}]
 execute if score $overworld Nightmare_UseHealthSystem matches 1 run tellraw @s ["",{"text":"Health system","color":"dark_green"},{"text":" ["},{"text":"Disable","color":"red","clickEvent":{"action":"run_command","value":"/function nightmare_settings:settings/apply_settings/health_system_disable"}},{"text":"]"}]

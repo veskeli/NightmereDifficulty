@@ -1,4 +1,6 @@
 function load{
+    #custom mobs
+    scoreboard objectives add Nightmare_CustomMobs dummy
     #nether survival
     scoreboard objectives add Nightmare_Settings_NetherSurvival dummy
     #health system
@@ -108,7 +110,11 @@ dir settings{
             tellraw @s [{"text": "\n"}]
             tellraw @s [{"text": "\n"}]
             tellraw @s [{"text": "\n"}]
-            tellraw @s [{"text": "\n"}]
+            #tellraw @s [{"text": "\n"}]
+
+            #Custom mobs
+            execute unless score $overworld Nightmare_CustomMobs matches 1 run tellraw @s ["",{"text":"Block Custom mobs","color":"dark_green"},{"text":" ["},{"text":"Enable","color":"green","clickEvent":{"action":"run_command","value":"/function nightmare_settings:settings/apply_settings/custom_mobs_enable"}},{"text":"]"}]
+            execute if score $overworld Nightmare_CustomMobs matches 1 run tellraw @s ["",{"text":"Block Custom mobs","color":"dark_green"},{"text":" ["},{"text":"Disable","color":"red","clickEvent":{"action":"run_command","value":"/function nightmare_settings:settings/apply_settings/custom_mobs_disable"}},{"text":"]"}]
 
             tellraw @s {"text":"Systems:","color":"dark_aqua","bold":true}
 
@@ -154,6 +160,15 @@ dir settings{
         function disable_insomnia_disable{
             scoreboard players set $overworld Nightmare_Settings_DisableInsomnia 0
             gamerule doInsomnia true
+            function nightmare_settings:settings/text_blocks/opensettings
+        }
+        #custom mobs
+        function custom_mobs_enable{
+            scoreboard players set $overworld Nightmare_CustomMobs 1
+            function nightmare_settings:settings/text_blocks/opensettings
+        }
+        function custom_mobs_disable{
+            scoreboard players set $overworld Nightmare_CustomMobs 0
             function nightmare_settings:settings/text_blocks/opensettings
         }
         #nether survival
