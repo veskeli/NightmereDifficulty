@@ -1,0 +1,19 @@
+# Example: soul_forge_smelt "minecraft:gravel" "create:copper_nugget" 1
+template soul_forge_smelt{
+    with input_item:word output_item:word output_amount:float{
+        execute as @e[type=item,nbt={Item:{id:<%input_item%>,Count:1b}}] at @s if block ~ ~-1 ~ iron_block at @s run block{
+        #execute unless block ~ ~1 ~ air run return 1
+        #execute unless blocks ~4 ~ ~4 ~-4 ~ ~-4 0 200 0 all run return 1
+
+        #Check
+        scoreboard players reset @s Nightmare_Item_Ray_Return
+        execute store result score @s Nightmare_Item_Ray_Return run function nightmare_nether_survival:custom_crafting/soul_forge/soultest
+        #if not then return
+        execute unless score @s Nightmare_Item_Ray_Return matches 0 run return 1
+
+        #Craft success
+        summon item ~ ~ ~ {Item:{id:<%output_item%>,Count:<%output_amount%>}}
+        kill @s
+    }
+    }
+}

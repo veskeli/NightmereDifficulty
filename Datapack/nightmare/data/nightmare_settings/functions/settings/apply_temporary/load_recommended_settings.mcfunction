@@ -1,6 +1,8 @@
-#Nightmare Difficulty Generated
+# Generated with MC-Build
 
+#settings
 function nightmare_settings:settings/apply_settings/player_sleeping_procentage_enable
 function nightmare_settings:settings/apply_settings/disable_insomnia_enable
 function nightmare_settings:settings/apply_settings/health_system_enable
+#settings text
 function nightmare_settings:settings/text_blocks/opensettings

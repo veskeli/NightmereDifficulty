@@ -1,0 +1,5 @@
+template data_tag{
+    with entity_type:word {
+        execute as @e[type=<%entity_type%>,tag=!nightmare,limit=1] run data merge entity @s {Tags:["nightmare"]}
+    }
+}

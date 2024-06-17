@@ -1,5 +1,7 @@
-#Nightmare Difficulty Generated
+# Generated with MC-Build
 
+#tellraw @s ["",{"text":"Set absortion to: "},{"score":{"name":"@s","objective":"Nightmare_AbsortionHearts"}}]
+#clear current absortion
 execute as @s run effect clear @s absorption
 execute if score @s Nightmare_AbsortionHearts matches 1 run effect give @s absorption infinite 0 true
 execute if score @s Nightmare_AbsortionHearts matches 2 run effect give @s absorption infinite 0 true
@@ -71,6 +73,10 @@ execute if score @s Nightmare_AbsortionHearts matches 35 run damage @s 1 minecra
 execute if score @s Nightmare_AbsortionHearts matches 37 run damage @s 3 minecraft:starve
 execute if score @s Nightmare_AbsortionHearts matches 38 run damage @s 2 minecraft:starve
 execute if score @s Nightmare_AbsortionHearts matches 39 run damage @s 1 minecraft:starve
-execute as @s[tag=honey_absortion] run function nightmare_healthsystem:temp_effects/__generated__/block/13
-execute if score @s Nightmare_AbsortionHearts matches 41.. run function nightmare_healthsystem:temp_effects/__generated__/block/15
+execute as @s[tag=honey_absortion] run function nightmare_healthsystem:temp_effects/zzz/1
+execute if score @s Nightmare_AbsortionHearts matches 41.. run function nightmare_healthsystem:temp_effects/zzz/3
+#update current abs current health
 scoreboard players operation @s Nightmare_AbsortionHearts_Current_Health = @s Nightmare_Health
+#LOOP(10,i){
+#execute if score @s Nightmare_AbsortionHearts matches <%i%> run effect give @s absorption infinite <%i%> true
+#}

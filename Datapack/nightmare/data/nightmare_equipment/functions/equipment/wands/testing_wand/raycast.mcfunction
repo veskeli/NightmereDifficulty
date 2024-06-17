@@ -1,8 +1,13 @@
-#Nightmare Difficulty Generated
+# Generated with MC-Build
 
-execute as @e[dx=0,type=!#nightmare:not_mob,tag=!raycasting,limit=1] positioned ~-0.99 ~-0.99 ~-0.99 if entity @s[dx=0] positioned ~0.99 ~0.99 ~0.99 run function nightmare_equipment:equipment/wands/testing_wand/__generated__/block/2
+#If hit entity
+execute as @e[dx=0,type=!#nightmare:not_mob,tag=!raycasting,limit=1] positioned ~-0.99 ~-0.99 ~-0.99 if entity @s[dx=0] positioned ~0.99 ~0.99 ~0.99 run function nightmare_equipment:equipment/wands/testing_wand/zzz/0
 execute as @e[dx=0,type=!#nightmare:not_mob,tag=!raycasting,limit=1] positioned ~-0.99 ~-0.99 ~-0.99 if entity @s[dx=0] positioned ~0.99 ~0.99 ~0.99 run return 1
+#If hit block
 execute unless block ~ ~ ~ #nightmare:raycast_pass run return 2
+#If too many steps
 execute if score .distance Nm_Item_Ray_steps matches 130 run return 3
+#Update steps
 scoreboard players add .distance Nm_Item_Ray_steps 1
+#Loop
 execute positioned ^ ^ ^0.1 rotated ~ ~ run function nightmare_equipment:equipment/wands/testing_wand/raycast

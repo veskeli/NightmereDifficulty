@@ -1,5 +1,6 @@
-#Nightmare Difficulty Generated
+# Generated with MC-Build
 
+#Without raycast
 execute as @s at @s run summon minecraft:item_display ~-2 ~ ~-1 {item:{id:"minecraft:stone",Count:1b,tag:{testingwandblock:1b}}}
 execute as @s at @s run summon minecraft:item_display ~-2 ~ ~0 {item:{id:"minecraft:stone",Count:1b,tag:{testingwandblock:1b}}}
 execute as @s at @s run summon minecraft:item_display ~-2 ~ ~1 {item:{id:"minecraft:stone",Count:1b,tag:{testingwandblock:1b}}}

@@ -1,6 +1,11 @@
-#Nightmare Difficulty Generated
+# Generated with MC-Build
 
-execute if predicate nightmare:10change run data merge entity @e[type=creeper,tag=!nightmare,limit=1] {ExplosionRadius:8b,Fuse:35,Tags:["nightmare"],Attributes:[{Name:"generic.movement_speed",Base:0.2}]}
-execute if predicate nightmare:10change run data merge entity @e[type=creeper,tag=!nightmare,limit=1] {ExplosionRadius:4b,Fuse:15,Tags:["nightmare"],Attributes:[{Name:generic.max_health,Base:2}]}
-execute if predicate nightmare:10change run data merge entity @e[type=creeper,tag=!nightmare,limit=1] {ExplosionRadius:2b,Silent:1b,Fuse:35,Attributes:[{Name:generic.movement_speed,Base:0.3}],Tags:["nightmare"],}
+#nuke
+execute if predicate nightmare:10change run data data_normal_creeper 35 8 0.2 Nuke Creeper
+#insta
+execute if predicate nightmare:10change run data data_normal_health_named creeper 15 4 2 Insta Creeper
+#Creeping
+execute if predicate nightmare:10change run data data_normal_creeper 35 3 0.3 Creeping Creeper
+#=================================================
+# Vanilla
 data merge entity @e[type=creeper,tag=!nightmare,limit=1] {ExplosionRadius:5,Tags:["nightmare"]}

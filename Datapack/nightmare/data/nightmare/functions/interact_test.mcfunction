@@ -1,4 +1,4 @@
-#Nightmare Difficulty Generated
+# Generated with MC-Build
 
 advancement revoke @s only nightmare:interact_detect
 tell @a dasda

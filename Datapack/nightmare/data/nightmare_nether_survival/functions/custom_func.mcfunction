@@ -1,3 +1,3 @@
-#Nightmare Difficulty Generated
+# Generated with MC-Build
 
 data merge entity @e[type=piglin_brute,limit=1,sort=nearest] {ArmorItems:[{id:"minecraft:netherite_boots",Count:1b,tag:{Trim:{material:"minecraft:quartz",pattern:"minecraft:coast"}}},{id:"minecraft:netherite_leggings",Count:1b,tag:{Trim:{material:"minecraft:quartz",pattern:"minecraft:coast"}}},{id:"minecraft:netherite_chestplate",Count:1b,tag:{Trim:{material:"minecraft:quartz",pattern:"minecraft:coast"}}},{id:"minecraft:wither_skeleton_skull",Count:1b}]}

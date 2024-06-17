@@ -1,5 +1,6 @@
-#Nightmare Difficulty Generated
+# Generated with MC-Build
 
+#check if health has changed
 scoreboard players operation @s Nightmare_AbsortionHearts_return = @s Nightmare_Health
 scoreboard players operation @s Nightmare_AbsortionHearts_return1 = @s Nightmare_AbsortionHearts_Current_Health
 scoreboard players operation @s Nightmare_AbsortionHearts_return -= @s Nightmare_AbsortionHearts_return1

@@ -1,4 +1,4 @@
-import ./macros/customcrafting.mcm
+import ./templates/crafting/soul_forge_smelt.mcbt
 
 function custom_load{
     #tellraw @a ["",{"text":"Nether addon loaded!","color":"yellow"}]
@@ -47,7 +47,7 @@ dir custom_crafting{
             execute if block ~ ~ ~1 soul_fire run scoreboard players add @s Nightmare_Item_Ray_Return 1
             execute if block ~-1 ~ ~ soul_fire run scoreboard players add @s Nightmare_Item_Ray_Return 1
             execute if block ~1 ~ ~ soul_fire run scoreboard players add @s Nightmare_Item_Ray_Return 1
-            LOOP(2,i){
+            REPEAT (1,2) as i{
                 execute if block ~-1 ~<%i%> ~-1 air run scoreboard players remove @s Nightmare_Item_Ray_Return 1
                 execute if block ~ ~<%i%> ~-1 air run scoreboard players remove @s Nightmare_Item_Ray_Return 1
                 execute if block ~1 ~<%i%> ~-1 air run scoreboard players remove @s Nightmare_Item_Ray_Return 1

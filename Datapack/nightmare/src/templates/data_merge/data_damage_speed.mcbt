@@ -1,0 +1,5 @@
+template data_damage_speed{
+    with entity_type:word attack_damage:float move_speed:float {
+        execute as @e[type=<%entity_type%>,tag=!nightmare,limit=1] run data merge entity @s {Attributes:[{Base:<%attack_damage%>,Name:"generic.attack_damage"},{Base:<%move_speed%>,Name:"generic.movement_speed"}], CanPickUpLoot:1b,Tags:["nightmare"]}
+    }
+}

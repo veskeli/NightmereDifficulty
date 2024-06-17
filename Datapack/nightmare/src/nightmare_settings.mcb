@@ -1,4 +1,4 @@
-function load{
+function load minecraft:load{
     #custom mobs
     scoreboard objectives add Nightmare_CustomMobs dummy
     #nether survival
@@ -29,7 +29,7 @@ function load{
     #equipment system
     execute if score $overworld Nightmare_UseEquipmentSystem matches 1 run function nightmare_equipment:custom_load
 }
-function tick{
+function tick minecraft:tick{
     #<--------Join system-------->
     execute as @a[tag=!Nightmare_joined] run block{
         tag @s add Nightmare_joined
@@ -54,7 +54,7 @@ function tick{
     execute if score $overworld Nightmare_UseEquipmentSystem matches 1 run function nightmare_equipment:custom_tick
 }
 
-clock 4s{
+clock check_recipes_timer 4s{
     function nightmare_settings:settings/recipes/check_recipes
 }
 
@@ -72,8 +72,8 @@ function welcome{
     tellraw @a [{"text": "\n"}]
     tellraw @a {"text":"Nightmare difficulty loaded!","bold":true,"color":"gold"}
     tellraw @a [{"text": "\n"}]
-    tellraw @a ["",{"text":"Settings","color":"aqua"},{"text":" update"}]
-    tellraw @a ["",{"text":"(Build "},{"text":"4","underlined":true,"color":"yellow"},{"text":")"}]
+    tellraw @a ["",{"text":"Random bits","color":"aqua"},{"text":" update"}]
+    tellraw @a ["",{"text":"(Build "},{"text":"5","underlined":true,"color":"yellow"},{"text":")"}]
     tellraw @a [{"text": "\n"}]
 }
 

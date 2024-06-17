@@ -1,3 +1,3 @@
-#Nightmare Difficulty Generated
+# Generated with MC-Build
 
 tag @p remove snowball_immune

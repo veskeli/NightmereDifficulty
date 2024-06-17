@@ -1,4 +1,4 @@
-#Nightmare Difficulty Generated
+# Generated with MC-Build
 
 recipe take @s nightmare:lead_on_a_stick
 advancement revoke @s only nightmare:lead_on_a_stick_adv

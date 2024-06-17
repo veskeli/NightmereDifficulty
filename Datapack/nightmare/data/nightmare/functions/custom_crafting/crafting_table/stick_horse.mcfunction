@@ -1,4 +1,4 @@
-#Nightmare Difficulty Generated
+# Generated with MC-Build
 
 recipe take @s nightmare:stick_horse
 advancement revoke @s only nightmare:stick_horse_adv

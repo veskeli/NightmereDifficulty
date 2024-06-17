@@ -1,3 +1,3 @@
-#Nightmare Difficulty Generated
+# Generated with MC-Build
 
 gamerule sendCommandFeedback true

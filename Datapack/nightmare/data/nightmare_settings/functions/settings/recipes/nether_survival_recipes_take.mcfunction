@@ -1,4 +1,4 @@
-#Nightmare Difficulty Generated
+# Generated with MC-Build
 
 recipe take @a nightmare_nether_survival:create_belt_twisting
 recipe take @a nightmare_nether_survival:create_belt_weeping

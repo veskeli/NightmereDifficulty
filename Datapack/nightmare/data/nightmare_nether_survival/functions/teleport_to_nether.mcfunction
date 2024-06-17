@@ -1,4 +1,4 @@
-#Nightmare Difficulty Generated
+# Generated with MC-Build
 
 fill -3 85 -3 3 90 3 air
 fill -3 85 -3 3 85 3 obsidian
