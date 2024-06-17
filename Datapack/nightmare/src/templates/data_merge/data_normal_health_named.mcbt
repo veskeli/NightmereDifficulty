@@ -1,5 +1,5 @@
 template data_normal_health_named{
     with entity_type:word attack_damage:float move_speed:float entity_health:float entity_name:raw{
-            data merge entity @e[type=<%entity_type%>,tag=!nightmare,limit=1] {Health:<%entity_health%>f,Attributes:[{Base:<%attack_damage%>d,Name:"generic.attack_damage"},{Base:<%move_speed%>d,Name:"generic.movement_speed"}],Tags:["nightmare"],CustomName:'{"text":"<%entity_name%>"}'}
+            data merge entity @e[type=<%entity_type%>,tag=!nightmare,limit=1] {Health:<%entity_health%>f,Attributes:[{Base:<%attack_damage%>d,Name:"generic.attack_damage"},{Base:<%move_speed%>d,Name:"generic.movement_speed"},{Base:<%entity_health%>d,Name:"generic.max_health"}],Tags:["nightmare"],CustomName:'{"text":"<%entity_name%>"}'}
     }
 }

@@ -202,8 +202,8 @@ dir monsters{
     }
     #//////////////////////////////////[Spider]//////////////////////////////////
     function spider_spawn{
-        execute if predicate nightmare:25change run data_normal_health_named spider 10 0.1 8 Fierce Spider
-        execute if predicate nightmare:25change run data_normal_health_named spider 20 0.4 4 Sturdy Spider
+        execute if predicate nightmare:25change run data_normal_health_named spider 10 0.1 26 Fierce Spider
+        execute if predicate nightmare:25change run data_normal_health_named spider 20 0.4 18 Sturdy Spider
 
         #=================================================
         # Vanilla
