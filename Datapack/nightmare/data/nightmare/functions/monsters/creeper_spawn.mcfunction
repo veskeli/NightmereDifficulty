@@ -1,10 +1,10 @@
 # Generated with MC-Build
 
-#nuke
+# nuke
 execute if predicate nightmare:10change run data data_normal_creeper 35 8 0.2 Nuke Creeper
-#insta
+# insta
 execute if predicate nightmare:10change run data data_normal_health_named creeper 15 4 2 Insta Creeper
-#Creeping
+# Creeping
 execute if predicate nightmare:10change run data data_normal_creeper 35 3 0.3 Creeping Creeper
 #=================================================
 # Vanilla
