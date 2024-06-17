@@ -8,4 +8,4 @@ execute if predicate nightmare:2change run execute as @e[type=skeleton,tag=!nigh
 execute if predicate nightmare:10change run execute as @e[type=skeleton,tag=!nightmare,limit=1] run function nightmare:monsters/zzz/0
 #=================================================
 # Vanilla
-execute as @e[type=skeleton,tag=!nightmare,limit=1] run data merge entity @s {Attributes:[{Base:9,Name:"generic.attack_damage"},{Base:0.3,Name:"generic.movement_speed"}], CanPickUpLoot:1b,Tags:["nightmare"]}
+execute as @e[type=skeleton,tag=!nightmare,limit=1] run data merge entity @s {Attributes:[{Base:9,Name:"generic.attack_damage"},{Base:0.31,Name:"generic.movement_speed"}], CanPickUpLoot:1b,Tags:["nightmare"]}

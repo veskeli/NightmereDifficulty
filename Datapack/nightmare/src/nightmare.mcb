@@ -27,6 +27,8 @@ function load minecraft:load{
     #=================================================
     # Scoreboards
     #=================================================
+    # Difficulty level
+    scoreboard objectives add Nightmare_Difficulty dummy
     # Current events
     scoreboard objectives add Nightmare_currentevent dummy
     scoreboard players add $overworld Nightmare_currentevent 0
@@ -43,12 +45,7 @@ function load minecraft:load{
     scoreboard objectives add Nightmare_WitchSummonTimer dummy
     scoreboard objectives add Nightmare_WitchHealth dummy
 
-    schedule function nightmare:development/schedule_witchsummon 1s
-    # speedboy particle
-
-    schedule function nightmare_particle:particles/mob_schedules/speedboy_particle 1s
     # Items
-
     scoreboard objectives add Nightmare_Item_use minecraft.used:warped_fungus_on_a_stick
     scoreboard objectives add Nightmare_Item_Ray_steps dummy
     scoreboard objectives add Nightmare_Item_Ray_Return dummy
@@ -56,8 +53,19 @@ function load minecraft:load{
     # Snowball
     scoreboard objectives add Nightmare_snowballs_used minecraft.used:minecraft.snowball
 
+    # Mob Summons
+    scoreboard objectives add Nightmare_ZombifiedPiglinSummonCircle dummy
+
     # Custom
     scoreboard objectives add DeathCount deathCount
+
+    #=================================================
+    # Schedule functions
+    #=================================================
+    schedule function nightmare:development/schedule_witchsummon 1s
+    #=================================================
+    # Start particle schedules
+    function nightmare_particle:particles/start_particle_schedules
 }
 function interact_test{
     advancement revoke @s only nightmare:interact_detect
@@ -141,6 +149,8 @@ dir monsters{
         #=================================================
         # ghast
         function nightmare:monsters/ghast_spawn
+        # zombiefied piglin
+        function nightmare:monsters/zombiefiedpiglin_spawn
     }
 
     #=================================================
@@ -160,7 +170,7 @@ dir monsters{
 
         #=================================================
         # Vanilla
-        data_damage_speed zombie 9 0.3
+        data_damage_speed zombie 9 0.31
     }
     function husk_spawn{
         # speedboy
@@ -168,7 +178,7 @@ dir monsters{
 
         #=================================================
         # Vanilla
-        data_damage_speed husk 9 0.3
+        data_damage_speed husk 9 0.31
     }
     function villagerzombie_spawn{
         data merge entity @e[type=zombie_villager,tag=!nightmare,limit=1] {Health:30f,Attributes:[{Base:10.0d,Name:"generic.attack_damage"},{Base:0.28d,Name:"generic.movement_speed"}],CanPickUpLoot:1b,Tags:["nightmare"]}
@@ -198,7 +208,7 @@ dir monsters{
 
         #=================================================
         # Vanilla
-        data_damage_speed skeleton 9 0.3
+        data_damage_speed skeleton 9 0.31
     }
     #//////////////////////////////////[Spider]//////////////////////////////////
     function spider_spawn{
@@ -226,8 +236,66 @@ dir monsters{
     # MARK: No event nether
     #=================================================
     function ghast_spawn{
-        data merge entity @e[type=fireball,tag=!nightmare,limit=1] {ExplosionPower:3,Tags:["nightmare"]}
-        tag @e[type=fireball,tag=!nightmare] add nightmare
+        # Volatile
+        execute if predicate nightmare:10change run data merge entity @e[type=ghast,tag=!nightmare,limit=1] {ExplosionPower:6,Tags:["nightmare","nightmare_volatile_ghast"],CustomName:'{"text":"Volatile Ghast"}'}
+        # Vanilla
+        data merge entity @e[type=ghast,tag=!nightmare,limit=1] {ExplosionPower:3,Tags:["nightmare"]}
+    }
+    function zombiefiedpiglin_spawn{
+        # Speedboy
+        execute if predicate nightmare:10change run data_speedboy zombified_piglin 5 0.5 Quickstep Zombiefied Piglin
+        # Strongboy
+        execute if predicate nightmare:10change run data_normal_named zombified_piglin 12 0.24 Sturdy Zombiefied Piglin
+
+        #=================================================
+        # Vanilla
+        data_damage_speed zombified_piglin 7 0.31
+
+        #=================================================
+        # check all angered piglins for summoning circle
+        return 1 # TODO: =========================================> Remove this line to enable the summoning circle
+        execute as @e[type=zombified_piglin,tag=!currently_summoning,nbt=!{AngerTime:0},limit=1] run block{
+            # if already summoned then return
+            execute if entity @s[tag=already_summoned] run return 1
+            # start summoning
+            execute if predicate nightmare:10change run block{
+                # disable ai
+                data merge entity @s {NoAI:1b}
+                # add tag
+                tag @s add currently_summoning
+                # summon display item for the summoning circle
+                execute at @s run summon armor_stand ~ ~ ~ {Tags:["summoncircle_entity"],NoGravity:1b,Invisible:1b,Invulnerable:1b}
+                # add score
+                scoreboard players set @s Nightmare_ZombifiedPiglinSummonCircle 6
+            }
+            # 10% chance to never summon
+            execute if predicate nightmare:2change run tag @s add already_summoned
+        }
+    }
+    #clock zombified_piglin_summon_circle 1s{
+    function zombified_piglin_summon_circle{
+        # check if summoning circle is active
+        execute as @e[type=zombified_piglin,tag=currently_summoning,limit=1] run block{
+            # Lower score
+            scoreboard players remove @e[type=zombified_piglin,tag=currently_summoning] Nightmare_ZombifiedPiglinSummonCircle 1
+            # if score is 0 or lower then summon
+            execute as @e[type=zombified_piglin,tag=currently_summoning,scores={Nightmare_ZombifiedPiglinSummonCircle=..0}] run block{
+                # Summon 3 more zombified piglins
+                REPEAT (1,3){
+                    execute at @s run summon zombified_piglin ~ ~ ~ {Tags:["already_summoned"]}
+                }
+                # enable ai
+                data merge entity @s {NoAI:0b}
+                # remove tag
+                tag @s remove currently_summoning
+                # add tag already_summoned
+                tag @s add already_summoned
+                # kill display item
+                kill @e[type=armor_stand,tag=summoncircle_entity,sort=nearest,limit=1]
+                # play sound
+                playsound minecraft:item.trident.return block @a ~ ~ ~
+            }
+        }
     }
     #=================================================
     # MARK: Entities

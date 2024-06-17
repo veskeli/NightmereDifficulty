@@ -88,12 +88,12 @@ dir custom_crafting{
     }
     dir crafting_table{
         function grave_digger{
-            nether_customcrafting grave_digger
+            # nether_customcrafting grave_digger
         }
     }
     dir give_items{
         function grave_digger{
-            give @p wooden_shovel{display:{Name:'{"text":"Grave digger","color":"dark_blue"}',Lore:['{"text":"Revive player with 3 hearts"}']},grave_digger:1b} 1
+            # give @p wooden_shovel{display:{Name:'{"text":"Grave digger","color":"dark_blue"}',Lore:['{"text":"Revive player with 3 hearts"}']},grave_digger:1b} 1
         }
     }
 }

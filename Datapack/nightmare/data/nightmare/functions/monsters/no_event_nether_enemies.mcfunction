@@ -5,3 +5,5 @@
 #=================================================
 # ghast
 function nightmare:monsters/ghast_spawn
+# zombiefied piglin
+function nightmare:monsters/zombiefiedpiglin_spawn
