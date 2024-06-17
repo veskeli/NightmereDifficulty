@@ -24,28 +24,31 @@ function load minecraft:load{
     execute run gamerule commandBlockOutput false
     # Dont remove or edit <-------------
 
-    #<--------Scoreboards-------->
+    #=================================================
+    # Scoreboards
+    #=================================================
     # Current events
     scoreboard objectives add Nightmare_currentevent dummy
     scoreboard players add $overworld Nightmare_currentevent 0
     scoreboard players add $nether Nightmare_currentevent 0
-
     # Summon circle
+
     scoreboard objectives add Nightmare_SummonCircle_Vindicator dummy
     schedule function nightmare_particle:particles/summons_schedules/summoncirlce_vindicator 0.2s
-
     # lava_cauldron craft
-    scoreboard objectives add Nightmare_FloorCraft_RottenHeartCooldown dummy
 
+    scoreboard objectives add Nightmare_FloorCraft_RottenHeartCooldown dummy
     # Witch test
+
     scoreboard objectives add Nightmare_WitchSummonTimer dummy
     scoreboard objectives add Nightmare_WitchHealth dummy
+
     schedule function nightmare:development/schedule_witchsummon 1s
-
     # speedboy particle
-    schedule function nightmare_particle:particles/mob_schedules/speedboy_particle 1s
 
+    schedule function nightmare_particle:particles/mob_schedules/speedboy_particle 1s
     # Items
+
     scoreboard objectives add Nightmare_Item_use minecraft.used:warped_fungus_on_a_stick
     scoreboard objectives add Nightmare_Item_Ray_steps dummy
     scoreboard objectives add Nightmare_Item_Ray_Return dummy
@@ -53,7 +56,7 @@ function load minecraft:load{
     # Snowball
     scoreboard objectives add Nightmare_snowballs_used minecraft.used:minecraft.snowball
 
-    #<--------Custom-------->
+    # Custom
     scoreboard objectives add DeathCount deathCount
 }
 function interact_test{
@@ -151,9 +154,9 @@ dir monsters{
         execute if predicate nightmare:2change run execute as @e[type=zombie,tag=!nightmare,limit=1] run data merge entity @s {IsBaby:1b,Tags:["nightmare"],HandItems:[{id:"minecraft:stick",Count:1b,tag:{display:{Name:'{"text":"Small Big Boy"}'},Enchantments:[{id:"minecraft:knockback",lvl:8s}],HandDropChances:[0.000F,0.085F]}},{}],ArmorItems:[{},{},{},{id:"minecraft:leather_helmet",Count:1b,tag:{Trim:{material:"minecraft:lapis",pattern:"minecraft:dune"}}}],Attributes:[{Name:"generic.max_health",Base:1},{Name:"generic.movement_speed",Base:0.4},{Name:"generic.attack_damage",Base:8}]}
 
         # Speedboy
-        execute if predicate nightmare:10change run data_speedboy zombie 5 0.55 Zombie Speedboy
+        execute if predicate nightmare:10change run data_speedboy zombie 5 0.55 Quickstep Zombie
         # Strongboy
-        execute if predicate nightmare:10change run data_normal_named zombie 12 0.23 Zombie Strongboy
+        execute if predicate nightmare:10change run data_normal_named zombie 12 0.23 Sturdy Zombie
 
         #=================================================
         # Vanilla
@@ -161,7 +164,7 @@ dir monsters{
     }
     function husk_spawn{
         # speedboy
-        execute if predicate nightmare:10change run data_speedboy husk 5 0.55 Husk Speedboy
+        execute if predicate nightmare:10change run data_speedboy husk 5 0.55 Quickstep Husk
 
         #=================================================
         # Vanilla
@@ -177,7 +180,7 @@ dir monsters{
     #//////////////////////////////////[Skeleton]//////////////////////////////////
     function skeleton_spawn{
         # speedboy
-        execute if predicate nightmare:10change run data_speedboy skeleton 5 0.55 Skeleton Speedboy
+        execute if predicate nightmare:10change run data_speedboy skeleton 5 0.55 Quickstep Skeleton
         # shadowstalker
         execute if predicate nightmare:2change run execute as @e[type=skeleton,tag=!nightmare,limit=1] run data merge entity @s {Silent:1b,CustomNameVisible:0b,CanPickUpLoot:0b,Tags:["nightmare","shadowstalker"],CustomName:'{"text":"Shadowstalker","color":"black"}',HandItems:[{id:"minecraft:iron_sword",Count:1b,tag:{display:{Name:'{"text":"Nightshade Blade","color":"black"}',Lore:['{"text":"Infused with the essence of the elusive Shadowstalkers","color":"dark_blue"}']},Enchantments:[{id:"minecraft:sharpness",lvl:6s}]}},{}],ArmorItems:[{id:"minecraft:netherite_boots",Count:1b,tag:{Trim:{material:"minecraft:lapis",pattern:"minecraft:raiser"}}},{id:"minecraft:netherite_leggings",Count:1b,tag:{Trim:{material:"minecraft:lapis",pattern:"minecraft:raiser"}}},{id:"minecraft:netherite_chestplate",Count:1b,tag:{Trim:{material:"minecraft:lapis",pattern:"minecraft:raiser"}}},{id:"minecraft:netherite_helmet",Count:1b,tag:{Trim:{material:"minecraft:lapis",pattern:"minecraft:raiser"}}}],ArmorDropChances:[0.000F,0.000F,0.000F,0.000F],Attributes:[{Name:generic.follow_range,Base:50},{Name:generic.knockback_resistance,Base:1.0},{Name:generic.movement_speed,Base:0.4},{Name:generic.attack_damage,Base:8}]}
         # Melee skele
@@ -199,10 +202,6 @@ dir monsters{
     }
     #//////////////////////////////////[Spider]//////////////////////////////////
     function spider_spawn{
-        # execute if predicate nightmare:25change run data merge entity @e[type=spider,tag=!nightmare,limit=1] {Health:8f,Attributes:[{Base:10.0d,Name:"generic.attack_damage"},{Base:0.1d,Name:"generic.movement_speed"}],Tags:["nightmare"]}
-        # execute if predicate nightmare:25change run data merge entity @e[type=spider,tag=!nightmare,limit=1] {Attributes:[{Base:3.0d,Name:"generic.attack_damage"},{Base:0.7d,Name:"generic.movement_speed"}],Tags:["nightmare","speedboy"]}
-        # execute if predicate nightmare:25change run data merge entity @e[type=spider,tag=!nightmare,limit=1] {Health:20f,Attributes:[{Base:4.0d,Name:"generic.attack_damage"},{Base:0.4d,Name:"generic.movement_speed"}],Tags:["nightmare"]}
-
         execute if predicate nightmare:25change run data_normal_health_named spider 10 0.1 8 Fierce Spider
         execute if predicate nightmare:25change run data_normal_health_named spider 20 0.4 4 Sturdy Spider
 
@@ -212,12 +211,12 @@ dir monsters{
     }
     #//////////////////////////////////[Creeper]//////////////////////////////////
     function creeper_spawn{
-        # nuke
-        execute if predicate nightmare:10change run data data_normal_creeper 35 8 0.2 Nuke Creeper
-        # insta
-        execute if predicate nightmare:10change run data data_normal_health_named creeper 15 4 2 Insta Creeper
+        # Volatile (nuke)
+        execute if predicate nightmare:10change run data_normal_creeper 35 8 0.2 Volatile Creeper
+        # Quickfuse (insta)
+        execute if predicate nightmare:10change run data_normal_creeper 15 4 2 Quickfuse Creeper
         # Creeping
-        execute if predicate nightmare:10change run data data_normal_creeper 35 3 0.3 Creeping Creeper
+        execute if predicate nightmare:10change run data_normal_creeper 35 3 0.3 Creeping Creeper
 
         #=================================================
         # Vanilla

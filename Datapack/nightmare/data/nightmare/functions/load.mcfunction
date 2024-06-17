@@ -4,7 +4,9 @@
 scoreboard objectives add Nightmare_INTERNAL dummy
 execute run gamerule commandBlockOutput false
 # Dont remove or edit <-------------
-#<--------Scoreboards-------->
+#=================================================
+# Scoreboards
+#=================================================
 # Current events
 scoreboard objectives add Nightmare_currentevent dummy
 scoreboard players add $overworld Nightmare_currentevent 0
@@ -26,5 +28,5 @@ scoreboard objectives add Nightmare_Item_Ray_steps dummy
 scoreboard objectives add Nightmare_Item_Ray_Return dummy
 # Snowball
 scoreboard objectives add Nightmare_snowballs_used minecraft.used:minecraft.snowball
-#<--------Custom-------->
+# Custom
 scoreboard objectives add DeathCount deathCount

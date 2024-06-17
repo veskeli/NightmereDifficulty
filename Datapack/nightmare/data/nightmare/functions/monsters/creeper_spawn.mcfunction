@@ -1,11 +1,11 @@
 # Generated with MC-Build
 
-# nuke
-execute if predicate nightmare:10change run data data_normal_creeper 35 8 0.2 Nuke Creeper
-# insta
-execute if predicate nightmare:10change run data data_normal_health_named creeper 15 4 2 Insta Creeper
+# Volatile (nuke)
+execute if predicate nightmare:10change run data merge entity @e[type=creeper,limit=1,tag=!nightmare] {Fuse:35,ExplosionRadius:8,Attributes:[{Name:"generic.movement_speed",Base:0.2}],CustomName:'{"text":"Volatile Creeper"}'}
+# Quickfuse (insta)
+execute if predicate nightmare:10change run data merge entity @e[type=creeper,limit=1,tag=!nightmare] {Fuse:15,ExplosionRadius:4,Attributes:[{Name:"generic.movement_speed",Base:2}],CustomName:'{"text":"Quickfuse Creeper"}'}
 # Creeping
-execute if predicate nightmare:10change run data data_normal_creeper 35 3 0.3 Creeping Creeper
+execute if predicate nightmare:10change run data merge entity @e[type=creeper,limit=1,tag=!nightmare] {Fuse:35,ExplosionRadius:3,Attributes:[{Name:"generic.movement_speed",Base:0.3}],CustomName:'{"text":"Creeping Creeper"}'}
 #=================================================
 # Vanilla
 data merge entity @e[type=creeper,tag=!nightmare,limit=1] {ExplosionRadius:5,Tags:["nightmare"]}

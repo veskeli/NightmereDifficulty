@@ -1,5 +1,5 @@
 template data_normal_creeper{
-    with fuse:float explosion_radius:float move_speed:float entity_name:raw{
-        data merge entity @e[type=creeper,limit=1,tag=!nightmare] {Fuse:{<%fuse%>},ExplosionRadius:{<%explosion_radius%>},Attributes:[{Name:"generic.movement_speed",Base:<%move_speed%>}],CustomName:"<%entity_name%>"}
+    with fuse:float explosion_radius:float move_speed:float entity_name:raw {
+        data merge entity @e[type=creeper,limit=1,tag=!nightmare] {Fuse:<%fuse%>,ExplosionRadius:<%explosion_radius%>,Attributes:[{Name:"generic.movement_speed",Base:<%move_speed%>}],CustomName:'{"text":"<%entity_name%>"}'}
     }
 }
