@@ -1,0 +1,28 @@
+{
+  "tabs": [
+    {
+      "name": "minecraft datapack nightmare difficulty",
+      "tabGroups": [
+        {
+          "files": [
+            "file:///g%3A/Minecraft%20servers/1.20.1%20Industrial%20Dweller/server.properties",
+            "file:///c%3A/Users/veskeli/Desktop/-AHK-/DATAPACKS%20---%20Minecraft/NightmereDifficulty/Datapack/nightmare/src/nightmare_skilltree.mcb",
+            "file:///c%3A/Users/veskeli/Desktop/-AHK-/DATAPACKS%20---%20Minecraft/NightmereDifficulty/Datapack/nightmare/src/templates/item_modify/select_spell.mcbt",
+            "file:///c%3A/Users/veskeli/Desktop/-AHK-/DATAPACKS%20---%20Minecraft/NightmereDifficulty/Datapack/nightmare/src/templates/wands/wand_area.mcbt",
+            "file:///c%3A/Users/veskeli/Desktop/-AHK-/DATAPACKS%20---%20Minecraft/NightmereDifficulty/Datapack/nightmare/src/templates/wands/wand_entity.mcbt",
+            "file:///c%3A/Users/veskeli/Desktop/-AHK-/DATAPACKS%20---%20Minecraft/NightmereDifficulty/Datapack/nightmare/src/templates/wands/wand_check.mcbt"
+          ],
+          "viewColumn": 1
+        }
+      ],
+      "layout": {
+        "orientation": 0,
+        "groups": [
+          {
+            "size": 2987
+          }
+        ]
+      }
+    }
+  ]
+}
