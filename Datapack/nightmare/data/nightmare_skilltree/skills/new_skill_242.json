@@ -1,0 +1,30 @@
+{
+  "id": "skilltree:new_skill_242",
+  "bonuses": [
+    {
+      "type": "skilltree:crafted_item_bonus",
+      "item_condition": {
+        "potion_type": "any",
+        "type": "skilltree:potion"
+      },
+      "item_bonus": {
+        "chance": 0.05,
+        "type": "skilltree:potion_amplification"
+      }
+    }
+  ],
+  "directConnections": [
+    "skilltree:new_skill_232"
+  ],
+  "longConnections": [],
+  "oneWayConnections": [],
+  "tags": [],
+  "backgroundTexture": "skilltree:textures/icons/background/lesser.png",
+  "iconTexture": "skilltree:textures/icons/alchemist_defensive_crafting_1.png",
+  "borderTexture": "skilltree:textures/tooltip/lesser.png",
+  "title": "Potion Altered Fate",
+  "positionX": -169.26282,
+  "positionY": 391.20856,
+  "buttonSize": 16,
+  "isStartingPoint": false
+}

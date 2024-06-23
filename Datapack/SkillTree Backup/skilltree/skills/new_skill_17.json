@@ -1,0 +1,50 @@
+{
+  "id": "skilltree:new_skill_17",
+  "bonuses": [
+    {
+      "type": "skilltree:damage",
+      "amount": 2.0,
+      "operation": 0,
+      "player_multiplier": {
+        "type": "skilltree:none"
+      },
+      "enemy_multiplier": {
+        "type": "skilltree:none"
+      },
+      "player_condition": {
+        "item_condition": {
+          "equipment_type": "shield",
+          "type": "skilltree:equipment_type"
+        },
+        "type": "skilltree:has_item_in_hand"
+      },
+      "damage_condition": {
+        "type": "skilltree:melee"
+      },
+      "target_condition": {
+        "type": "skilltree:none"
+      }
+    }
+  ],
+  "directConnections": [],
+  "longConnections": [
+    "skilltree:new_skill_16",
+    "skilltree:new_skill_15",
+    "skilltree:new_skill_14",
+    "skilltree:new_skill_13",
+    "skilltree:new_skill_18",
+    "skilltree:new_skill_19",
+    "skilltree:new_skill_20",
+    "skilltree:new_skill_21"
+  ],
+  "oneWayConnections": [],
+  "tags": [],
+  "backgroundTexture": "skilltree:textures/icons/background/class.png",
+  "iconTexture": "skilltree:textures/icons/blacksmith_subclass_1_mastery.png",
+  "borderTexture": "skilltree:textures/tooltip/notable.png",
+  "title": "Fighter",
+  "positionX": 0.0,
+  "positionY": -416.0,
+  "buttonSize": 28,
+  "isStartingPoint": true
+}

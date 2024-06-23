@@ -1,0 +1,35 @@
+{
+  "id": "skilltree:new_skill_744",
+  "bonuses": [
+    {
+      "type": "skilltree:attribute",
+      "attribute": "minecraft:generic.max_health",
+      "id": "a3424fe6-eb13-4b85-8c15-7e4cfc7ccdb1",
+      "name": "Skill",
+      "amount": 2.0,
+      "operation": 0,
+      "player_multiplier": {
+        "type": "skilltree:none"
+      },
+      "player_condition": {
+        "type": "skilltree:none"
+      }
+    }
+  ],
+  "directConnections": [
+    "skilltree:new_skill_674"
+  ],
+  "longConnections": [],
+  "oneWayConnections": [],
+  "tags": [
+    "Passive skill"
+  ],
+  "backgroundTexture": "skilltree:textures/icons/background/notable.png",
+  "iconTexture": "skilltree:textures/icons/alchemist_subclass_2.png",
+  "borderTexture": "skilltree:textures/tooltip/lesser.png",
+  "title": "New life",
+  "positionX": -132.1673,
+  "positionY": -65.953156,
+  "buttonSize": 16,
+  "isStartingPoint": false
+}

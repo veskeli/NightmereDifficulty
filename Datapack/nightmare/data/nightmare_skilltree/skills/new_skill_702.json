@@ -1,0 +1,67 @@
+{
+  "id": "skilltree:new_skill_702",
+  "bonuses": [
+    {
+      "type": "skilltree:attribute",
+      "attribute": "combatroll:count",
+      "id": "c4a91867-5b2d-43e2-9645-ae82ff279f7c",
+      "name": "Skill",
+      "amount": 1.0,
+      "operation": 0,
+      "player_multiplier": {
+        "type": "skilltree:none"
+      },
+      "player_condition": {
+        "min": 1,
+        "type": "skilltree:effect_amount"
+      }
+    },
+    {
+      "type": "skilltree:attribute",
+      "attribute": "combatroll:distance",
+      "id": "5ac9d92f-c3a1-490a-a238-26cc70d69e6e",
+      "name": "Skill",
+      "amount": 0.5,
+      "operation": 1,
+      "player_multiplier": {
+        "type": "skilltree:none"
+      },
+      "player_condition": {
+        "min": 1,
+        "type": "skilltree:effect_amount"
+      }
+    },
+    {
+      "type": "skilltree:attribute",
+      "attribute": "combatroll:recharge",
+      "id": "540e8ed6-59be-4240-a1f9-ad1f1302b99b",
+      "name": "Skill",
+      "amount": 0.3,
+      "operation": 1,
+      "player_multiplier": {
+        "type": "skilltree:none"
+      },
+      "player_condition": {
+        "effect": "minecraft:poison",
+        "amplifier": 0,
+        "type": "skilltree:has_effect"
+      }
+    }
+  ],
+  "directConnections": [
+    "skilltree:new_skill_672"
+  ],
+  "longConnections": [],
+  "oneWayConnections": [],
+  "tags": [
+    "Passive skill"
+  ],
+  "backgroundTexture": "skilltree:textures/icons/background/notable.png",
+  "iconTexture": "skilltree:textures/icons/alchemist_mastery.png",
+  "borderTexture": "skilltree:textures/tooltip/lesser.png",
+  "title": "Brewed Battle Blessing",
+  "positionX": -47.872,
+  "positionY": 118.667,
+  "buttonSize": 16,
+  "isStartingPoint": false
+}

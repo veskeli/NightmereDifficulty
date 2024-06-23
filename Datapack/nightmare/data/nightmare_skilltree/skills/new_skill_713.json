@@ -1,0 +1,35 @@
+{
+  "id": "skilltree:new_skill_713",
+  "bonuses": [
+    {
+      "type": "skilltree:attribute",
+      "attribute": "minecraft:generic.armor",
+      "id": "7e5ad0cc-4806-4863-8f36-6239a2e76f4e",
+      "name": "Skill",
+      "amount": 2.0,
+      "operation": 0,
+      "player_multiplier": {
+        "type": "skilltree:none"
+      },
+      "player_condition": {
+        "type": "skilltree:none"
+      }
+    }
+  ],
+  "directConnections": [
+    "skilltree:new_skill_673"
+  ],
+  "longConnections": [],
+  "oneWayConnections": [],
+  "tags": [
+    "Passive skill"
+  ],
+  "backgroundTexture": "skilltree:textures/icons/background/notable.png",
+  "iconTexture": "skilltree:textures/icons/blacksmith_defensive_1.png",
+  "borderTexture": "skilltree:textures/tooltip/lesser.png",
+  "title": "Armored",
+  "positionX": -132.14636,
+  "positionY": 65.978424,
+  "buttonSize": 16,
+  "isStartingPoint": false
+}

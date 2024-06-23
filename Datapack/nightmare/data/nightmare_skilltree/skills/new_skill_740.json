@@ -1,0 +1,45 @@
+{
+  "id": "skilltree:new_skill_740",
+  "bonuses": [
+    {
+      "type": "skilltree:ignite",
+      "chance": 0.1,
+      "duration": 5,
+      "event_listener": {
+        "damage_condition": {
+          "type": "skilltree:none"
+        },
+        "enemy_condition": {
+          "type": "skilltree:none"
+        },
+        "player_condition": {
+          "type": "skilltree:none"
+        },
+        "enemy_multiplier": {
+          "type": "skilltree:none"
+        },
+        "player_multiplier": {
+          "type": "skilltree:none"
+        },
+        "target": "enemy",
+        "type": "skilltree:attack"
+      }
+    }
+  ],
+  "directConnections": [
+    "skilltree:new_skill_680"
+  ],
+  "longConnections": [],
+  "oneWayConnections": [],
+  "tags": [
+    "Passive skill"
+  ],
+  "backgroundTexture": "skilltree:textures/icons/background/notable.png",
+  "iconTexture": "skilltree:textures/icons/enchanter_subclass_1.png",
+  "borderTexture": "skilltree:textures/tooltip/lesser.png",
+  "title": "Pyromancer",
+  "positionX": 47.904,
+  "positionY": 118.667,
+  "buttonSize": 16,
+  "isStartingPoint": false
+}

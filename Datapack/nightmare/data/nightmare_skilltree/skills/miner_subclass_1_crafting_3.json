@@ -1,0 +1,44 @@
+{
+  "id": "skilltree:miner_subclass_1_crafting_3",
+  "bonuses": [
+    {
+      "type": "skilltree:crafted_item_bonus",
+      "item_condition": {
+        "equipment_type": "boots",
+        "type": "skilltree:equipment_type"
+      },
+      "item_bonus": {
+        "skill_bonus": {
+          "attribute": "minecraft:generic.movement_speed",
+          "id": "5b02bd5f-ce92-4da6-b737-c33f7af2d5c5",
+          "name": "SkillBonus",
+          "amount": 0.01,
+          "operation": 1,
+          "player_multiplier": {
+            "type": "skilltree:none"
+          },
+          "player_condition": {
+            "type": "skilltree:none"
+          },
+          "type": "skilltree:attribute"
+        },
+        "type": "skilltree:skill_bonus"
+      }
+    }
+  ],
+  "directConnections": [
+    "skilltree:miner_subclass_1_crafting_4",
+    "skilltree:miner_subclass_1_crafting_5"
+  ],
+  "longConnections": [],
+  "oneWayConnections": [],
+  "tags": [],
+  "backgroundTexture": "skilltree:textures/icons/background/lesser.png",
+  "iconTexture": "skilltree:textures/icons/miner_subclass_1_crafting_1.png",
+  "borderTexture": "skilltree:textures/tooltip/lesser.png",
+  "titleColor": "",
+  "positionX": -422.3858,
+  "positionY": 57.99346,
+  "buttonSize": 16,
+  "isStartingPoint": false
+}

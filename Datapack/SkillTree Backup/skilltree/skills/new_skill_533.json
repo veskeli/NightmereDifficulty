@@ -1,0 +1,47 @@
+{
+  "id": "skilltree:new_skill_533",
+  "bonuses": [
+    {
+      "type": "skilltree:crafted_item_bonus",
+      "item_condition": {
+        "potion_type": "any",
+        "type": "skilltree:potion"
+      },
+      "item_bonus": {
+        "multiplier": 0.02,
+        "type": "skilltree:potion_duration"
+      }
+    },
+    {
+      "type": "skilltree:attribute",
+      "attribute": "minecraft:generic.movement_speed",
+      "id": "bacddc24-79ed-4e21-94b3-19962d10e518",
+      "name": "Skill",
+      "amount": -0.01,
+      "operation": 1,
+      "player_multiplier": {
+        "type": "skilltree:effect_amount"
+      },
+      "player_condition": {
+        "type": "skilltree:none"
+      }
+    }
+  ],
+  "directConnections": [
+    "skilltree:new_skill_513"
+  ],
+  "longConnections": [],
+  "oneWayConnections": [
+    "skilltree:new_skill_553"
+  ],
+  "tags": [],
+  "backgroundTexture": "skilltree:textures/icons/background/lesser.png",
+  "iconTexture": "skilltree:textures/icons/alchemist_crafting_1.png",
+  "borderTexture": "skilltree:textures/tooltip/lesser.png",
+  "title": "Quick Brew",
+  "titleColor": "",
+  "positionX": -194.68068,
+  "positionY": 230.68668,
+  "buttonSize": 16,
+  "isStartingPoint": false
+}

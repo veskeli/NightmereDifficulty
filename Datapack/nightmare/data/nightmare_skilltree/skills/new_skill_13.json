@@ -1,0 +1,38 @@
+{
+  "id": "skilltree:new_skill_13",
+  "bonuses": [
+    {
+      "type": "skilltree:attribute",
+      "attribute": "minecraft:generic.max_health",
+      "id": "1bc3f2e9-84f3-4c08-8db9-5ec32c858a3d",
+      "name": "Skill",
+      "amount": 2.0,
+      "operation": 0,
+      "player_multiplier": {
+        "type": "skilltree:none"
+      },
+      "player_condition": {
+        "min": 1,
+        "type": "skilltree:effect_amount"
+      }
+    }
+  ],
+  "directConnections": [],
+  "longConnections": [
+    "skilltree:new_skill_16",
+    "skilltree:new_skill_15",
+    "skilltree:new_skill_14"
+  ],
+  "oneWayConnections": [],
+  "tags": [
+    "Start Point"
+  ],
+  "backgroundTexture": "skilltree:textures/icons/background/class.png",
+  "iconTexture": "skilltree:textures/icons/alchemist_class.png",
+  "borderTexture": "skilltree:textures/tooltip/notable.png",
+  "title": "Alchemist",
+  "positionX": -244.499,
+  "positionY": 336.542,
+  "buttonSize": 28,
+  "isStartingPoint": true
+}

@@ -1,0 +1,54 @@
+{
+  "id": "skilltree:new_skill_634",
+  "bonuses": [
+    {
+      "type": "skilltree:crafted_item_bonus",
+      "item_condition": {
+        "potion_type": "beneficial",
+        "type": "skilltree:potion"
+      },
+      "item_bonus": {
+        "chance": 0.07,
+        "type": "skilltree:potion_amplification"
+      }
+    },
+    {
+      "type": "skilltree:crafted_item_bonus",
+      "item_condition": {
+        "potion_type": "beneficial",
+        "type": "skilltree:potion"
+      },
+      "item_bonus": {
+        "multiplier": 0.07,
+        "type": "skilltree:potion_duration"
+      }
+    },
+    {
+      "type": "skilltree:crafted_item_bonus",
+      "item_condition": {
+        "potion_type": "harmful",
+        "type": "skilltree:potion"
+      },
+      "item_bonus": {
+        "multiplier": -0.05,
+        "type": "skilltree:potion_duration"
+      }
+    }
+  ],
+  "directConnections": [
+    "skilltree:new_skill_604"
+  ],
+  "longConnections": [],
+  "oneWayConnections": [],
+  "tags": [
+    "Class alterative passive"
+  ],
+  "backgroundTexture": "skilltree:textures/icons/background/keystone.png",
+  "iconTexture": "skilltree:textures/icons/alchemist_healing_notable_1.png",
+  "borderTexture": "skilltree:textures/tooltip/keystone.png",
+  "title": "Purified potions",
+  "positionX": -144.86206,
+  "positionY": 124.831665,
+  "buttonSize": 20,
+  "isStartingPoint": false
+}

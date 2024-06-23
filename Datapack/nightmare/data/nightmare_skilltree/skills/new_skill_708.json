@@ -1,0 +1,19 @@
+{
+  "id": "skilltree:new_skill_708",
+  "bonuses": [],
+  "directConnections": [
+    "skilltree:new_skill_678"
+  ],
+  "longConnections": [],
+  "oneWayConnections": [],
+  "tags": [
+    "Passive skill"
+  ],
+  "backgroundTexture": "skilltree:textures/icons/background/notable.png",
+  "iconTexture": "skilltree:textures/icons/void.png",
+  "borderTexture": "skilltree:textures/tooltip/lesser.png",
+  "positionX": 108.502,
+  "positionY": -67.876,
+  "buttonSize": 16,
+  "isStartingPoint": false
+}

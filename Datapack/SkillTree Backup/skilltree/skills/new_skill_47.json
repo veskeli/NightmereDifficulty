@@ -1,0 +1,20 @@
+{
+  "id": "skilltree:new_skill_47",
+  "bonuses": [],
+  "directConnections": [
+    "skilltree:new_skill_18"
+  ],
+  "longConnections": [],
+  "oneWayConnections": [],
+  "tags": [
+    "Paladin Subclass",
+    "Fast Skills"
+  ],
+  "backgroundTexture": "skilltree:textures/icons/background/lesser.png",
+  "iconTexture": "skilltree:textures/icons/void.png",
+  "borderTexture": "skilltree:textures/tooltip/lesser.png",
+  "positionX": 269.57986,
+  "positionY": -318.3452,
+  "buttonSize": 16,
+  "isStartingPoint": false
+}

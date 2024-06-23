@@ -1,0 +1,63 @@
+{
+  "id": "skilltree:new_skill_682",
+  "bonuses": [
+    {
+      "type": "skilltree:attribute",
+      "attribute": "minecraft:generic.movement_speed",
+      "id": "e112f256-2ed7-408b-b62b-8c2a3bbb92a4",
+      "name": "Skill",
+      "amount": 0.015,
+      "operation": 1,
+      "player_multiplier": {
+        "type": "skilltree:none"
+      },
+      "player_condition": {
+        "type": "skilltree:none"
+      }
+    },
+    {
+      "type": "skilltree:attribute",
+      "attribute": "combatroll:count",
+      "id": "f276dd7b-e664-4442-a783-a49bf1881861",
+      "name": "Skill",
+      "amount": 1.0,
+      "operation": 0,
+      "player_multiplier": {
+        "type": "skilltree:none"
+      },
+      "player_condition": {
+        "type": "skilltree:none"
+      }
+    },
+    {
+      "type": "skilltree:attribute",
+      "attribute": "combatroll:recharge",
+      "id": "1fed0040-1d79-4fa3-89e1-6caa779ff41b",
+      "name": "Skill",
+      "amount": 0.5,
+      "operation": 1,
+      "player_multiplier": {
+        "type": "skilltree:none"
+      },
+      "player_condition": {
+        "type": "skilltree:none"
+      }
+    }
+  ],
+  "directConnections": [
+    "skilltree:new_skill_672"
+  ],
+  "longConnections": [],
+  "oneWayConnections": [],
+  "tags": [
+    "Passive skill"
+  ],
+  "backgroundTexture": "skilltree:textures/icons/background/notable.png",
+  "iconTexture": "skilltree:textures/icons/miner_subclass_1_crafting_1.png",
+  "borderTexture": "skilltree:textures/tooltip/lesser.png",
+  "title": "Fleetfoot",
+  "positionX": -54.728317,
+  "positionY": 75.36542,
+  "buttonSize": 16,
+  "isStartingPoint": false
+}

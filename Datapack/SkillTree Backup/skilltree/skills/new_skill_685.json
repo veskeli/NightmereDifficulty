@@ -1,0 +1,49 @@
+{
+  "id": "skilltree:new_skill_685",
+  "bonuses": [
+    {
+      "type": "skilltree:attribute",
+      "attribute": "minecraft:generic.movement_speed",
+      "id": "4f2a1081-8be2-4c90-a8a2-0d8e353819d0",
+      "name": "Skill",
+      "amount": 0.015,
+      "operation": 1,
+      "player_multiplier": {
+        "type": "skilltree:none"
+      },
+      "player_condition": {
+        "type": "skilltree:none"
+      }
+    },
+    {
+      "type": "skilltree:attribute",
+      "attribute": "combatroll:count",
+      "id": "6072f5e9-2729-48bf-8b03-bd30218c15ce",
+      "name": "Skill",
+      "amount": 2.0,
+      "operation": 0,
+      "player_multiplier": {
+        "type": "skilltree:none"
+      },
+      "player_condition": {
+        "type": "skilltree:none"
+      }
+    }
+  ],
+  "directConnections": [
+    "skilltree:new_skill_675"
+  ],
+  "longConnections": [],
+  "oneWayConnections": [],
+  "tags": [
+    "Passive skill"
+  ],
+  "backgroundTexture": "skilltree:textures/icons/background/notable.png",
+  "iconTexture": "skilltree:textures/icons/miner_subclass_1_crafting_1.png",
+  "borderTexture": "skilltree:textures/tooltip/lesser.png",
+  "title": "Fleetfoot",
+  "positionX": -54.782738,
+  "positionY": -75.34727,
+  "buttonSize": 16,
+  "isStartingPoint": false
+}

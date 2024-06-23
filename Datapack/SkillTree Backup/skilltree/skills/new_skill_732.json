@@ -1,0 +1,32 @@
+{
+  "id": "skilltree:new_skill_732",
+  "bonuses": [
+    {
+      "type": "skilltree:crafted_item_bonus",
+      "item_condition": {
+        "potion_type": "any",
+        "type": "skilltree:potion"
+      },
+      "item_bonus": {
+        "multiplier": 0.2,
+        "type": "skilltree:potion_duration"
+      }
+    }
+  ],
+  "directConnections": [
+    "skilltree:new_skill_672"
+  ],
+  "longConnections": [],
+  "oneWayConnections": [],
+  "tags": [
+    "Passive skill"
+  ],
+  "backgroundTexture": "skilltree:textures/icons/background/notable.png",
+  "iconTexture": "skilltree:textures/icons/alchemist_class.png",
+  "borderTexture": "skilltree:textures/tooltip/lesser.png",
+  "title": "Elixir Extender",
+  "positionX": -98.031,
+  "positionY": 82.224,
+  "buttonSize": 16,
+  "isStartingPoint": false
+}

@@ -1,0 +1,19 @@
+{
+  "id": "skilltree:new_skill_633",
+  "bonuses": [],
+  "directConnections": [
+    "skilltree:new_skill_603"
+  ],
+  "longConnections": [],
+  "oneWayConnections": [],
+  "tags": [
+    "Class alterative passive"
+  ],
+  "backgroundTexture": "skilltree:textures/icons/background/keystone.png",
+  "iconTexture": "skilltree:textures/icons/void.png",
+  "borderTexture": "skilltree:textures/tooltip/keystone.png",
+  "positionX": 43.84062,
+  "positionY": 186.15938,
+  "buttonSize": 20,
+  "isStartingPoint": false
+}

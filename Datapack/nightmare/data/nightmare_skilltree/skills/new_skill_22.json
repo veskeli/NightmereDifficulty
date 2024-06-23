@@ -1,0 +1,32 @@
+{
+  "id": "skilltree:new_skill_22",
+  "bonuses": [
+    {
+      "type": "skilltree:crafted_item_bonus",
+      "item_condition": {
+        "potion_type": "any",
+        "type": "skilltree:potion"
+      },
+      "item_bonus": {
+        "multiplier": 0.07,
+        "type": "skilltree:potion_duration"
+      }
+    }
+  ],
+  "directConnections": [
+    "skilltree:new_skill_13"
+  ],
+  "longConnections": [],
+  "oneWayConnections": [],
+  "tags": [
+    "Alchemist Subclass"
+  ],
+  "backgroundTexture": "skilltree:textures/icons/background/class.png",
+  "iconTexture": "skilltree:textures/icons/alchemist_crit_1.png",
+  "borderTexture": "skilltree:textures/tooltip/lesser.png",
+  "title": "Mixer",
+  "positionX": -219.42,
+  "positionY": 354.764,
+  "buttonSize": 16,
+  "isStartingPoint": false
+}

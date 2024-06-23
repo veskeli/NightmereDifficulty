@@ -1,0 +1,42 @@
+{
+  "id": "skilltree:new_skill_18",
+  "bonuses": [
+    {
+      "type": "skilltree:attribute",
+      "attribute": "minecraft:generic.armor",
+      "id": "cd52e2f0-9b1a-42c0-ad94-a44dcaa5e6bd",
+      "name": "Skill",
+      "amount": 2.0,
+      "operation": 0,
+      "player_multiplier": {
+        "type": "skilltree:none"
+      },
+      "player_condition": {
+        "type": "skilltree:none"
+      }
+    }
+  ],
+  "directConnections": [],
+  "longConnections": [
+    "skilltree:new_skill_16",
+    "skilltree:new_skill_15",
+    "skilltree:new_skill_14",
+    "skilltree:new_skill_13",
+    "skilltree:new_skill_12",
+    "skilltree:new_skill_21",
+    "skilltree:new_skill_20",
+    "skilltree:new_skill_19"
+  ],
+  "oneWayConnections": [],
+  "tags": [
+    "Start Point"
+  ],
+  "backgroundTexture": "skilltree:textures/icons/background/class.png",
+  "iconTexture": "skilltree:textures/icons/blacksmith_class.png",
+  "borderTexture": "skilltree:textures/tooltip/notable.png",
+  "title": "Paladin",
+  "positionX": 244.499,
+  "positionY": -336.565,
+  "buttonSize": 28,
+  "isStartingPoint": true
+}

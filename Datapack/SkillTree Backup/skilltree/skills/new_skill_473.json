@@ -1,0 +1,38 @@
+{
+  "id": "skilltree:new_skill_473",
+  "bonuses": [
+    {
+      "type": "skilltree:command",
+      "command": "function nightmare_skilltree:fighter:emboldening_presence/give_1",
+      "description": "",
+      "event_listener": {
+        "player_multiplier": {
+          "type": "skilltree:none"
+        },
+        "type": "skilltree:skill_learned"
+      }
+    }
+  ],
+  "directConnections": [
+    "skilltree:new_skill_361"
+  ],
+  "longConnections": [],
+  "oneWayConnections": [],
+  "tags": [],
+  "backgroundTexture": "skilltree:textures/icons/background/lesser.png",
+  "iconTexture": "skilltree:textures/icons/blacksmith_crit_1.png",
+  "borderTexture": "skilltree:textures/tooltip/lesser.png",
+  "title": "Emboldening Presence",
+  "positionX": -74.84062,
+  "positionY": -310.15936,
+  "buttonSize": 16,
+  "isStartingPoint": false,
+  "description": [
+    {
+      "f_131101_": {
+        "f_131257_": 8092645
+      },
+      "text": "Gain +1% damage when within 10 meters of a friendly creature"
+    }
+  ]
+}

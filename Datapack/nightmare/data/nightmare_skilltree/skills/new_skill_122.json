@@ -1,0 +1,36 @@
+{
+  "id": "skilltree:new_skill_122",
+  "bonuses": [
+    {
+      "type": "skilltree:attribute",
+      "attribute": "minecraft:generic.max_health",
+      "id": "22878f52-5157-4736-8245-7e3401ab666b",
+      "name": "Skill",
+      "amount": 2.0,
+      "operation": 0,
+      "player_multiplier": {
+        "type": "skilltree:none"
+      },
+      "player_condition": {
+        "min": 4,
+        "type": "skilltree:effect_amount"
+      }
+    }
+  ],
+  "directConnections": [
+    "skilltree:new_skill_32"
+  ],
+  "longConnections": [],
+  "oneWayConnections": [],
+  "tags": [
+    "Alchemist Subclass"
+  ],
+  "backgroundTexture": "skilltree:textures/icons/background/class.png",
+  "iconTexture": "skilltree:textures/icons/alchemist_healing_notable_1.png",
+  "borderTexture": "skilltree:textures/tooltip/lesser.png",
+  "title": "Drinker",
+  "positionX": -195.658,
+  "positionY": 306.615,
+  "buttonSize": 16,
+  "isStartingPoint": false
+}

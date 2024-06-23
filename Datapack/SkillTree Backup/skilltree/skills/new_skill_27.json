@@ -1,0 +1,36 @@
+{
+  "id": "skilltree:new_skill_27",
+  "bonuses": [
+    {
+      "type": "skilltree:attribute",
+      "attribute": "minecraft:generic.armor",
+      "id": "354a32fe-b7b2-45be-8481-d1f635046e83",
+      "name": "Skill",
+      "amount": 0.5,
+      "operation": 0,
+      "player_multiplier": {
+        "type": "skilltree:none"
+      },
+      "player_condition": {
+        "type": "skilltree:none"
+      }
+    }
+  ],
+  "directConnections": [
+    "skilltree:new_skill_18"
+  ],
+  "longConnections": [],
+  "oneWayConnections": [],
+  "tags": [
+    "Paladin Subclass",
+    "Fast Skills"
+  ],
+  "backgroundTexture": "skilltree:textures/icons/background/lesser.png",
+  "iconTexture": "skilltree:textures/icons/blacksmith_subclass_2_defensive_1.png",
+  "borderTexture": "skilltree:textures/tooltip/lesser.png",
+  "title": "Defence",
+  "positionX": 219.41873,
+  "positionY": -354.78503,
+  "buttonSize": 16,
+  "isStartingPoint": false
+}

@@ -1,0 +1,37 @@
+{
+  "id": "skilltree:new_skill_15",
+  "bonuses": [
+    {
+      "type": "skilltree:attribute",
+      "attribute": "skilltree:stealth",
+      "id": "7ddbd07f-993b-4b35-b300-aa0a9a2bed62",
+      "name": "Skill",
+      "amount": 2.0,
+      "operation": 0,
+      "player_multiplier": {
+        "type": "skilltree:none"
+      },
+      "player_condition": {
+        "item_condition": {
+          "equipment_type": "weapon",
+          "type": "skilltree:equipment_type"
+        },
+        "type": "skilltree:dual_wielding"
+      }
+    }
+  ],
+  "directConnections": [],
+  "longConnections": [],
+  "oneWayConnections": [],
+  "tags": [
+    "Start Point"
+  ],
+  "backgroundTexture": "skilltree:textures/icons/background/class.png",
+  "iconTexture": "skilltree:textures/icons/hunter_subclass_1_crafting_1.png",
+  "borderTexture": "skilltree:textures/tooltip/notable.png",
+  "title": "Rogue",
+  "positionX": -395.649,
+  "positionY": -128.521,
+  "buttonSize": 28,
+  "isStartingPoint": false
+}

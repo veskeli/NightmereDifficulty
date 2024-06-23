@@ -1,0 +1,17 @@
+{
+  "id": "skilltree:new_skill_949",
+  "bonuses": [],
+  "directConnections": [
+    "skilltree:new_skill_864"
+  ],
+  "longConnections": [],
+  "oneWayConnections": [],
+  "tags": [],
+  "backgroundTexture": "skilltree:textures/icons/background/lesser.png",
+  "iconTexture": "skilltree:textures/icons/void.png",
+  "borderTexture": "skilltree:textures/tooltip/lesser.png",
+  "positionX": 239.34427,
+  "positionY": 509.45892,
+  "buttonSize": 16,
+  "isStartingPoint": false
+}

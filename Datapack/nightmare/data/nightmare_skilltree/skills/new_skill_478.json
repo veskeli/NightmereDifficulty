@@ -1,0 +1,45 @@
+{
+  "id": "skilltree:new_skill_478",
+  "bonuses": [
+    {
+      "type": "skilltree:mob_effect",
+      "chance": 0.05,
+      "effect": "minecraft:weakness",
+      "duration": 100,
+      "amplifier": 0,
+      "event_listener": {
+        "damage_condition": {
+          "type": "skilltree:none"
+        },
+        "enemy_condition": {
+          "type": "skilltree:none"
+        },
+        "player_condition": {
+          "type": "skilltree:none"
+        },
+        "enemy_multiplier": {
+          "type": "skilltree:none"
+        },
+        "player_multiplier": {
+          "type": "skilltree:none"
+        },
+        "target": "enemy",
+        "type": "skilltree:attack"
+      }
+    }
+  ],
+  "directConnections": [
+    "skilltree:new_skill_411"
+  ],
+  "longConnections": [],
+  "oneWayConnections": [],
+  "tags": [],
+  "backgroundTexture": "skilltree:textures/icons/background/notable.png",
+  "iconTexture": "skilltree:textures/icons/blacksmith_crit_1.png",
+  "borderTexture": "skilltree:textures/tooltip/lesser.png",
+  "title": "Disarming Attack",
+  "positionX": 43.841,
+  "positionY": -279.159,
+  "buttonSize": 16,
+  "isStartingPoint": false
+}

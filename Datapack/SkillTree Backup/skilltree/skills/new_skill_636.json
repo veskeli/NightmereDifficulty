@@ -1,0 +1,54 @@
+{
+  "id": "skilltree:new_skill_636",
+  "bonuses": [
+    {
+      "type": "skilltree:crafted_item_bonus",
+      "item_condition": {
+        "potion_type": "harmful",
+        "type": "skilltree:potion"
+      },
+      "item_bonus": {
+        "chance": 0.07,
+        "type": "skilltree:potion_amplification"
+      }
+    },
+    {
+      "type": "skilltree:crafted_item_bonus",
+      "item_condition": {
+        "potion_type": "harmful",
+        "type": "skilltree:potion"
+      },
+      "item_bonus": {
+        "multiplier": 0.07,
+        "type": "skilltree:potion_duration"
+      }
+    },
+    {
+      "type": "skilltree:crafted_item_bonus",
+      "item_condition": {
+        "potion_type": "beneficial",
+        "type": "skilltree:potion"
+      },
+      "item_bonus": {
+        "multiplier": -0.05,
+        "type": "skilltree:potion_duration"
+      }
+    }
+  ],
+  "directConnections": [
+    "skilltree:new_skill_606"
+  ],
+  "longConnections": [],
+  "oneWayConnections": [],
+  "tags": [
+    "Class alterative passive"
+  ],
+  "backgroundTexture": "skilltree:textures/icons/background/keystone.png",
+  "iconTexture": "skilltree:textures/icons/alchemist_crit_notable_1.png",
+  "borderTexture": "skilltree:textures/tooltip/keystone.png",
+  "title": "Poisoned water",
+  "positionX": -73.92841,
+  "positionY": 176.37213,
+  "buttonSize": 20,
+  "isStartingPoint": false
+}

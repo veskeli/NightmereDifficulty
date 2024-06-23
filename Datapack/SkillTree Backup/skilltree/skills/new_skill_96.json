@@ -1,0 +1,33 @@
+{
+  "id": "skilltree:new_skill_96",
+  "bonuses": [
+    {
+      "type": "skilltree:attribute",
+      "attribute": "skilltree:blocking",
+      "id": "6c659611-39aa-4bbc-b898-45951cd6aa8e",
+      "name": "Skill",
+      "amount": 0.5,
+      "operation": 0,
+      "player_multiplier": {
+        "type": "skilltree:none"
+      },
+      "player_condition": {
+        "type": "skilltree:none"
+      }
+    }
+  ],
+  "directConnections": [
+    "skilltree:new_skill_46"
+  ],
+  "longConnections": [],
+  "oneWayConnections": [],
+  "tags": [],
+  "backgroundTexture": "skilltree:textures/icons/background/lesser.png",
+  "iconTexture": "skilltree:textures/icons/blacksmith_crafting_1.png",
+  "borderTexture": "skilltree:textures/tooltip/lesser.png",
+  "title": "Shield blocking",
+  "positionX": 52.92031,
+  "positionY": -394.07968,
+  "buttonSize": 16,
+  "isStartingPoint": false
+}

@@ -1,7 +1,7 @@
 # Generated with MC-Build
 
 item replace entity @s container.12 with blaze_powder{display:{Name:'{"text":"Damage Spell","italic":false}',Lore:['{"text":"Damage: 6","italic":false}','{"text":"Cooldown: 5","italic":false}']},objd:{gui:1b}} 1
-item replace entity @s container.13 with diamond_pickaxe{display:{Name:'{"text":"Not implemented","italic":false}',Lore:['{"text":"???","italic":false}','{"text":"Cooldown: 5","italic":false}']},objd:{gui:1b}}
+item replace entity @s container.13 with diamond_pickaxe{display:{Name:'{"text":"Hasete spell","italic":false}',Lore:['{"text":"Haste 2 for 25 seconds (Area)","italic":false}','{"text":"Cooldown: 10","italic":false}']},objd:{gui:1b}}
 item replace entity @s container.14 with soul_sand{display:{Name:'{"text":"Slowness Spell","italic":false}',Lore:['{"text":"Slowness 2 for 25 seconds","italic":false}','{"text":"Cooldown: 5","italic":false}']},objd:{gui:1b}}
 item replace entity @s container.0 with gray_stained_glass_pane{objd:{gui:1b}}
 item replace entity @s container.1 with gray_stained_glass_pane{objd:{gui:1b}}

@@ -1,0 +1,33 @@
+{
+  "id": "skilltree:new_skill_428",
+  "bonuses": [
+    {
+      "type": "skilltree:attribute",
+      "attribute": "skilltree:stealth",
+      "id": "690da484-1001-4c83-b266-2e871d13fc89",
+      "name": "Skill",
+      "amount": 0.25,
+      "operation": 0,
+      "player_multiplier": {
+        "type": "skilltree:none"
+      },
+      "player_condition": {
+        "type": "skilltree:none"
+      }
+    }
+  ],
+  "directConnections": [
+    "skilltree:new_skill_389"
+  ],
+  "longConnections": [],
+  "oneWayConnections": [],
+  "tags": [],
+  "backgroundTexture": "skilltree:textures/icons/background/lesser.png",
+  "iconTexture": "skilltree:textures/icons/hunter_subclass_1.png",
+  "borderTexture": "skilltree:textures/tooltip/lesser.png",
+  "title": "Minor stealth",
+  "positionX": 121.77109,
+  "positionY": 294.90976,
+  "buttonSize": 16,
+  "isStartingPoint": false
+}

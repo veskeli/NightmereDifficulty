@@ -1,0 +1,25 @@
+{
+  "id": "skilltree:new_skill_475",
+  "bonuses": [],
+  "directConnections": [
+    "skilltree:new_skill_414"
+  ],
+  "longConnections": [],
+  "oneWayConnections": [],
+  "tags": [],
+  "backgroundTexture": "skilltree:textures/icons/background/notable.png",
+  "iconTexture": "skilltree:textures/icons/void.png",
+  "borderTexture": "skilltree:textures/tooltip/lesser.png",
+  "positionX": -43.84062,
+  "positionY": -279.15936,
+  "buttonSize": 16,
+  "isStartingPoint": false,
+  "description": [
+    {
+      "f_131101_": {
+        "f_131257_": 8092645
+      },
+      "text": "Give friendly creatures within 10 meters Saturation Effect"
+    }
+  ]
+}

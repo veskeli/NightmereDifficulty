@@ -1,0 +1,19 @@
+{
+  "id": "skilltree:new_skill_35",
+  "bonuses": [],
+  "directConnections": [
+    "skilltree:new_skill_16"
+  ],
+  "longConnections": [],
+  "oneWayConnections": [],
+  "tags": [
+    "Barbarian Subclass"
+  ],
+  "backgroundTexture": "skilltree:textures/icons/background/lesser.png",
+  "iconTexture": "skilltree:textures/icons/void.png",
+  "borderTexture": "skilltree:textures/tooltip/lesser.png",
+  "positionX": -226.31169,
+  "positionY": -311.46112,
+  "buttonSize": 16,
+  "isStartingPoint": false
+}

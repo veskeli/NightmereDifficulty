@@ -1,0 +1,50 @@
+{
+  "id": "skilltree:new_skill_398",
+  "bonuses": [
+    {
+      "type": "skilltree:attribute",
+      "attribute": "minecraft:generic.movement_speed",
+      "id": "9651c090-707f-4938-a2c9-0e089b7cdcad",
+      "name": "Skill",
+      "amount": 0.02,
+      "operation": 1,
+      "player_multiplier": {
+        "type": "skilltree:none"
+      },
+      "player_condition": {
+        "min": 1,
+        "type": "skilltree:effect_amount"
+      }
+    },
+    {
+      "type": "skilltree:attribute",
+      "attribute": "minecraft:generic.attack_damage",
+      "id": "c529cd01-7ef4-4a36-b649-5740cec1fe66",
+      "name": "Skill",
+      "amount": 0.01,
+      "operation": 1,
+      "player_multiplier": {
+        "type": "skilltree:none"
+      },
+      "player_condition": {
+        "min": 1,
+        "type": "skilltree:effect_amount"
+      }
+    }
+  ],
+  "directConnections": [
+    "skilltree:new_skill_132",
+    "skilltree:new_skill_443"
+  ],
+  "longConnections": [],
+  "oneWayConnections": [],
+  "tags": [],
+  "backgroundTexture": "skilltree:textures/icons/background/lesser.png",
+  "iconTexture": "skilltree:textures/icons/alchemist_defensive_crafting_keystone_1.png",
+  "borderTexture": "skilltree:textures/tooltip/lesser.png",
+  "title": "Affliction\u0027s Aegis",
+  "positionX": -146.818,
+  "positionY": 276.687,
+  "buttonSize": 16,
+  "isStartingPoint": false
+}

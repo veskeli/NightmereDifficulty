@@ -1,0 +1,104 @@
+{
+  "id": "skilltree:new_skill_443",
+  "bonuses": [
+    {
+      "type": "skilltree:attribute",
+      "attribute": "skilltree:evasion",
+      "id": "3a3e68c3-4551-4857-b6fa-a26bfea84ef6",
+      "name": "Skill",
+      "amount": 4.0,
+      "operation": 0,
+      "player_multiplier": {
+        "type": "skilltree:none"
+      },
+      "player_condition": {
+        "effect": "minecraft:poison",
+        "amplifier": 0,
+        "type": "skilltree:has_effect"
+      }
+    },
+    {
+      "type": "skilltree:attribute",
+      "attribute": "combatroll:count",
+      "id": "79cb588d-74e9-4a18-a8b6-462fadf03f53",
+      "name": "Skill",
+      "amount": 2.0,
+      "operation": 0,
+      "player_multiplier": {
+        "type": "skilltree:none"
+      },
+      "player_condition": {
+        "effect": "minecraft:poison",
+        "amplifier": 0,
+        "type": "skilltree:has_effect"
+      }
+    },
+    {
+      "type": "skilltree:attribute",
+      "attribute": "skilltree:evasion",
+      "id": "337ee775-e1ab-4fdd-a33b-5d2c114a6dfb",
+      "name": "Skill",
+      "amount": 4.0,
+      "operation": 0,
+      "player_multiplier": {
+        "type": "skilltree:none"
+      },
+      "player_condition": {
+        "effect": "minecraft:wither",
+        "amplifier": 0,
+        "type": "skilltree:has_effect"
+      }
+    },
+    {
+      "type": "skilltree:attribute",
+      "attribute": "combatroll:count",
+      "id": "962c3d2b-b96e-4a68-a641-abae3822513b",
+      "name": "Skill",
+      "amount": 2.0,
+      "operation": 0,
+      "player_multiplier": {
+        "type": "skilltree:none"
+      },
+      "player_condition": {
+        "effect": "minecraft:wither",
+        "amplifier": 0,
+        "type": "skilltree:has_effect"
+      }
+    },
+    {
+      "type": "skilltree:mob_effect",
+      "chance": 0.5,
+      "effect": "minecraft:poison",
+      "duration": 100,
+      "amplifier": 0,
+      "event_listener": {
+        "enemy_condition": {
+          "type": "skilltree:none"
+        },
+        "player_condition": {
+          "type": "skilltree:none"
+        },
+        "enemy_multiplier": {
+          "type": "skilltree:none"
+        },
+        "player_multiplier": {
+          "type": "skilltree:none"
+        },
+        "target": "enemy",
+        "type": "skilltree:evasion"
+      }
+    }
+  ],
+  "directConnections": [],
+  "longConnections": [],
+  "oneWayConnections": [],
+  "tags": [],
+  "backgroundTexture": "skilltree:textures/icons/background/notable.png",
+  "iconTexture": "skilltree:textures/icons/alchemist_mastery.png",
+  "borderTexture": "skilltree:textures/tooltip/lesser.png",
+  "title": "Venomous Dodge",
+  "positionX": -128.595,
+  "positionY": 251.609,
+  "buttonSize": 16,
+  "isStartingPoint": false
+}

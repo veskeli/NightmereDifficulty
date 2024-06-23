@@ -1,0 +1,35 @@
+{
+  "id": "skilltree:new_skill_710",
+  "bonuses": [
+    {
+      "type": "skilltree:attribute",
+      "attribute": "skilltree:evasion",
+      "id": "97edba1b-bb76-4b4b-aeab-66d1c8bd78f8",
+      "name": "Skill",
+      "amount": 4.0,
+      "operation": 0,
+      "player_multiplier": {
+        "type": "skilltree:none"
+      },
+      "player_condition": {
+        "type": "skilltree:none"
+      }
+    }
+  ],
+  "directConnections": [
+    "skilltree:new_skill_680"
+  ],
+  "longConnections": [],
+  "oneWayConnections": [],
+  "tags": [
+    "Passive skill"
+  ],
+  "backgroundTexture": "skilltree:textures/icons/background/notable.png",
+  "iconTexture": "skilltree:textures/icons/cook_defensive_1.png",
+  "borderTexture": "skilltree:textures/tooltip/lesser.png",
+  "title": "Evader",
+  "positionX": 98.062,
+  "positionY": 82.222,
+  "buttonSize": 16,
+  "isStartingPoint": false
+}

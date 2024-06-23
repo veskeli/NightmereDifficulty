@@ -1,0 +1,47 @@
+{
+  "id": "skilltree:enchanter_subclass_2_life_1",
+  "bonuses": [
+    {
+      "type": "skilltree:attribute",
+      "attribute": "minecraft:generic.max_health",
+      "id": "f3a8ec43-5068-4531-9113-9e1bc64f39ec",
+      "name": "SkillBonus",
+      "amount": 0.25,
+      "operation": 0,
+      "player_multiplier": {
+        "type": "skilltree:none"
+      },
+      "player_condition": {
+        "type": "skilltree:none"
+      }
+    },
+    {
+      "type": "skilltree:attribute",
+      "attribute": "skilltree:exp_per_minute",
+      "id": "580b25dc-f4c3-40c8-aa7c-d1319d5b0c8a",
+      "name": "SkillBonus",
+      "amount": 0.1,
+      "operation": 0,
+      "player_multiplier": {
+        "type": "skilltree:none"
+      },
+      "player_condition": {
+        "type": "skilltree:none"
+      }
+    }
+  ],
+  "directConnections": [
+    "skilltree:enchanter_subclass_2_life_2"
+  ],
+  "longConnections": [],
+  "oneWayConnections": [],
+  "tags": [],
+  "backgroundTexture": "skilltree:textures/icons/background/lesser.png",
+  "iconTexture": "skilltree:textures/icons/enchanter_subclass_2_life_1.png",
+  "borderTexture": "skilltree:textures/tooltip/lesser.png",
+  "titleColor": "",
+  "positionX": 232.40228,
+  "positionY": -283.073,
+  "buttonSize": 16,
+  "isStartingPoint": false
+}

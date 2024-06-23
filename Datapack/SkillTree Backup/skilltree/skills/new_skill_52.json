@@ -1,0 +1,30 @@
+{
+  "id": "skilltree:new_skill_52",
+  "bonuses": [
+    {
+      "type": "skilltree:crafted_item_bonus",
+      "item_condition": {
+        "potion_type": "any",
+        "type": "skilltree:potion"
+      },
+      "item_bonus": {
+        "multiplier": 0.05,
+        "type": "skilltree:potion_duration"
+      }
+    }
+  ],
+  "directConnections": [
+    "skilltree:new_skill_22"
+  ],
+  "longConnections": [],
+  "oneWayConnections": [],
+  "tags": [],
+  "backgroundTexture": "skilltree:textures/icons/background/lesser.png",
+  "iconTexture": "skilltree:textures/icons/alchemist_crit_1.png",
+  "borderTexture": "skilltree:textures/tooltip/lesser.png",
+  "title": "Brewmaster\u0027s Longevity",
+  "positionX": -188.80194,
+  "positionY": 349.91568,
+  "buttonSize": 16,
+  "isStartingPoint": false
+}

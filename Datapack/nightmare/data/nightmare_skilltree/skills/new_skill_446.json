@@ -1,0 +1,35 @@
+{
+  "id": "skilltree:new_skill_446",
+  "bonuses": [
+    {
+      "type": "skilltree:attribute",
+      "attribute": "minecraft:generic.attack_damage",
+      "id": "af1b0ba0-70b5-46c2-b424-a07825145f70",
+      "name": "Skill",
+      "amount": 0.05,
+      "operation": 1,
+      "player_multiplier": {
+        "type": "skilltree:none"
+      },
+      "player_condition": {
+        "item_condition": {
+          "potion_type": "any",
+          "type": "skilltree:potion"
+        },
+        "type": "skilltree:has_item_in_hand"
+      }
+    }
+  ],
+  "directConnections": [],
+  "longConnections": [],
+  "oneWayConnections": [],
+  "tags": [],
+  "backgroundTexture": "skilltree:textures/icons/background/notable.png",
+  "iconTexture": "skilltree:textures/icons/alchemist_crit_notable_1.png",
+  "borderTexture": "skilltree:textures/tooltip/lesser.png",
+  "title": "Potion Infused Might",
+  "positionX": -199.529,
+  "positionY": 200.068,
+  "buttonSize": 16,
+  "isStartingPoint": false
+}

@@ -1,0 +1,36 @@
+{
+  "id": "skilltree:new_skill_534",
+  "bonuses": [
+    {
+      "type": "skilltree:attribute",
+      "attribute": "minecraft:generic.max_health",
+      "id": "d6c3022a-361f-464f-9284-794acdec3c89",
+      "name": "Skill",
+      "amount": 1.0,
+      "operation": 0,
+      "player_multiplier": {
+        "type": "skilltree:none"
+      },
+      "player_condition": {
+        "min": 1,
+        "type": "skilltree:effect_amount"
+      }
+    }
+  ],
+  "directConnections": [
+    "skilltree:new_skill_514"
+  ],
+  "longConnections": [],
+  "oneWayConnections": [
+    "skilltree:new_skill_554"
+  ],
+  "tags": [],
+  "backgroundTexture": "skilltree:textures/icons/background/lesser.png",
+  "iconTexture": "skilltree:textures/icons/alchemist_healing_notable_1.png",
+  "borderTexture": "skilltree:textures/tooltip/lesser.png",
+  "title": "Remedy\u0027s Touch",
+  "positionX": -159.21385,
+  "positionY": 256.22702,
+  "buttonSize": 16,
+  "isStartingPoint": false
+}

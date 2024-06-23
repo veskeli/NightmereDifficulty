@@ -1,0 +1,32 @@
+{
+  "id": "skilltree:alchemist_life_notable_1",
+  "bonuses": [
+    {
+      "type": "skilltree:attribute",
+      "attribute": "minecraft:generic.max_health",
+      "id": "22267e69-7102-4d76-bd82-6030f1604c4a",
+      "name": "SkillBonus",
+      "amount": 2.0,
+      "operation": 0,
+      "player_multiplier": {
+        "type": "skilltree:none"
+      },
+      "player_condition": {
+        "min": 1,
+        "type": "skilltree:effect_amount"
+      }
+    }
+  ],
+  "directConnections": [],
+  "longConnections": [],
+  "oneWayConnections": [],
+  "tags": [],
+  "backgroundTexture": "skilltree:textures/icons/background/notable.png",
+  "iconTexture": "skilltree:textures/icons/alchemist_life_notable_1.png",
+  "borderTexture": "skilltree:textures/tooltip/notable.png",
+  "titleColor": "",
+  "positionX": 0.0029907227,
+  "positionY": 245.52727,
+  "buttonSize": 20,
+  "isStartingPoint": false
+}

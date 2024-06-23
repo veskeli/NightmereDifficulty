@@ -1,0 +1,30 @@
+{
+  "id": "skilltree:new_skill_229",
+  "bonuses": [
+    {
+      "type": "skilltree:command",
+      "command": "execute as \u003cp\u003e run function nightmare_skilltree:wizard/add_ranged_range_20",
+      "description": "Adds 20 range to ranged spells",
+      "event_listener": {
+        "player_multiplier": {
+          "type": "skilltree:none"
+        },
+        "type": "skilltree:skill_learned"
+      }
+    }
+  ],
+  "directConnections": [
+    "skilltree:new_skill_69"
+  ],
+  "longConnections": [],
+  "oneWayConnections": [],
+  "tags": [],
+  "backgroundTexture": "skilltree:textures/icons/background/lesser.png",
+  "iconTexture": "minecolonies:textures/icons/research/childgrowth1.png",
+  "borderTexture": "skilltree:textures/tooltip/lesser.png",
+  "title": "Ranged Caster",
+  "positionX": 442.424,
+  "positionY": 55.477924,
+  "buttonSize": 16,
+  "isStartingPoint": false
+}

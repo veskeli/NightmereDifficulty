@@ -1,0 +1,40 @@
+{
+  "id": "skilltree:new_skill_648",
+  "bonuses": [
+    {
+      "type": "skilltree:command",
+      "command": "execute as \u003cp\u003e run function nightmare_skilltree:fighter/add_perk_guardians_respite",
+      "description": "If 3 or more enemies are within 15 meters, all friendlies within 10 meters gain Regeneration.",
+      "event_listener": {
+        "player_multiplier": {
+          "type": "skilltree:none"
+        },
+        "type": "skilltree:skill_learned"
+      }
+    }
+  ],
+  "directConnections": [
+    "skilltree:new_skill_618"
+  ],
+  "longConnections": [],
+  "oneWayConnections": [],
+  "tags": [
+    "Class alterative passive"
+  ],
+  "backgroundTexture": "skilltree:textures/icons/background/keystone.png",
+  "iconTexture": "skilltree:textures/icons/blacksmith_mastery.png",
+  "borderTexture": "skilltree:textures/tooltip/keystone.png",
+  "title": "Guardian\u0027s Respite",
+  "positionX": -43.841,
+  "positionY": -186.159,
+  "buttonSize": 20,
+  "isStartingPoint": false,
+  "description": [
+    {
+      "f_131101_": {
+        "f_131257_": 8092645
+      },
+      "text": "If 3 or more enemies (undead) are within 15 meters, all friendlies within 10 meters gain Regeneration."
+    }
+  ]
+}

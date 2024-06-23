@@ -1,0 +1,46 @@
+{
+  "id": "skilltree:new_skill_444",
+  "bonuses": [
+    {
+      "type": "skilltree:crafted_item_bonus",
+      "item_condition": {
+        "potion_type": "harmful",
+        "type": "skilltree:potion"
+      },
+      "item_bonus": {
+        "multiplier": 0.1,
+        "type": "skilltree:potion_duration"
+      }
+    },
+    {
+      "type": "skilltree:attribute",
+      "attribute": "minecraft:generic.armor",
+      "id": "11a77841-fec8-4756-9e7a-112d9075910b",
+      "name": "Skill",
+      "amount": 4.0,
+      "operation": 0,
+      "player_multiplier": {
+        "type": "skilltree:none"
+      },
+      "player_condition": {
+        "item_condition": {
+          "potion_type": "any",
+          "type": "skilltree:potion"
+        },
+        "type": "skilltree:has_item_in_hand"
+      }
+    }
+  ],
+  "directConnections": [],
+  "longConnections": [],
+  "oneWayConnections": [],
+  "tags": [],
+  "backgroundTexture": "skilltree:textures/icons/background/keystone.png",
+  "iconTexture": "skilltree:textures/icons/alchemist_defensive_1.png",
+  "borderTexture": "skilltree:textures/tooltip/lesser.png",
+  "title": "Fortified Draught",
+  "positionX": -224.61,
+  "positionY": 181.848,
+  "buttonSize": 20,
+  "isStartingPoint": false
+}

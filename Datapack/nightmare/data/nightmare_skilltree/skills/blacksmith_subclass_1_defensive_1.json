@@ -1,0 +1,47 @@
+{
+  "id": "skilltree:blacksmith_subclass_1_defensive_1",
+  "bonuses": [
+    {
+      "type": "skilltree:attribute",
+      "attribute": "minecraft:generic.armor",
+      "id": "8495175a-c676-41a3-8e9d-de91b9fa51ef",
+      "name": "SkillBonus",
+      "amount": 0.25,
+      "operation": 0,
+      "player_multiplier": {
+        "type": "skilltree:none"
+      },
+      "player_condition": {
+        "type": "skilltree:none"
+      }
+    },
+    {
+      "type": "skilltree:attribute",
+      "attribute": "skilltree:blocking",
+      "id": "51d78414-c4f6-4e87-baff-77b6c8509d78",
+      "name": "SkillBonus",
+      "amount": 0.25,
+      "operation": 0,
+      "player_multiplier": {
+        "type": "skilltree:none"
+      },
+      "player_condition": {
+        "type": "skilltree:none"
+      }
+    }
+  ],
+  "directConnections": [
+    "skilltree:blacksmith_subclass_1_defensive_2"
+  ],
+  "longConnections": [],
+  "oneWayConnections": [],
+  "tags": [],
+  "backgroundTexture": "skilltree:textures/icons/background/lesser.png",
+  "iconTexture": "skilltree:textures/icons/blacksmith_subclass_1_defensive_1.png",
+  "borderTexture": "skilltree:textures/tooltip/lesser.png",
+  "titleColor": "",
+  "positionX": -133.66553,
+  "positionY": -199.53923,
+  "buttonSize": 16,
+  "isStartingPoint": false
+}

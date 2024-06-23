@@ -1,0 +1,37 @@
+{
+  "id": "skilltree:new_skill_20",
+  "bonuses": [
+    {
+      "type": "skilltree:command",
+      "command": "execute as \u003cp\u003e run function nightmare_skilltree:wizard/add_wizard_skilltree",
+      "description": "Unlocks spellcasting",
+      "event_listener": {
+        "player_multiplier": {
+          "type": "skilltree:none"
+        },
+        "type": "skilltree:skill_learned"
+      }
+    }
+  ],
+  "directConnections": [],
+  "longConnections": [
+    "skilltree:new_skill_16",
+    "skilltree:new_skill_15",
+    "skilltree:new_skill_14",
+    "skilltree:new_skill_13",
+    "skilltree:new_skill_12",
+    "skilltree:new_skill_21"
+  ],
+  "oneWayConnections": [],
+  "tags": [
+    "Start Point"
+  ],
+  "backgroundTexture": "skilltree:textures/icons/background/class.png",
+  "iconTexture": "skilltree:textures/icons/enchanter_class.png",
+  "borderTexture": "skilltree:textures/tooltip/notable.png",
+  "title": "Wizard",
+  "positionX": 395.649,
+  "positionY": 128.521,
+  "buttonSize": 28,
+  "isStartingPoint": false
+}

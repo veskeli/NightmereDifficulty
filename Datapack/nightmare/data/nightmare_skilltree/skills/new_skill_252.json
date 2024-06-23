@@ -1,0 +1,27 @@
+{
+  "id": "skilltree:new_skill_252",
+  "bonuses": [
+    {
+      "type": "skilltree:block_break_speed",
+      "player_condition": {
+        "min": 1,
+        "type": "skilltree:effect_amount"
+      },
+      "multiplier": 0.1
+    }
+  ],
+  "directConnections": [
+    "skilltree:new_skill_212"
+  ],
+  "longConnections": [],
+  "oneWayConnections": [],
+  "tags": [],
+  "backgroundTexture": "skilltree:textures/icons/background/notable.png",
+  "iconTexture": "skilltree:textures/icons/alchemist_mastery.png",
+  "borderTexture": "skilltree:textures/tooltip/notable.png",
+  "title": "Effect-Driven Swiftness",
+  "positionX": -138.64429,
+  "positionY": 386.3603,
+  "buttonSize": 16,
+  "isStartingPoint": false
+}

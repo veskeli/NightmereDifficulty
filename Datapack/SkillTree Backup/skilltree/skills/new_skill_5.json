@@ -1,0 +1,27 @@
+{
+  "id": "skilltree:new_skill_5",
+  "bonuses": [],
+  "directConnections": [
+    "skilltree:new_skill_16"
+  ],
+  "longConnections": [],
+  "oneWayConnections": [],
+  "tags": [
+    "Barbarian Subclass"
+  ],
+  "backgroundTexture": "skilltree:textures/icons/background/lesser.png",
+  "iconTexture": "skilltree:textures/icons/void.png",
+  "borderTexture": "skilltree:textures/tooltip/lesser.png",
+  "positionX": -262.7539,
+  "positionY": -361.6205,
+  "buttonSize": 16,
+  "isStartingPoint": false,
+  "description": [
+    {
+      "f_131101_": {
+        "f_131257_": 8092645
+      },
+      "text": "Gain ability to enter Rage"
+    }
+  ]
+}

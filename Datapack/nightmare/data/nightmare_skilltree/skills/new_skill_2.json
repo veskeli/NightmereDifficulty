@@ -1,0 +1,20 @@
+{
+  "id": "skilltree:new_skill_2",
+  "bonuses": [],
+  "directConnections": [
+    "skilltree:new_skill_13"
+  ],
+  "longConnections": [],
+  "oneWayConnections": [],
+  "tags": [
+    "Alchemist Subclass",
+    "Main Class"
+  ],
+  "backgroundTexture": "skilltree:textures/icons/background/class.png",
+  "iconTexture": "skilltree:textures/icons/void.png",
+  "borderTexture": "skilltree:textures/tooltip/lesser.png",
+  "positionX": -262.7192,
+  "positionY": 361.6205,
+  "buttonSize": 16,
+  "isStartingPoint": false
+}

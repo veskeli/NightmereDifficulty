@@ -1,0 +1,20 @@
+{
+  "id": "skilltree:new_skill_45",
+  "bonuses": [],
+  "directConnections": [
+    "skilltree:new_skill_16"
+  ],
+  "longConnections": [],
+  "oneWayConnections": [],
+  "tags": [
+    "Barbarian Subclass",
+    "Fast Skills"
+  ],
+  "backgroundTexture": "skilltree:textures/icons/background/lesser.png",
+  "iconTexture": "skilltree:textures/icons/void.png",
+  "borderTexture": "skilltree:textures/tooltip/lesser.png",
+  "positionX": -219.45276,
+  "positionY": -354.76398,
+  "buttonSize": 16,
+  "isStartingPoint": false
+}

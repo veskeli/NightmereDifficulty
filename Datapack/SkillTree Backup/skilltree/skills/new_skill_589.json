@@ -1,0 +1,35 @@
+{
+  "id": "skilltree:new_skill_589",
+  "bonuses": [
+    {
+      "type": "skilltree:attribute",
+      "attribute": "minecraft:generic.attack_speed",
+      "id": "bd603d77-2eb6-4a5b-9361-c6f8c11de5ab",
+      "name": "Skill",
+      "amount": 0.02,
+      "operation": 1,
+      "player_multiplier": {
+        "type": "skilltree:none"
+      },
+      "player_condition": {
+        "item_condition": {
+          "equipment_type": "ranged_weapon",
+          "type": "skilltree:equipment_type"
+        },
+        "type": "skilltree:has_item_in_hand"
+      }
+    }
+  ],
+  "directConnections": [],
+  "longConnections": [],
+  "oneWayConnections": [],
+  "tags": [],
+  "backgroundTexture": "skilltree:textures/icons/background/lesser.png",
+  "iconTexture": "skilltree:textures/icons/hunter_subclass_2.png",
+  "borderTexture": "skilltree:textures/tooltip/lesser.png",
+  "title": "Quickdraw",
+  "positionX": 145.872,
+  "positionY": 200.76,
+  "buttonSize": 16,
+  "isStartingPoint": false
+}

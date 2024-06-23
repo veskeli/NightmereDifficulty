@@ -1,0 +1,36 @@
+{
+  "id": "skilltree:new_skill_702",
+  "bonuses": [
+    {
+      "type": "skilltree:attribute",
+      "attribute": "combatroll:count",
+      "id": "96e6bee8-7cf8-4850-b408-f539ec301837",
+      "name": "Skill",
+      "amount": 5.0,
+      "operation": 0,
+      "player_multiplier": {
+        "type": "skilltree:none"
+      },
+      "player_condition": {
+        "min": 1,
+        "type": "skilltree:effect_amount"
+      }
+    }
+  ],
+  "directConnections": [
+    "skilltree:new_skill_672"
+  ],
+  "longConnections": [],
+  "oneWayConnections": [],
+  "tags": [
+    "Passive skill"
+  ],
+  "backgroundTexture": "skilltree:textures/icons/background/notable.png",
+  "iconTexture": "skilltree:textures/icons/alchemist_mastery.png",
+  "borderTexture": "skilltree:textures/tooltip/lesser.png",
+  "title": "Brewed Battle Blessing",
+  "positionX": -47.872,
+  "positionY": 118.667,
+  "buttonSize": 16,
+  "isStartingPoint": false
+}

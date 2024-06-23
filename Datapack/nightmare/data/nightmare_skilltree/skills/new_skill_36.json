@@ -1,0 +1,41 @@
+{
+  "id": "skilltree:new_skill_36",
+  "bonuses": [
+    {
+      "type": "skilltree:damage",
+      "amount": 0.02,
+      "operation": 1,
+      "player_multiplier": {
+        "type": "skilltree:none"
+      },
+      "enemy_multiplier": {
+        "type": "skilltree:none"
+      },
+      "player_condition": {
+        "type": "skilltree:none"
+      },
+      "damage_condition": {
+        "type": "skilltree:melee"
+      },
+      "target_condition": {
+        "type": "skilltree:none"
+      }
+    }
+  ],
+  "directConnections": [
+    "skilltree:new_skill_17"
+  ],
+  "longConnections": [],
+  "oneWayConnections": [],
+  "tags": [
+    "Fighter Subclass"
+  ],
+  "backgroundTexture": "skilltree:textures/icons/background/class.png",
+  "iconTexture": "skilltree:textures/icons/blacksmith_crafting_notable_1.png",
+  "borderTexture": "skilltree:textures/tooltip/lesser.png",
+  "title": "Battle Master",
+  "positionX": 0.0,
+  "positionY": -385.0,
+  "buttonSize": 20,
+  "isStartingPoint": false
+}

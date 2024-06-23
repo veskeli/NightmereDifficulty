@@ -1,6 +1,8 @@
 import ./templates/wands/wand_check.mcbt
 import ./templates/wands/wand_entity.mcbt
 import ./templates/wands/wand_area.mcbt
+import ./templates/item_modify/select_spell.mcbt
+# MARK: Load
 function load minecraft:load{
     # NDS = Nightmare difficulty Skilltree
 
@@ -15,6 +17,7 @@ function load minecraft:load{
     # Spell cooldown
     scoreboard objectives add NDS_SpellCooldown dummy
 }
+# MARK: Tick
 function tick minecraft:tick{
     # show mana bar if wnat is in the player's main hand
     execute as @a[nbt={SelectedItem:{id:"minecraft:warped_fungus_on_a_stick",tag:{NDS_Wand:1b}}}] run function nightmare_skilltree:magic/show_mana_bar
@@ -42,6 +45,7 @@ function tick minecraft:tick{
     }
 }
 
+# MARK: Magic
 dir magic{
     function setup minecraft:load{
         # Magic skilltree
@@ -81,15 +85,6 @@ dir magic{
             wand_check haste1 nightmare_skilltree:magic/items/wands/slowness1/start_raycast
         }
         dir wands{
-            dir test{
-                function start{
-                    wand_entity flame 5 nightmare_skilltree:magic/items/wands/test/handle_damage
-                }
-                function handle_damage{
-                    # TODO: correct the damage dealer
-                    damage @s 10 minecraft:magic by @a[limit=1,tag=raycasting,sort=nearest,nbt={SelectedItem:{id:"minecraft:warped_fungus_on_a_stick",tag:{NDS_TestWand:1b}}}]
-                }
-            }
             dir select_spell{
                 function summon_test_wand{
                     give @s minecraft:warped_fungus_on_a_stick{display:{Name:"{\"text\":\"Test Wand\",\"color\":\"gold\",\"italic\":\"false\"}"},NDS_TestWand:1b,NDS_Wand:1b}
@@ -107,7 +102,12 @@ dir magic{
                     wand_entity flame 5 nightmare_skilltree:magic/items/wands/default_damage/entity_hit
                 }
                 function entity_hit{
-                    damage @s 10 minecraft:magic by @a[limit=1,tag=raycasting,sort=nearest,nbt={SelectedItem:{id:"minecraft:warped_fungus_on_a_stick",tag:{NDS_TestWand:1b}}}]
+                    # damage if owner is holding the wand in the main hand
+                    execute if entity @a[limit=1,tag=raycasting,sort=nearest,nbt={SelectedItem:{id:"minecraft:warped_fungus_on_a_stick",tag:{NDS_TestWand:1b}}}] run damage @s 10 minecraft:magic by @a[limit=1,tag=raycasting,sort=nearest,nbt={SelectedItem:{id:"minecraft:warped_fungus_on_a_stick",tag:{NDS_TestWand:1b}}}]
+                    # retrun if success
+                    execute if entity @a[limit=1,tag=raycasting,sort=nearest,nbt={SelectedItem:{id:"minecraft:warped_fungus_on_a_stick",tag:{NDS_TestWand:1b}}}] run return 1
+                    # damage if owner is holding the wand in the off hand
+                    execute if entity @a[limit=1,tag=raycasting,sort=nearest,nbt={Inventory:[{id:"minecraft:warped_fungus_on_a_stick",Slot:-106b,tag:{NDS_TestWand:1b}}]}] run damage @s 10 minecraft:magic by @a[limit=1,tag=raycasting,sort=nearest,nbt={Inventory:[{id:"minecraft:warped_fungus_on_a_stick",Slot:-106b,tag:{NDS_TestWand:1b}}]}]
                 }
             }
             dir slowness1{
@@ -120,29 +120,29 @@ dir magic{
             }
             dir haste1{
                 function start{
-                    wand_area 10 25 nightmare_skilltree:magic/items/wands/haste1/entity_hit
+                    wand_area 10 15 nightmare_skilltree:magic/items/wands/haste1/entity_hit
                 }
                 function entity_hit{
                     effect give @s minecraft:haste 25 1 true
                 }
             }
             dir select_spell{
-                # TODO: select correct player not closest one
                 function select_default_damage{
                     # add default damage
-                    item modify entity @p weapon.mainhand nightmare_skilltree:add_default_damage
+                    select_spell default_damage
                 }
                 function select_haste{
-                    item modify entity @p weapon.mainhand nightmare_skilltree:add_haste1
+                    select_spell haste1
                 }
                 function select_slowness{
                     # add slowness
-                    item modify entity @p weapon.mainhand nightmare_skilltree:add_slowness1
+                    select_spell slowness1
                 }
             }
         }
     }
 }
+# MARK: Wizard
 dir wizard{
     function setup minecraft:load{
         # Wizard skilltree
@@ -181,23 +181,40 @@ dir wizard{
         scoreboard players set @s NDS_RangedSpellRange 150
     }
 }
-
-item_modifier add_default_damage{
+# MARK: Item modifiers
+# Main hand item modifiers
+item_modifier add_main_default_damage{
   "function": "minecraft:set_nbt",
   "tag": "{CustomTags:[\"default_damage\"]}",
   "slot": "mainhand"
 }
-item_modifier add_slowness1{
+item_modifier add_main_slowness1{
   "function": "minecraft:set_nbt",
   "tag": "{CustomTags:[\"slowness1\"]}",
   "slot": "mainhand"
 }
-item_modifier add_slowness1{
+item_modifier add_main_haste1{
   "function": "minecraft:set_nbt",
   "tag": "{CustomTags:[\"haste1\"]}",
   "slot": "mainhand"
 }
-
+# Off hand item modifiers
+item_modifier add_off_default_damage{
+  "function": "minecraft:set_nbt",
+  "tag": "{CustomTags:[\"default_damage\"]}",
+  "slot": "offhand"
+}
+item_modifier add_off_slowness1{
+  "function": "minecraft:set_nbt",
+  "tag": "{CustomTags:[\"slowness1\"]}",
+  "slot": "offhand"
+}
+item_modifier add_off_haste1{
+  "function": "minecraft:set_nbt",
+  "tag": "{CustomTags:[\"haste1\"]}",
+  "slot": "offhand"
+}
+# MARK: Tags
 tag items all{
     blaze_powder
     diamond_pickaxe
@@ -205,7 +222,7 @@ tag items all{
     gray_stained_glass_pane
 }
 
-
+# MARK: Select spell
 dir spell_select1{
     function setup minecraft:load{
         scoreboard objectives add objd_gui_count dummy
@@ -220,7 +237,7 @@ dir spell_select1{
     }
     function reset_gui1{
         item replace entity @s container.12 with blaze_powder{display:{Name:'{"text":"Damage Spell","italic":false}',Lore:['{"text":"Damage: 6","italic":false}','{"text":"Cooldown: 5","italic":false}']},objd:{gui:1b}} 1
-        item replace entity @s container.13 with diamond_pickaxe{display:{Name:'{"text":"Not implemented","italic":false}',Lore:['{"text":"???","italic":false}','{"text":"Cooldown: 5","italic":false}']},objd:{gui:1b}}
+        item replace entity @s container.13 with diamond_pickaxe{display:{Name:'{"text":"Hasete spell","italic":false}',Lore:['{"text":"Haste 2 for 25 seconds (Area)","italic":false}','{"text":"Cooldown: 10","italic":false}']},objd:{gui:1b}}
         item replace entity @s container.14 with soul_sand{display:{Name:'{"text":"Slowness Spell","italic":false}',Lore:['{"text":"Slowness 2 for 25 seconds","italic":false}','{"text":"Cooldown: 5","italic":false}']},objd:{gui:1b}}
         item replace entity @s container.0 with gray_stained_glass_pane{objd:{gui:1b}}
         item replace entity @s container.1 with gray_stained_glass_pane{objd:{gui:1b}}
@@ -343,6 +360,7 @@ dir spell_select1{
 
 }
 
+# MARK: Fighter
 dir fighter{
     function fighter_load minecraft:load{
         # Fighter skilltree
@@ -472,6 +490,7 @@ dir fighter{
         }
     }
 }
+# MARK: Reset Skilltree
 dir resetskill{
     function setup_reset minecraft:load{
         # setup trigger resetskills

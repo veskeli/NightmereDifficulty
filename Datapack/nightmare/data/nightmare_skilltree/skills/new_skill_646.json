@@ -1,0 +1,45 @@
+{
+  "id": "skilltree:new_skill_646",
+  "bonuses": [
+    {
+      "type": "skilltree:inflict_damage",
+      "chance": 0.05,
+      "damage": 4.0,
+      "event_listener": {
+        "damage_condition": {
+          "type": "skilltree:none"
+        },
+        "enemy_condition": {
+          "type": "skilltree:none"
+        },
+        "player_condition": {
+          "type": "skilltree:none"
+        },
+        "enemy_multiplier": {
+          "type": "skilltree:none"
+        },
+        "player_multiplier": {
+          "type": "skilltree:none"
+        },
+        "target": "enemy",
+        "type": "skilltree:block"
+      }
+    }
+  ],
+  "directConnections": [
+    "skilltree:new_skill_616"
+  ],
+  "longConnections": [],
+  "oneWayConnections": [],
+  "tags": [
+    "Class alterative passive"
+  ],
+  "backgroundTexture": "skilltree:textures/icons/background/keystone.png",
+  "iconTexture": "skilltree:textures/icons/blacksmith_defensive_notable_1.png",
+  "borderTexture": "skilltree:textures/tooltip/keystone.png",
+  "title": "Minor thorns",
+  "positionX": 43.841,
+  "positionY": -186.159,
+  "buttonSize": 20,
+  "isStartingPoint": false
+}

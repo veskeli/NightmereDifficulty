@@ -1,0 +1,20 @@
+{
+  "id": "skilltree:new_skill_50",
+  "bonuses": [],
+  "directConnections": [
+    "skilltree:new_skill_21"
+  ],
+  "longConnections": [],
+  "oneWayConnections": [],
+  "tags": [
+    "Ranger Subclass",
+    "Fast Skills"
+  ],
+  "backgroundTexture": "skilltree:textures/icons/background/class.png",
+  "iconTexture": "skilltree:textures/icons/void.png",
+  "borderTexture": "skilltree:textures/tooltip/lesser.png",
+  "positionX": 219.45276,
+  "positionY": 354.76398,
+  "buttonSize": 20,
+  "isStartingPoint": false
+}

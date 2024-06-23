@@ -1,0 +1,47 @@
+{
+  "id": "skilltree:new_skill_662",
+  "bonuses": [
+    {
+      "type": "skilltree:crafted_item_bonus",
+      "item_condition": {
+        "potion_type": "any",
+        "type": "skilltree:potion"
+      },
+      "item_bonus": {
+        "chance": 0.02,
+        "type": "skilltree:potion_amplification"
+      }
+    },
+    {
+      "type": "skilltree:attribute",
+      "attribute": "minecraft:generic.attack_damage",
+      "id": "0fb6e433-f70e-4adb-9f96-f8c9b3d3cf9e",
+      "name": "Skill",
+      "amount": 0.005,
+      "operation": 1,
+      "player_multiplier": {
+        "type": "skilltree:none"
+      },
+      "player_condition": {
+        "min": 1,
+        "type": "skilltree:effect_amount"
+      }
+    }
+  ],
+  "directConnections": [
+    "skilltree:new_skill_635"
+  ],
+  "longConnections": [],
+  "oneWayConnections": [],
+  "tags": [
+    "New Tag"
+  ],
+  "backgroundTexture": "skilltree:textures/icons/background/lesser.png",
+  "iconTexture": "skilltree:textures/icons/alchemist_lesser_1.png",
+  "borderTexture": "skilltree:textures/tooltip/lesser.png",
+  "title": "Concoction Combustion",
+  "positionX": -91.17293,
+  "positionY": 125.52307,
+  "buttonSize": 16,
+  "isStartingPoint": false
+}
