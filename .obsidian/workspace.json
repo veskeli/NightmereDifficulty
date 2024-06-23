@@ -61,7 +61,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Wiki/CraftingTable.md",
+                "file": "skilltree/Notes.md",
                 "mode": "source",
                 "source": false
               }
@@ -118,7 +118,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 250.5
   },
   "right": {
     "id": "f73c109006b72f55",
@@ -134,7 +134,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Wiki/CraftingTable.md",
+                "file": "skilltree/Notes.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -151,7 +151,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Wiki/CraftingTable.md",
+                "file": "skilltree/Notes.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -174,7 +174,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Wiki/CraftingTable.md"
+                "file": "skilltree/Notes.md"
               }
             }
           }
@@ -197,6 +197,9 @@
   },
   "active": "7e1ee2a6d46f7c21",
   "lastOpenFiles": [
+    "Wiki/CraftingTable.md",
+    "skilltree/Notes.md",
+    "skilltree",
     "Datapack/nightmare/data/nightmare_particle/tags/functions/0.1s.json",
     "Datapack/nightmare/data/nightmare_particle/tags/functions",
     "Datapack/nightmare/data/nightmare_particle/tags",
@@ -206,11 +209,8 @@
     "Datapack/nightmare/data/nightmare_particle/functions/particles/mob_schedules/zzz",
     "Datapack/nightmare/data/nightmare_particle/functions/particles/default_summon_circle.mcfunction",
     "Datapack/nightmare/data/nightmare/functions/monsters/zzz/4.mcfunction",
-    "Datapack/nightmare/data/nightmare/functions/monsters/zzz/6.mcfunction",
-    "Datapack/nightmare/data/nightmare/functions/monsters/zombified_piglin_summon_circle.mcfunction",
     "Wiki/Crafting.md",
     "Wiki/DefaultEnemies.md",
-    "Wiki/CraftingTable.md",
     "Images/opera_JgP3cpss7x.png",
     "Images/opera_RWzv3Muj5B.png",
     "Images/opera_xtMgIh54er.png",

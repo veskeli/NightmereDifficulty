@@ -7,7 +7,3 @@ execute if predicate nightmare:10change run execute as @e[type=zombified_piglin,
 #=================================================
 # Vanilla
 execute as @e[type=zombified_piglin,tag=!nightmare,limit=1] run data merge entity @s {Attributes:[{Base:7,Name:"generic.attack_damage"},{Base:0.31,Name:"generic.movement_speed"}], CanPickUpLoot:1b,Tags:["nightmare"]}
-#=================================================
-# check all angered piglins for summoning circle
-return 1 # TODO: =========================================> Remove this line to enable the summoning circle
-execute as @e[type=zombified_piglin,tag=!currently_summoning,nbt=!{AngerTime:0},limit=1] run function nightmare:monsters/zzz/1

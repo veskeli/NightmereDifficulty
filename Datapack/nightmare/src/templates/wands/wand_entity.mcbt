@@ -1,0 +1,55 @@
+# Template for wands:
+# (Not implemented yet, always entity)hit_entity_or_block: 1 for entity, 2 for block
+# function_name: function name for the wand
+template wand_entity {
+    with particle:word cooldown:int function_name:raw{
+        # damage @s <%damage%> minecraft:magic by @a[limit=1,tag=raycasting,sort=nearest,nbt={SelectedItem:{id:"minecraft:warped_fungus_on_a_stick",tag:{NDS_TestWand:1b}}}]
+        block start_raycast{
+            # add cooldown
+            scoreboard players set @s NDS_SpellCooldown <%cooldown%>
+            # Reset scoreboards
+            scoreboard players reset @s NDS_Item_Ray_steps
+            scoreboard players reset .distance NDS_Item_Ray_steps
+            execute as @s run scoreboard players operation .distance NDS_RangedSpellRange = @s NDS_RangedSpellRange
+            scoreboard players reset .cooldown NDS_FlameEffectCooldown
+
+            # Raycast
+            tag @s add raycasting
+            execute anchored eyes positioned ^ ^ ^ store result score @s NDS_Item_Ray_Return run function ./raycast
+            tag @s remove raycasting
+
+            # Returns score to "@s" "NDS_Item_Ray_Return" base on hit: 1 entity, 2 block, 3 no hit
+            # scoreboard players set @s Nm_testing_wand_active 1
+        }
+        block raycast{
+            # If hit entity
+            <%%
+                let hit_entity_or_block = 1;
+                let check = hit_entity_or_block;
+                if (check == 1) {
+                    emit('execute as @e[dx=0,type=!#nightmare:not_mob,tag=!raycasting,limit=1] positioned ~-0.99 ~-0.99 ~-0.99 if entity @s[dx=0] positioned ~0.99 ~0.99 ~0.99 run function ' + function_name)
+                }
+            %%>
+
+            execute as @e[dx=0,type=!#nightmare:not_mob,tag=!raycasting,limit=1] positioned ~-0.99 ~-0.99 ~-0.99 if entity @s[dx=0] positioned ~0.99 ~0.99 ~0.99 run return 1
+            # If hit block
+            execute unless block ~ ~ ~ #nightmare:raycast_pass run return 2
+            # If too many steps (is equal or more then .distance NDS_RangedSpellRange score)
+            execute if score .distance NDS_Item_Ray_steps >= .distance NDS_RangedSpellRange run return 3
+
+            # particle effect
+            execute if score .distance NDS_Item_Ray_steps matches 15.. run block effect{
+                # cooldown
+                execute if score .cooldown NDS_FlameEffectCooldown matches 1.. run scoreboard players remove .cooldown NDS_FlameEffectCooldown 1
+                execute if score .cooldown NDS_FlameEffectCooldown matches 1.. run return 1
+                particle minecraft:<%particle%> ~ ~ ~ 0 0 0 0.02 1 force
+                scoreboard players add .cooldown NDS_FlameEffectCooldown 8
+            }
+
+            # Update steps
+            scoreboard players add .distance NDS_Item_Ray_steps 1
+            # Loop
+            execute positioned ^ ^ ^0.1 rotated ~ ~ run function ./raycast
+        }
+    }
+}

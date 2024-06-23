@@ -1,1 +1,1 @@
-{"values":["nightmare:load","nightmare_settings:load","nightmare_settings:check_recipes_timer"]}
+{"values":["nightmare:load","nightmare:mob_spawns","nightmare_settings:load","nightmare_settings:check_recipes_timer","nightmare_skilltree:load","nightmare_skilltree:magic/setup","nightmare_skilltree:magic/spell_cooldown_check","nightmare_skilltree:wizard/setup","nightmare_skilltree:spell_select1/setup","nightmare_skilltree:fighter/fighter_load","nightmare_skilltree:resetskill/setup_reset"]}

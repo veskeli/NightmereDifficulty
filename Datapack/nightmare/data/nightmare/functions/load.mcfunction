@@ -28,6 +28,7 @@ scoreboard objectives add Nightmare_Item_Ray_Return dummy
 # Snowball
 scoreboard objectives add Nightmare_snowballs_used minecraft.used:minecraft.snowball
 # Mob Summons
+scoreboard objectives add Nightmare_ZombifiedPiglinSummonCircle_Entities dummy
 scoreboard objectives add Nightmare_ZombifiedPiglinSummonCircle dummy
 # Custom
 scoreboard objectives add DeathCount deathCount

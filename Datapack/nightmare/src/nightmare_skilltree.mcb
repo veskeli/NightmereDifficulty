@@ -1,0 +1,497 @@
+import ./templates/wands/wand_check.mcbt
+import ./templates/wands/wand_entity.mcbt
+import ./templates/wands/wand_area.mcbt
+function load minecraft:load{
+    # NDS = Nightmare difficulty Skilltree
+
+    # When a player uses the test wand, add 1 to their used test wand score
+    scoreboard objectives add NDS_UsedWandOrStaff minecraft.used:warped_fungus_on_a_stick
+    # Scoreboard for the raycast
+    scoreboard objectives add NDS_Item_Ray_steps dummy
+    # Ray return
+    scoreboard objectives add NDS_Item_Ray_Return dummy
+    # Selected spell
+    scoreboard objectives add NDS_SelectedSpell dummy
+    # Spell cooldown
+    scoreboard objectives add NDS_SpellCooldown dummy
+}
+function tick minecraft:tick{
+    # show mana bar if wnat is in the player's main hand
+    execute as @a[nbt={SelectedItem:{id:"minecraft:warped_fungus_on_a_stick",tag:{NDS_Wand:1b}}}] run function nightmare_skilltree:magic/show_mana_bar
+    # show mana bar if wnat is in the player's off hand
+    execute as @a[nbt={Inventory:[{id:"minecraft:warped_fungus_on_a_stick",Slot:-106b,tag:{NDS_Wand:1b}}]}] run function nightmare_skilltree:magic/show_mana_bar
+
+    # if the player used any wand, check what wand they used
+    execute as @a if score @s NDS_UsedWandOrStaff matches 1.. run function nightmare_skilltree:magic/items/check_wands
+
+    # reset the used wand score
+    scoreboard players reset @a NDS_UsedWandOrStaff
+
+    # Check if player left the select spell chest
+    execute as @e[type=minecraft:chest_minecart,tag=objd_gui_cart] run block check_select_spell_chest{
+        # block motion
+        data merge entity @s {Motion:[0.0d,0.0d,0.0d]}
+        # check if player is too far
+        execute at @s unless entity @a[distance=..3] run block kill_select_spell_chest{
+            say removed select spell chest
+            tp @s ~ -500 ~
+            data merge entity @s {Items:[]}
+            tag @e[tag=selecting_spell,limit=1,sort=nearest] remove selecting_spell
+            kill @s
+        }
+    }
+}
+
+dir magic{
+    function setup minecraft:load{
+        # Magic skilltree
+        scoreboard objectives add NDS_FlameEffectCooldown dummy
+    }
+    clock spell_cooldown_check 0.1s{
+        # if cooldown is greater than 0, reduce it by 1
+        execute as @a[scores={NDS_SpellCooldown=1..}] run scoreboard players remove @s NDS_SpellCooldown 1
+        # if no score is found for the player, set it to 0
+        execute as @a unless score @s NDS_SpellCooldown matches -1000.. run scoreboard players set @s NDS_SpellCooldown 0
+    }
+    function show_mana_bar{
+        # title @s actionbar ["",{"text":"====| ","color":"yellow"},{"text":"Mana:","color":"aqua"},{"text":"□ ■ ■","color":"green"},{"text":" |====","color":"yellow"}]
+        # Show cooldown
+        title @s actionbar ["",{"text":"====| ","color":"yellow"},{"text":"Cooldown: ","color":"aqua"},{"score":{"name":"@s","objective":"NDS_SpellCooldown"}},{"text":" |====","color":"yellow"}]
+    }
+    dir items{
+        function check_wands{
+            # check if the player has the test wand in their offhand
+            execute if entity @s[nbt={Inventory:[{id:"minecraft:warped_fungus_on_a_stick",Slot:-106b,tag:{NDS_Wand:1b}}]}] at @s run function nightmare_skilltree:magic/items/check_wand_action
+            # check if the player has the test wand in their main hand
+            execute if entity @s[nbt={SelectedItem:{id:"minecraft:warped_fungus_on_a_stick",tag:{NDS_Wand:1b}}}] at @s run function nightmare_skilltree:magic/items/check_wand_action
+        }
+        function check_wand_action{
+            # if the player has book in ther main hand, summon chest
+            execute if entity @s[nbt={SelectedItem:{id:"minecraft:book"}}] at @s run function nightmare_skilltree:magic/items/wands/select_spell/summonchest
+            execute if entity @s[nbt={SelectedItem:{id:"minecraft:book"}}] at @s run return 1
+            # if the player has book in ther off hand, summon chest
+            execute if entity @s[nbt={Inventory:[{id:"minecraft:book",Slot:-106b}]}] at @s run function nightmare_skilltree:magic/items/wands/select_spell/summonchest
+            execute if entity @s[nbt={Inventory:[{id:"minecraft:book",Slot:-106b}]}] at @s run return 1
+
+            # check that the cooldown is 1 or more
+            execute if score @s NDS_SpellCooldown matches 1.. run return 1
+
+            wand_check default_damage nightmare_skilltree:magic/items/wands/default_damage/start
+            wand_check slowness1 nightmare_skilltree:magic/items/wands/slowness1/start_raycast
+            wand_check haste1 nightmare_skilltree:magic/items/wands/slowness1/start_raycast
+        }
+        dir wands{
+            dir test{
+                function start{
+                    wand_entity flame 5 nightmare_skilltree:magic/items/wands/test/handle_damage
+                }
+                function handle_damage{
+                    # TODO: correct the damage dealer
+                    damage @s 10 minecraft:magic by @a[limit=1,tag=raycasting,sort=nearest,nbt={SelectedItem:{id:"minecraft:warped_fungus_on_a_stick",tag:{NDS_TestWand:1b}}}]
+                }
+            }
+            dir select_spell{
+                function summon_test_wand{
+                    give @s minecraft:warped_fungus_on_a_stick{display:{Name:"{\"text\":\"Test Wand\",\"color\":\"gold\",\"italic\":\"false\"}"},NDS_TestWand:1b,NDS_Wand:1b}
+                }
+                function summonchest{
+                    # if already selecting spell, return
+                    execute if entity @e[tag=selecting_spell,distance=..10] run say already selecting spell
+                    execute if entity @e[tag=selecting_spell,distance=..10] run return 1
+                    tag @p add selecting_spell
+                    execute as @p run summon minecraft:chest_minecart ^ ^1.5 ^2 {CustomName:"\"Select Spell\"",NoGravity:1b,Silent:1b,Invulnerable:1b,Tags:["objd_gui_cart"],CustomDisplayTile:1d,DisplayState:{Name:"air"},DisplayOffset:1d}
+                }
+            }
+            dir default_damage{
+                function start{
+                    wand_entity flame 5 nightmare_skilltree:magic/items/wands/default_damage/entity_hit
+                }
+                function entity_hit{
+                    damage @s 10 minecraft:magic by @a[limit=1,tag=raycasting,sort=nearest,nbt={SelectedItem:{id:"minecraft:warped_fungus_on_a_stick",tag:{NDS_TestWand:1b}}}]
+                }
+            }
+            dir slowness1{
+                function start{
+                    wand_entity soul_fire_flame 5 nightmare_skilltree:magic/items/wands/slowness1/entity_hit
+                }
+                function entity_hit{
+                    effect give @s minecraft:slowness 25 1 true
+                }
+            }
+            dir haste1{
+                function start{
+                    wand_area 10 25 nightmare_skilltree:magic/items/wands/haste1/entity_hit
+                }
+                function entity_hit{
+                    effect give @s minecraft:haste 25 1 true
+                }
+            }
+            dir select_spell{
+                # TODO: select correct player not closest one
+                function select_default_damage{
+                    # add default damage
+                    item modify entity @p weapon.mainhand nightmare_skilltree:add_default_damage
+                }
+                function select_haste{
+                    item modify entity @p weapon.mainhand nightmare_skilltree:add_haste1
+                }
+                function select_slowness{
+                    # add slowness
+                    item modify entity @p weapon.mainhand nightmare_skilltree:add_slowness1
+                }
+            }
+        }
+    }
+}
+dir wizard{
+    function setup minecraft:load{
+        # Wizard skilltree
+        scoreboard objectives add NDS_WizardSkilltree dummy
+        # Add trigger for get wand
+        scoreboard objectives add GetTestingWand trigger
+         # Add trigger for get wand
+        scoreboard objectives add NDS_RangedSpellRange dummy
+        # Perk to double ranged effect duration
+        scoreboard objectives add NDS_DoubleRangedEffect dummy
+    }
+    function tick minecraft:tick{
+        # enable trigger for wizard skilltree
+        scoreboard players enable @a[scores={NDS_WizardSkilltree=1..}] GetTestingWand
+        # check the trigger
+        execute as @a[scores={GetTestingWand=1..}] run block getwand{
+            function nightmare_skilltree:magic/items/wands/select_spell/summon_test_wand
+            scoreboard players reset @s GetTestingWand
+        }
+        # if player has no range score, set it to 150
+        execute as @a unless score @s NDS_RangedSpellRange matches -1000.. run function nightmare_skilltree:wizard/reset_range
+    }
+    function add_wizard_skilltree{
+        scoreboard players add @s NDS_WizardSkilltree 1
+    }
+    function remove_wizard_skilltree{
+        scoreboard players reset @s NDS_WizardSkilltree
+    }
+    function add_ranged_range_20{
+        scoreboard players add @s NDS_RangedSpellRange 20
+    }
+    function reset{
+        function nightmare_skilltree:wizard/reset_range
+    }
+    function reset_range{
+        scoreboard players set @s NDS_RangedSpellRange 150
+    }
+}
+
+item_modifier add_default_damage{
+  "function": "minecraft:set_nbt",
+  "tag": "{CustomTags:[\"default_damage\"]}",
+  "slot": "mainhand"
+}
+item_modifier add_slowness1{
+  "function": "minecraft:set_nbt",
+  "tag": "{CustomTags:[\"slowness1\"]}",
+  "slot": "mainhand"
+}
+item_modifier add_slowness1{
+  "function": "minecraft:set_nbt",
+  "tag": "{CustomTags:[\"haste1\"]}",
+  "slot": "mainhand"
+}
+
+tag items all{
+    blaze_powder
+    diamond_pickaxe
+    soul_sand
+    gray_stained_glass_pane
+}
+
+
+dir spell_select1{
+    function setup minecraft:load{
+        scoreboard objectives add objd_gui_count dummy
+    }
+    function tick minecraft:tick{
+        execute as @e[tag=objd_gui_cart] at @s run block check{
+            execute store result score @p[distance=..8] objd_gui_count if data entity @s Items[].tag.objd.gui
+            execute if score @p[distance=..8] objd_gui_count matches 0 run function nightmare_skilltree:spell_select1/reset_gui1
+            execute unless score @p[distance=..8] objd_gui_count matches 27 run function nightmare_skilltree:spell_select1/actions1
+            execute if block ~ ~-1 ~ minecraft:hopper run data merge block ~ ~-1 ~ {TransferCooldown:20d}
+        }
+    }
+    function reset_gui1{
+        item replace entity @s container.12 with blaze_powder{display:{Name:'{"text":"Damage Spell","italic":false}',Lore:['{"text":"Damage: 6","italic":false}','{"text":"Cooldown: 5","italic":false}']},objd:{gui:1b}} 1
+        item replace entity @s container.13 with diamond_pickaxe{display:{Name:'{"text":"Not implemented","italic":false}',Lore:['{"text":"???","italic":false}','{"text":"Cooldown: 5","italic":false}']},objd:{gui:1b}}
+        item replace entity @s container.14 with soul_sand{display:{Name:'{"text":"Slowness Spell","italic":false}',Lore:['{"text":"Slowness 2 for 25 seconds","italic":false}','{"text":"Cooldown: 5","italic":false}']},objd:{gui:1b}}
+        item replace entity @s container.0 with gray_stained_glass_pane{objd:{gui:1b}}
+        item replace entity @s container.1 with gray_stained_glass_pane{objd:{gui:1b}}
+        item replace entity @s container.2 with gray_stained_glass_pane{objd:{gui:1b}}
+        item replace entity @s container.3 with gray_stained_glass_pane{objd:{gui:1b}}
+        item replace entity @s container.4 with gray_stained_glass_pane{objd:{gui:1b}}
+        item replace entity @s container.5 with gray_stained_glass_pane{objd:{gui:1b}}
+        item replace entity @s container.6 with gray_stained_glass_pane{objd:{gui:1b}}
+        item replace entity @s container.7 with gray_stained_glass_pane{objd:{gui:1b}}
+        item replace entity @s container.8 with gray_stained_glass_pane{objd:{gui:1b}}
+        item replace entity @s container.9 with gray_stained_glass_pane{objd:{gui:1b}}
+        item replace entity @s container.10 with gray_stained_glass_pane{objd:{gui:1b}}
+        item replace entity @s container.11 with gray_stained_glass_pane{objd:{gui:1b}}
+        item replace entity @s container.15 with gray_stained_glass_pane{objd:{gui:1b}}
+        item replace entity @s container.16 with gray_stained_glass_pane{objd:{gui:1b}}
+        item replace entity @s container.17 with gray_stained_glass_pane{objd:{gui:1b}}
+        item replace entity @s container.18 with gray_stained_glass_pane{objd:{gui:1b}}
+        item replace entity @s container.19 with gray_stained_glass_pane{objd:{gui:1b}}
+        item replace entity @s container.20 with gray_stained_glass_pane{objd:{gui:1b}}
+        item replace entity @s container.21 with gray_stained_glass_pane{objd:{gui:1b}}
+        item replace entity @s container.22 with gray_stained_glass_pane{objd:{gui:1b}}
+        item replace entity @s container.23 with gray_stained_glass_pane{objd:{gui:1b}}
+        item replace entity @s container.24 with gray_stained_glass_pane{objd:{gui:1b}}
+        item replace entity @s container.25 with gray_stained_glass_pane{objd:{gui:1b}}
+        item replace entity @s container.26 with gray_stained_glass_pane{objd:{gui:1b}}
+    }
+    function actions1{
+        kill @e[type=minecraft:item,nbt={Item:{tag:{objd:{gui:1b}}}}]
+        execute unless data entity @s Items[{Slot:12b,tag:{objd:{gui:1b}}}] run function nightmare_skilltree:magic/items/wands/select_spell/select_default_damage
+        execute unless data entity @s Items[{Slot:12b,tag:{objd:{gui:1b}}}] if data entity @s Items[{Slot:12b}] run summon minecraft:item ~ ~ ~ {Item:{id:"minecraft:stone",tag:{objd:{gui:1b}},Count:1b},Tags:["objd_gui_dropitem"]}
+        execute unless data entity @s Items[{Slot:12b,tag:{objd:{gui:1b}}}] if data entity @s Items[{Slot:12b}] run data modify entity @e[limit=1,type=minecraft:item,nbt={Item:{tag:{objd:{gui:1b}}}},sort=nearest] Item set from entity @s Items[{Slot:12b}]
+        execute unless data entity @s Items[{Slot:13b,tag:{objd:{gui:1b}}}] run function nightmare_skilltree:magic/items/wands/select_spell/select_haste
+        execute unless data entity @s Items[{Slot:13b,tag:{objd:{gui:1b}}}] if data entity @s Items[{Slot:13b}] run summon minecraft:item ~ ~ ~ {Item:{id:"minecraft:stone",tag:{objd:{gui:1b}},Count:1b},Tags:["objd_gui_dropitem"]}
+        execute unless data entity @s Items[{Slot:13b,tag:{objd:{gui:1b}}}] if data entity @s Items[{Slot:13b}] run data modify entity @e[limit=1,type=minecraft:item,nbt={Item:{tag:{objd:{gui:1b}}}},sort=nearest] Item set from entity @s Items[{Slot:13b}]
+        execute unless data entity @s Items[{Slot:14b,tag:{objd:{gui:1b}}}] run function nightmare_skilltree:magic/items/wands/select_spell/select_slowness
+        execute unless data entity @s Items[{Slot:14b,tag:{objd:{gui:1b}}}] if data entity @s Items[{Slot:14b}] run summon minecraft:item ~ ~ ~ {Item:{id:"minecraft:stone",tag:{objd:{gui:1b}},Count:1b},Tags:["objd_gui_dropitem"]}
+        execute unless data entity @s Items[{Slot:14b,tag:{objd:{gui:1b}}}] if data entity @s Items[{Slot:14b}] run data modify entity @e[limit=1,type=minecraft:item,nbt={Item:{tag:{objd:{gui:1b}}}},sort=nearest] Item set from entity @s Items[{Slot:14b}]
+        execute unless data entity @s Items[{Slot:0b,tag:{objd:{gui:1b}}}] if data entity @s Items[{Slot:0b}] run summon minecraft:item ~ ~ ~ {Item:{id:"minecraft:stone",tag:{objd:{gui:1b}},Count:1b},Tags:["objd_gui_dropitem"]}
+        execute unless data entity @s Items[{Slot:0b,tag:{objd:{gui:1b}}}] if data entity @s Items[{Slot:0b}] run data modify entity @e[limit=1,type=minecraft:item,nbt={Item:{tag:{objd:{gui:1b}}}},sort=nearest] Item set from entity @s Items[{Slot:0b}]
+        execute unless data entity @s Items[{Slot:1b,tag:{objd:{gui:1b}}}] if data entity @s Items[{Slot:1b}] run summon minecraft:item ~ ~ ~ {Item:{id:"minecraft:stone",tag:{objd:{gui:1b}},Count:1b},Tags:["objd_gui_dropitem"]}
+        execute unless data entity @s Items[{Slot:1b,tag:{objd:{gui:1b}}}] if data entity @s Items[{Slot:1b}] run data modify entity @e[limit=1,type=minecraft:item,nbt={Item:{tag:{objd:{gui:1b}}}},sort=nearest] Item set from entity @s Items[{Slot:1b}]
+        execute unless data entity @s Items[{Slot:2b,tag:{objd:{gui:1b}}}] if data entity @s Items[{Slot:2b}] run summon minecraft:item ~ ~ ~ {Item:{id:"minecraft:stone",tag:{objd:{gui:1b}},Count:1b},Tags:["objd_gui_dropitem"]}
+        execute unless data entity @s Items[{Slot:2b,tag:{objd:{gui:1b}}}] if data entity @s Items[{Slot:2b}] run data modify entity @e[limit=1,type=minecraft:item,nbt={Item:{tag:{objd:{gui:1b}}}},sort=nearest] Item set from entity @s Items[{Slot:2b}]
+        execute unless data entity @s Items[{Slot:3b,tag:{objd:{gui:1b}}}] if data entity @s Items[{Slot:3b}] run summon minecraft:item ~ ~ ~ {Item:{id:"minecraft:stone",tag:{objd:{gui:1b}},Count:1b},Tags:["objd_gui_dropitem"]}
+        execute unless data entity @s Items[{Slot:3b,tag:{objd:{gui:1b}}}] if data entity @s Items[{Slot:3b}] run data modify entity @e[limit=1,type=minecraft:item,nbt={Item:{tag:{objd:{gui:1b}}}},sort=nearest] Item set from entity @s Items[{Slot:3b}]
+        execute unless data entity @s Items[{Slot:4b,tag:{objd:{gui:1b}}}] if data entity @s Items[{Slot:4b}] run summon minecraft:item ~ ~ ~ {Item:{id:"minecraft:stone",tag:{objd:{gui:1b}},Count:1b},Tags:["objd_gui_dropitem"]}
+        execute unless data entity @s Items[{Slot:4b,tag:{objd:{gui:1b}}}] if data entity @s Items[{Slot:4b}] run data modify entity @e[limit=1,type=minecraft:item,nbt={Item:{tag:{objd:{gui:1b}}}},sort=nearest] Item set from entity @s Items[{Slot:4b}]
+        execute unless data entity @s Items[{Slot:5b,tag:{objd:{gui:1b}}}] if data entity @s Items[{Slot:5b}] run summon minecraft:item ~ ~ ~ {Item:{id:"minecraft:stone",tag:{objd:{gui:1b}},Count:1b},Tags:["objd_gui_dropitem"]}
+        execute unless data entity @s Items[{Slot:5b,tag:{objd:{gui:1b}}}] if data entity @s Items[{Slot:5b}] run data modify entity @e[limit=1,type=minecraft:item,nbt={Item:{tag:{objd:{gui:1b}}}},sort=nearest] Item set from entity @s Items[{Slot:5b}]
+        execute unless data entity @s Items[{Slot:6b,tag:{objd:{gui:1b}}}] if data entity @s Items[{Slot:6b}] run summon minecraft:item ~ ~ ~ {Item:{id:"minecraft:stone",tag:{objd:{gui:1b}},Count:1b},Tags:["objd_gui_dropitem"]}
+        execute unless data entity @s Items[{Slot:6b,tag:{objd:{gui:1b}}}] if data entity @s Items[{Slot:6b}] run data modify entity @e[limit=1,type=minecraft:item,nbt={Item:{tag:{objd:{gui:1b}}}},sort=nearest] Item set from entity @s Items[{Slot:6b}]
+        execute unless data entity @s Items[{Slot:7b,tag:{objd:{gui:1b}}}] if data entity @s Items[{Slot:7b}] run summon minecraft:item ~ ~ ~ {Item:{id:"minecraft:stone",tag:{objd:{gui:1b}},Count:1b},Tags:["objd_gui_dropitem"]}
+        execute unless data entity @s Items[{Slot:7b,tag:{objd:{gui:1b}}}] if data entity @s Items[{Slot:7b}] run data modify entity @e[limit=1,type=minecraft:item,nbt={Item:{tag:{objd:{gui:1b}}}},sort=nearest] Item set from entity @s Items[{Slot:7b}]
+        execute unless data entity @s Items[{Slot:8b,tag:{objd:{gui:1b}}}] if data entity @s Items[{Slot:8b}] run summon minecraft:item ~ ~ ~ {Item:{id:"minecraft:stone",tag:{objd:{gui:1b}},Count:1b},Tags:["objd_gui_dropitem"]}
+        execute unless data entity @s Items[{Slot:8b,tag:{objd:{gui:1b}}}] if data entity @s Items[{Slot:8b}] run data modify entity @e[limit=1,type=minecraft:item,nbt={Item:{tag:{objd:{gui:1b}}}},sort=nearest] Item set from entity @s Items[{Slot:8b}]
+        execute unless data entity @s Items[{Slot:9b,tag:{objd:{gui:1b}}}] if data entity @s Items[{Slot:9b}] run summon minecraft:item ~ ~ ~ {Item:{id:"minecraft:stone",tag:{objd:{gui:1b}},Count:1b},Tags:["objd_gui_dropitem"]}
+        execute unless data entity @s Items[{Slot:9b,tag:{objd:{gui:1b}}}] if data entity @s Items[{Slot:9b}] run data modify entity @e[limit=1,type=minecraft:item,nbt={Item:{tag:{objd:{gui:1b}}}},sort=nearest] Item set from entity @s Items[{Slot:9b}]
+        execute unless data entity @s Items[{Slot:10b,tag:{objd:{gui:1b}}}] if data entity @s Items[{Slot:10b}] run summon minecraft:item ~ ~ ~ {Item:{id:"minecraft:stone",tag:{objd:{gui:1b}},Count:1b},Tags:["objd_gui_dropitem"]}
+        execute unless data entity @s Items[{Slot:10b,tag:{objd:{gui:1b}}}] if data entity @s Items[{Slot:10b}] run data modify entity @e[limit=1,type=minecraft:item,nbt={Item:{tag:{objd:{gui:1b}}}},sort=nearest] Item set from entity @s Items[{Slot:10b}]
+        execute unless data entity @s Items[{Slot:11b,tag:{objd:{gui:1b}}}] if data entity @s Items[{Slot:11b}] run summon minecraft:item ~ ~ ~ {Item:{id:"minecraft:stone",tag:{objd:{gui:1b}},Count:1b},Tags:["objd_gui_dropitem"]}
+        execute unless data entity @s Items[{Slot:11b,tag:{objd:{gui:1b}}}] if data entity @s Items[{Slot:11b}] run data modify entity @e[limit=1,type=minecraft:item,nbt={Item:{tag:{objd:{gui:1b}}}},sort=nearest] Item set from entity @s Items[{Slot:11b}]
+        execute unless data entity @s Items[{Slot:15b,tag:{objd:{gui:1b}}}] if data entity @s Items[{Slot:15b}] run summon minecraft:item ~ ~ ~ {Item:{id:"minecraft:stone",tag:{objd:{gui:1b}},Count:1b},Tags:["objd_gui_dropitem"]}
+        execute unless data entity @s Items[{Slot:15b,tag:{objd:{gui:1b}}}] if data entity @s Items[{Slot:15b}] run data modify entity @e[limit=1,type=minecraft:item,nbt={Item:{tag:{objd:{gui:1b}}}},sort=nearest] Item set from entity @s Items[{Slot:15b}]
+        execute unless data entity @s Items[{Slot:16b,tag:{objd:{gui:1b}}}] if data entity @s Items[{Slot:16b}] run summon minecraft:item ~ ~ ~ {Item:{id:"minecraft:stone",tag:{objd:{gui:1b}},Count:1b},Tags:["objd_gui_dropitem"]}
+        execute unless data entity @s Items[{Slot:16b,tag:{objd:{gui:1b}}}] if data entity @s Items[{Slot:16b}] run data modify entity @e[limit=1,type=minecraft:item,nbt={Item:{tag:{objd:{gui:1b}}}},sort=nearest] Item set from entity @s Items[{Slot:16b}]
+        execute unless data entity @s Items[{Slot:17b,tag:{objd:{gui:1b}}}] if data entity @s Items[{Slot:17b}] run summon minecraft:item ~ ~ ~ {Item:{id:"minecraft:stone",tag:{objd:{gui:1b}},Count:1b},Tags:["objd_gui_dropitem"]}
+        execute unless data entity @s Items[{Slot:17b,tag:{objd:{gui:1b}}}] if data entity @s Items[{Slot:17b}] run data modify entity @e[limit=1,type=minecraft:item,nbt={Item:{tag:{objd:{gui:1b}}}},sort=nearest] Item set from entity @s Items[{Slot:17b}]
+        execute unless data entity @s Items[{Slot:18b,tag:{objd:{gui:1b}}}] if data entity @s Items[{Slot:18b}] run summon minecraft:item ~ ~ ~ {Item:{id:"minecraft:stone",tag:{objd:{gui:1b}},Count:1b},Tags:["objd_gui_dropitem"]}
+        execute unless data entity @s Items[{Slot:18b,tag:{objd:{gui:1b}}}] if data entity @s Items[{Slot:18b}] run data modify entity @e[limit=1,type=minecraft:item,nbt={Item:{tag:{objd:{gui:1b}}}},sort=nearest] Item set from entity @s Items[{Slot:18b}]
+        execute unless data entity @s Items[{Slot:19b,tag:{objd:{gui:1b}}}] if data entity @s Items[{Slot:19b}] run summon minecraft:item ~ ~ ~ {Item:{id:"minecraft:stone",tag:{objd:{gui:1b}},Count:1b},Tags:["objd_gui_dropitem"]}
+        execute unless data entity @s Items[{Slot:19b,tag:{objd:{gui:1b}}}] if data entity @s Items[{Slot:19b}] run data modify entity @e[limit=1,type=minecraft:item,nbt={Item:{tag:{objd:{gui:1b}}}},sort=nearest] Item set from entity @s Items[{Slot:19b}]
+        execute unless data entity @s Items[{Slot:20b,tag:{objd:{gui:1b}}}] if data entity @s Items[{Slot:20b}] run summon minecraft:item ~ ~ ~ {Item:{id:"minecraft:stone",tag:{objd:{gui:1b}},Count:1b},Tags:["objd_gui_dropitem"]}
+        execute unless data entity @s Items[{Slot:20b,tag:{objd:{gui:1b}}}] if data entity @s Items[{Slot:20b}] run data modify entity @e[limit=1,type=minecraft:item,nbt={Item:{tag:{objd:{gui:1b}}}},sort=nearest] Item set from entity @s Items[{Slot:20b}]
+        execute unless data entity @s Items[{Slot:21b,tag:{objd:{gui:1b}}}] if data entity @s Items[{Slot:21b}] run summon minecraft:item ~ ~ ~ {Item:{id:"minecraft:stone",tag:{objd:{gui:1b}},Count:1b},Tags:["objd_gui_dropitem"]}
+        execute unless data entity @s Items[{Slot:21b,tag:{objd:{gui:1b}}}] if data entity @s Items[{Slot:21b}] run data modify entity @e[limit=1,type=minecraft:item,nbt={Item:{tag:{objd:{gui:1b}}}},sort=nearest] Item set from entity @s Items[{Slot:21b}]
+        execute unless data entity @s Items[{Slot:22b,tag:{objd:{gui:1b}}}] if data entity @s Items[{Slot:22b}] run summon minecraft:item ~ ~ ~ {Item:{id:"minecraft:stone",tag:{objd:{gui:1b}},Count:1b},Tags:["objd_gui_dropitem"]}
+        execute unless data entity @s Items[{Slot:22b,tag:{objd:{gui:1b}}}] if data entity @s Items[{Slot:22b}] run data modify entity @e[limit=1,type=minecraft:item,nbt={Item:{tag:{objd:{gui:1b}}}},sort=nearest] Item set from entity @s Items[{Slot:22b}]
+        execute unless data entity @s Items[{Slot:23b,tag:{objd:{gui:1b}}}] if data entity @s Items[{Slot:23b}] run summon minecraft:item ~ ~ ~ {Item:{id:"minecraft:stone",tag:{objd:{gui:1b}},Count:1b},Tags:["objd_gui_dropitem"]}
+        execute unless data entity @s Items[{Slot:23b,tag:{objd:{gui:1b}}}] if data entity @s Items[{Slot:23b}] run data modify entity @e[limit=1,type=minecraft:item,nbt={Item:{tag:{objd:{gui:1b}}}},sort=nearest] Item set from entity @s Items[{Slot:23b}]
+        execute unless data entity @s Items[{Slot:24b,tag:{objd:{gui:1b}}}] if data entity @s Items[{Slot:24b}] run summon minecraft:item ~ ~ ~ {Item:{id:"minecraft:stone",tag:{objd:{gui:1b}},Count:1b},Tags:["objd_gui_dropitem"]}
+        execute unless data entity @s Items[{Slot:24b,tag:{objd:{gui:1b}}}] if data entity @s Items[{Slot:24b}] run data modify entity @e[limit=1,type=minecraft:item,nbt={Item:{tag:{objd:{gui:1b}}}},sort=nearest] Item set from entity @s Items[{Slot:24b}]
+        execute unless data entity @s Items[{Slot:25b,tag:{objd:{gui:1b}}}] if data entity @s Items[{Slot:25b}] run summon minecraft:item ~ ~ ~ {Item:{id:"minecraft:stone",tag:{objd:{gui:1b}},Count:1b},Tags:["objd_gui_dropitem"]}
+        execute unless data entity @s Items[{Slot:25b,tag:{objd:{gui:1b}}}] if data entity @s Items[{Slot:25b}] run data modify entity @e[limit=1,type=minecraft:item,nbt={Item:{tag:{objd:{gui:1b}}}},sort=nearest] Item set from entity @s Items[{Slot:25b}]
+        execute unless data entity @s Items[{Slot:26b,tag:{objd:{gui:1b}}}] if data entity @s Items[{Slot:26b}] run summon minecraft:item ~ ~ ~ {Item:{id:"minecraft:stone",tag:{objd:{gui:1b}},Count:1b},Tags:["objd_gui_dropitem"]}
+        execute unless data entity @s Items[{Slot:26b,tag:{objd:{gui:1b}}}] if data entity @s Items[{Slot:26b}] run data modify entity @e[limit=1,type=minecraft:item,nbt={Item:{tag:{objd:{gui:1b}}}},sort=nearest] Item set from entity @s Items[{Slot:26b}]
+        tp @e[type=minecraft:item,tag=objd_gui_dropitem] @p[distance=..8]
+        clear @a[distance=..20] #nightmare_skilltree:all{objd:{gui:1b}}
+        function nightmare_skilltree:spell_select1/reset_gui1
+        execute unless score @p[distance=..8] objd_gui_page matches 1 run function nightmare_skilltree:spell_select1/reset_gui1
+    }
+    function clear1{
+        item replace entity @s container.12 with minecraft:air
+        item replace entity @s container.13 with minecraft:air
+        item replace entity @s container.14 with minecraft:air
+        item replace entity @s container.0 with minecraft:air
+        item replace entity @s container.1 with minecraft:air
+        item replace entity @s container.2 with minecraft:air
+        item replace entity @s container.3 with minecraft:air
+        item replace entity @s container.4 with minecraft:air
+        item replace entity @s container.5 with minecraft:air
+        item replace entity @s container.6 with minecraft:air
+        item replace entity @s container.7 with minecraft:air
+        item replace entity @s container.8 with minecraft:air
+        item replace entity @s container.9 with minecraft:air
+        item replace entity @s container.10 with minecraft:air
+        item replace entity @s container.11 with minecraft:air
+        item replace entity @s container.15 with minecraft:air
+        item replace entity @s container.16 with minecraft:air
+        item replace entity @s container.17 with minecraft:air
+        item replace entity @s container.18 with minecraft:air
+        item replace entity @s container.19 with minecraft:air
+        item replace entity @s container.20 with minecraft:air
+        item replace entity @s container.21 with minecraft:air
+        item replace entity @s container.22 with minecraft:air
+        item replace entity @s container.23 with minecraft:air
+        item replace entity @s container.24 with minecraft:air
+        item replace entity @s container.25 with minecraft:air
+        item replace entity @s container.26 with minecraft:air
+    }
+
+}
+
+dir fighter{
+    function fighter_load minecraft:load{
+        # Fighter skilltree
+        scoreboard objectives add NDS_FighterEmboldeningPresencePerk1 dummy
+        # Guardian's Respite
+        scoreboard objectives add NDS_FighterGuardiansRespiteCheck dummy
+        scoreboard objectives add NDS_FighterGuardiansRespitePerk1 dummy
+    }
+    function fighter_tick minecraft:tick{
+        execute as @a[scores={NDS_FighterGuardiansRespitePerk1=1..}] at @s run block guardians_respite_check{
+            # Reset the scoreboard
+            scoreboard players set @s NDS_FighterGuardiansRespiteCheck 0
+            tag @s add checking_for_enemies
+
+            # Count nearby zombified piglins within 10 blocks
+            execute as @e[type=#nightmare:undead_mob,distance=..10] run block{
+                scoreboard players add @e[sort=nearest,tag=checking_for_enemies] NDS_FighterGuardiansRespiteCheck 1
+            }
+
+            # Check if the count is 3 or more and run the function if true
+            execute as @s if score @s NDS_FighterGuardiansRespiteCheck matches 3.. run block{
+                # Give all friendly players within 10 meters regeneration for 2 seconds
+                effect give @a[distance=..10] minecraft:regeneration 1 0 true
+            }
+            tag @s remove checking_for_enemies
+        }
+    }
+    function add_perk_guardians_respite{
+        scoreboard players add @s NDS_FighterGuardiansRespitePerk1 1
+    }
+    dir emboldening_presence{
+        function check minecraft:tick{
+            execute as @a[scores={NDS_FighterEmboldeningPresencePerk1=1..}] at @s run block check_for_close_players{
+                tag @s add checking_for_players
+                # Reset attributes
+                function nightmare_skilltree:fighter/remove_all
+                # check for players within 10 blocks
+                execute as @e[limit=1,distance=..10,type=minecraft:player,tag=!checking_for_players] run block players_close_trigger{
+                    <%%
+                        for (let i = 1; i <= 8; i++) {
+                            if (i >= 2){
+                                for(let j = 1; j <= i; j++) {
+                                    emit(`execute if score @s NDS_FighterEmboldeningPresencePerk1 matches ${i} run function nightmare_skilltree:fighter/emboldening_presence/give_${j}`)
+                                }
+                            } else {
+                                emit(`execute if score @s NDS_FighterEmboldeningPresencePerk1 matches ${i} run function nightmare_skilltree:fighter/emboldening_presence/give_${i}`)
+                            }
+                        }
+                    %%>
+                }
+                tag @s remove checking_for_players
+            }
+        }
+        function add_perk1{
+            scoreboard players add @s NDS_FighterEmboldeningPresencePerk1 1
+            say added perk 1
+        }
+        function reset{
+            scoreboard players reset @s NDS_FighterEmboldeningPresencePerk1
+            scoreboard players reset @s NDS_FighterGuardiansRespitePerk1
+        }
+        function remove_all {
+            # Remove 1
+            function nightmare_skilltree:fighter/emboldening_presence/remove_1
+            # Remove 2
+            function nightmare_skilltree:fighter/emboldening_presence/remove_2
+            # Remove 3
+            function nightmare_skilltree:fighter/emboldening_presence/remove_3
+            # Remove 4
+            function nightmare_skilltree:fighter/emboldening_presence/remove_4
+            # Remove 5
+            function nightmare_skilltree:fighter/emboldening_presence/remove_5
+            # Remove 6
+            function nightmare_skilltree:fighter/emboldening_presence/remove_6
+            # Remove 7
+            function nightmare_skilltree:fighter/emboldening_presence/remove_7
+            # Remove 8
+            function nightmare_skilltree:fighter/emboldening_presence/remove_8
+        }
+        function give_1{
+            attribute @s minecraft:generic.attack_damage modifier add 4a936c8c-c458-40f7-8970-3454c94ba106 "1% Damage Boost" 0.01 add
+        }
+        function give_2{
+            attribute @s minecraft:generic.attack_damage modifier add 5a936c8c-c458-40f7-8970-3454c94ba106 "1% Damage Boost" 0.01 add
+        }
+        function give_3{
+            attribute @s minecraft:generic.attack_damage modifier add 6a936c8c-c458-40f7-8970-3454c94ba106 "1% Damage Boost" 0.01 add
+        }
+        function give_4{
+            attribute @s minecraft:generic.attack_damage modifier add 7a936c8c-c458-40f7-8970-3454c94ba106 "1% Damage Boost" 0.01 add
+        }
+        function give_5{
+            attribute @s minecraft:generic.attack_damage modifier add 8a936c8c-c458-40f7-8970-3454c94ba106 "1% Damage Boost" 0.01 add
+        }
+        function give_6{
+            attribute @s minecraft:generic.attack_damage modifier add 9a936c8c-c458-40f7-8970-3454c94ba106 "1% Damage Boost" 0.01 add
+        }
+        function give_7{
+            attribute @s minecraft:generic.attack_damage modifier add 0a936c8c-c458-40f7-8970-3454c94ba106 "1% Damage Boost" 0.01 add
+        }
+        function give_8{
+            attribute @s minecraft:generic.attack_damage modifier add 1a936c8c-c458-40f7-8970-3454c94ba106 "1% Damage Boost" 0.01 add
+        }
+        function remove_1{
+            attribute @s minecraft:generic.attack_damage modifier remove 4a936c8c-c458-40f7-8970-3454c94ba106
+        }
+        function remove_2{
+            attribute @s minecraft:generic.attack_damage modifier remove 5a936c8c-c458-40f7-8970-3454c94ba106
+        }
+        function remove_3{
+            attribute @s minecraft:generic.attack_damage modifier remove 6a936c8c-c458-40f7-8970-3454c94ba106
+        }
+        function remove_4{
+            attribute @s minecraft:generic.attack_damage modifier remove 7a936c8c-c458-40f7-8970-3454c94ba106
+        }
+        function remove_5{
+            attribute @s minecraft:generic.attack_damage modifier remove 8a936c8c-c458-40f7-8970-3454c94ba106
+        }
+        function remove_6{
+            attribute @s minecraft:generic.attack_damage modifier remove 9a936c8c-c458-40f7-8970-3454c94ba106
+        }
+        function remove_7{
+            attribute @s minecraft:generic.attack_damage modifier remove 0a936c8c-c458-40f7-8970-3454c94ba106
+        }
+        function remove_8{
+            attribute @s minecraft:generic.attack_damage modifier remove 1a936c8c-c458-40f7-8970-3454c94ba106
+        }
+    }
+}
+dir resetskill{
+    function setup_reset minecraft:load{
+        # setup trigger resetskills
+        scoreboard objectives add NightmareResetSkillTree trigger
+    }
+    function check_reset minecraft:tick{
+        # check trigger resetskills
+        scoreboard players enable @a NightmareResetSkillTree
+        execute as @a[scores={NightmareResetSkillTree=1..}] run function nightmare_skilltree:resetskill/resetskill
+    }
+    function resetskill{
+        # reset skilltree
+        skilltree reset @s
+        # reset trigger
+        scoreboard players reset @s NightmareResetSkillTree
+        # scoreboards
+        scoreboard players reset @s NDS_FighterGuardiansRespitePerk1
+        # wizard
+        function nightmare_skilltree:wizard/reset
+        # Fighter
+        function nightmare_skilltree:fighter/emboldening_presence/reset
+    }
+}

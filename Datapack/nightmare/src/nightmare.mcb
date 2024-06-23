@@ -54,6 +54,7 @@ function load minecraft:load{
     scoreboard objectives add Nightmare_snowballs_used minecraft.used:minecraft.snowball
 
     # Mob Summons
+    scoreboard objectives add Nightmare_ZombifiedPiglinSummonCircle_Entities dummy
     scoreboard objectives add Nightmare_ZombifiedPiglinSummonCircle dummy
 
     # Custom
@@ -77,18 +78,6 @@ function interact_test{
 #=================================================
 function tick minecraft:tick{
     #=================================================
-    # Check if custom mobs are enabled and if not then return
-    execute if score $overworld Nightmare_CustomMobs matches 1 run return 1
-
-    #=================================================
-    # Call Spawn functions
-    #=================================================
-    # No event overworld enemies
-    execute if score $overworld Nightmare_currentevent matches 0 run function nightmare:monsters/no_event_overworld_enemies
-    # No event nether enemies
-    execute if score $nether Nightmare_currentevent matches 0 run function nightmare:monsters/no_event_nether_enemies
-
-    #=================================================
     # Custom Crafting
     #=================================================
     # TODO: add crafting to own pack
@@ -111,6 +100,22 @@ function tick minecraft:tick{
 
     # function nightmare:development/testwitch
     # function nightmare:development/witchhurtdetect
+}
+#=================================================
+# MARK: Custom lower tick (0.1s)
+#=================================================
+clock mob_spawns 0.1s{
+    #=================================================
+    # Check if custom mobs are enabled and if not then return
+    execute if score $overworld Nightmare_CustomMobs matches 1 run return 1
+
+    #=================================================
+    # Call Spawn functions
+    #=================================================
+    # No event overworld enemies
+    execute if score $overworld Nightmare_currentevent matches 0 run function nightmare:monsters/no_event_overworld_enemies
+    # No event nether enemies
+    execute if score $nether Nightmare_currentevent matches 0 run function nightmare:monsters/no_event_nether_enemies
 }
 
 function commandfeedback{
@@ -250,36 +255,48 @@ dir monsters{
         #=================================================
         # Vanilla
         data_damage_speed zombified_piglin 7 0.31
-
+    }
+    function zombified_piglin_summon_circle {
+    # clock zombified_piglin_summon_circle 1s{
         #=================================================
         # check all angered piglins for summoning circle
-        return 1 # TODO: =========================================> Remove this line to enable the summoning circle
         execute as @e[type=zombified_piglin,tag=!currently_summoning,nbt=!{AngerTime:0},limit=1] run block{
             # if already summoned then return
             execute if entity @s[tag=already_summoned] run return 1
             # start summoning
-            execute if predicate nightmare:10change run block{
+            execute if predicate nightmare:50change run block{
                 # disable ai
                 data merge entity @s {NoAI:1b}
                 # add tag
                 tag @s add currently_summoning
                 # summon display item for the summoning circle
-                execute at @s run summon armor_stand ~ ~ ~ {Tags:["summoncircle_entity"],NoGravity:1b,Invisible:1b,Invulnerable:1b}
+                execute at @s run summon armor_stand ~ ~ ~ {Tags:["summoncircle_entity"],NoGravity:1b,Invisible:1b,Invulnerable:1b,CustomName:'{"text":"Summoning Circle","color":"blue"}'}
                 # add score
-                scoreboard players set @s Nightmare_ZombifiedPiglinSummonCircle 6
+                scoreboard players set @e[type=armor_stand,sort=nearest,limit=1,tag=summoncircle_entity] Nightmare_ZombifiedPiglinSummonCircle 6
+
+                # add entity count
+                scoreboard players add $nether Nightmare_ZombifiedPiglinSummonCircle_Entities 1
             }
             # 10% chance to never summon
             execute if predicate nightmare:2change run tag @s add already_summoned
         }
-    }
-    #clock zombified_piglin_summon_circle 1s{
-    function zombified_piglin_summon_circle{
+        #=================================================
+        # If no entities then return
+        execute unless score $nether Nightmare_ZombifiedPiglinSummonCircle_Entities matches 1.. run return 1
+        #=================================================
         # check if summoning circle is active
-        execute as @e[type=zombified_piglin,tag=currently_summoning,limit=1] run block{
-            # Lower score
-            scoreboard players remove @e[type=zombified_piglin,tag=currently_summoning] Nightmare_ZombifiedPiglinSummonCircle 1
-            # if score is 0 or lower then summon
-            execute as @e[type=zombified_piglin,tag=currently_summoning,scores={Nightmare_ZombifiedPiglinSummonCircle=..0}] run block{
+        execute as @e[type=armor_stand,tag=summoncircle_entity,limit=1] run block{
+            scoreboard players remove @s Nightmare_ZombifiedPiglinSummonCircle 1
+        }
+        execute as @e[type=armor_stand,tag=summoncircle_entity,limit=1] run say found summoning circle
+        execute as @e[type=armor_stand,tag=summoncircle_entity,scores={Nightmare_ZombifiedPiglinSummonCircle=..0},limit=1] run block{
+            # Return if no summoner found
+            execute unless entity @e[type=zombified_piglin,tag=currently_summoning,limit=1,sort=nearest,distance=..2] run say No summoner found!
+            execute unless entity @e[type=zombified_piglin,tag=currently_summoning,limit=1,sort=nearest,distance=..2] run return 1
+
+            execute as @e[type=zombified_piglin,tag=currently_summoning,limit=1,sort=nearest,distance=..2] run block{
+                # Summoner found!
+                say Summoner found!
                 # Summon 3 more zombified piglins
                 REPEAT (1,3){
                     execute at @s run summon zombified_piglin ~ ~ ~ {Tags:["already_summoned"]}
@@ -290,11 +307,14 @@ dir monsters{
                 tag @s remove currently_summoning
                 # add tag already_summoned
                 tag @s add already_summoned
-                # kill display item
-                kill @e[type=armor_stand,tag=summoncircle_entity,sort=nearest,limit=1]
                 # play sound
                 playsound minecraft:item.trident.return block @a ~ ~ ~
             }
+            # kill display item
+            kill @s
+            # remove entity count
+            scoreboard players remove $nether Nightmare_ZombifiedPiglinSummonCircle_Entities 1
+            say 5
         }
     }
     #=================================================

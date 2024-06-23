@@ -1,0 +1,10 @@
+template wand_check {
+    with wand_tag:word function_name:word {
+        # Check main hand
+        execute if entity @s[nbt={SelectedItem:{id:"minecraft:warped_fungus_on_a_stick",tag:{CustomTags:["<%wand_tag%>"]}}}] at @s run function <%function_name%>
+        execute if entity @s[nbt={SelectedItem:{id:"minecraft:warped_fungus_on_a_stick",tag:{CustomTags:["<%wand_tag%>"]}}}] at @s run return 1
+        # Check off hand
+        execute if entity @s[nbt={Inventory:[{id:"minecraft:warped_fungus_on_a_stick",Slot:-106b,tag:{CustomTags:["<%wand_tag%>"]}}]}] at @s run function <%function_name%>
+        execute if entity @s[nbt={Inventory:[{id:"minecraft:warped_fungus_on_a_stick",Slot:-106b,tag:{CustomTags:["<%wand_tag%>"]}}]}] at @s run return 1
+    }
+}
