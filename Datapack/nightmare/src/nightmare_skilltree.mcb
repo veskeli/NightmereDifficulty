@@ -2,6 +2,8 @@ import ./templates/wands/wand_check.mcbt
 import ./templates/wands/wand_entity.mcbt
 import ./templates/wands/wand_area.mcbt
 import ./templates/item_modify/select_spell.mcbt
+import ./templates/log.mcbt
+import ./templates/cast_msg.mcbt
 # MARK: Load
 function load minecraft:load{
     # NDS = Nightmare difficulty Skilltree
@@ -36,7 +38,6 @@ function tick minecraft:tick{
         data merge entity @s {Motion:[0.0d,0.0d,0.0d]}
         # check if player is too far
         execute at @s unless entity @a[distance=..3] run block kill_select_spell_chest{
-            say removed select spell chest
             tp @s ~ -500 ~
             data merge entity @s {Items:[]}
             tag @e[tag=selecting_spell,limit=1,sort=nearest] remove selecting_spell
@@ -50,14 +51,21 @@ dir magic{
     function setup minecraft:load{
         # Magic skilltree
         scoreboard objectives add NDS_FlameEffectCooldown dummy
+        scoreboard objectives add NDS_SelectSpellReturn dummy
+        scoreboard objectives add NDS_BlockManaTitle dummy
     }
     clock spell_cooldown_check 0.1s{
+        # if block mana title is greater than 0, reduce it by 1
+        execute as @a[scores={NDS_BlockManaTitle=1..}] run scoreboard players remove @s NDS_BlockManaTitle 1
         # if cooldown is greater than 0, reduce it by 1
         execute as @a[scores={NDS_SpellCooldown=1..}] run scoreboard players remove @s NDS_SpellCooldown 1
         # if no score is found for the player, set it to 0
         execute as @a unless score @s NDS_SpellCooldown matches -1000.. run scoreboard players set @s NDS_SpellCooldown 0
     }
     function show_mana_bar{
+        # If block mana title is more then 1, return
+        execute if score @s NDS_BlockManaTitle matches 1.. run return 1
+
         # title @s actionbar ["",{"text":"====| ","color":"yellow"},{"text":"Mana:","color":"aqua"},{"text":"□ ■ ■","color":"green"},{"text":" |====","color":"yellow"}]
         # Show cooldown
         title @s actionbar ["",{"text":"====| ","color":"yellow"},{"text":"Cooldown: ","color":"aqua"},{"score":{"name":"@s","objective":"NDS_SpellCooldown"}},{"text":" |====","color":"yellow"}]
@@ -82,21 +90,9 @@ dir magic{
 
             wand_check default_damage nightmare_skilltree:magic/items/wands/default_damage/start
             wand_check slowness1 nightmare_skilltree:magic/items/wands/slowness1/start_raycast
-            wand_check haste1 nightmare_skilltree:magic/items/wands/slowness1/start_raycast
+            wand_check haste1 nightmare_skilltree:magic/items/wands/haste1/start_raycast
         }
         dir wands{
-            dir select_spell{
-                function summon_test_wand{
-                    give @s minecraft:warped_fungus_on_a_stick{display:{Name:"{\"text\":\"Test Wand\",\"color\":\"gold\",\"italic\":\"false\"}"},NDS_TestWand:1b,NDS_Wand:1b}
-                }
-                function summonchest{
-                    # if already selecting spell, return
-                    execute if entity @e[tag=selecting_spell,distance=..10] run say already selecting spell
-                    execute if entity @e[tag=selecting_spell,distance=..10] run return 1
-                    tag @p add selecting_spell
-                    execute as @p run summon minecraft:chest_minecart ^ ^1.5 ^2 {CustomName:"\"Select Spell\"",NoGravity:1b,Silent:1b,Invulnerable:1b,Tags:["objd_gui_cart"],CustomDisplayTile:1d,DisplayState:{Name:"air"},DisplayOffset:1d}
-                }
-            }
             dir default_damage{
                 function start{
                     wand_entity flame 5 nightmare_skilltree:magic/items/wands/default_damage/entity_hit
@@ -120,13 +116,36 @@ dir magic{
             }
             dir haste1{
                 function start{
-                    wand_area 10 15 nightmare_skilltree:magic/items/wands/haste1/entity_hit
+                    wand_area 10 10 nightmare_skilltree:magic/items/wands/haste1/entity_hit
+                    cast_msg i Applied Haste 2 for 25 seconds to all players in 10 meters
                 }
                 function entity_hit{
                     effect give @s minecraft:haste 25 1 true
+                    cast_msg i Got Haste 2 for 25 seconds
                 }
             }
             dir select_spell{
+                function summon_test_wand{
+                    give @s minecraft:warped_fungus_on_a_stick{display:{Name:"{\"text\":\"Test Wand\",\"color\":\"gold\",\"italic\":\"false\"}"},NDS_TestWand:1b,NDS_Wand:1b}
+                }
+                function summonchest{
+                    scoreboard players reset .return NDS_SelectSpellReturn
+                    # if already selecting spell, return
+                    execute if entity @e[tag=selecting_spell,distance=..10] run block check_if_already_selecting {
+                        # If minecart not found then continue to summon
+                        execute as @e[tag=selecting_spell,distance=..10] run execute unless entity @e[tag=objd_gui_cart,distance=..10] run scoreboard players set .return NDS_SelectSpellReturn 1
+                        execute if score .return NDS_SelectSpellReturn matches 1 run return 1
+                        # Else its found, dont summon
+                        cast_msg e Already selecting spell
+                        playsound minecraft:block.note_block.bass master @p ~ ~ ~ 1 1
+                        scoreboard players set .return NDS_SelectSpellReturn 0
+                    }
+                    # return if already selecting spell
+                    execute if score .return NDS_SelectSpellReturn matches 0 run return 1
+                    execute as @p run summon minecraft:chest_minecart ^ ^1.5 ^2 {CustomName:"\"Select Spell\"",NoGravity:1b,Silent:1b,Invulnerable:1b,Tags:["objd_gui_cart"],CustomDisplayTile:1d,DisplayState:{Name:"air"},DisplayOffset:1d}
+                    # Remove tag from player
+                    tag @p add selecting_spell
+                }
                 function select_default_damage{
                     # add default damage
                     select_spell default_damage
@@ -183,37 +202,19 @@ dir wizard{
 }
 # MARK: Item modifiers
 # Main hand item modifiers
-item_modifier add_main_default_damage{
+item_modifier add_default_damage{
   "function": "minecraft:set_nbt",
-  "tag": "{CustomTags:[\"default_damage\"]}",
-  "slot": "mainhand"
+  "tag": "{CustomTags:[\"default_damage\"],display:{Lore:['[{\"text\":\"Selected spell:\",\"italic\":false,\"color\":\"green\"},{\"text\":\" Haste1\",\"italic\":false,\"color\":\"dark_aqua\"}]','[{\"text\":\"Type:\",\"italic\":false,\"color\":\"green\"},{\"text\":\" Raycast\",\"italic\":false,\"color\":\"dark_aqua\"}]','[{\"text\":\"Cooldown:\",\"italic\":false,\"color\":\"green\"},{\"text\":\" 5\",\"italic\":false,\"color\":\"dark_aqua\"}]','[{\"text\":\"Damage:\",\"italic\":false,\"color\":\"green\"},{\"text\":\" 6 [Magic]\",\"italic\":false,\"color\":\"dark_aqua\"}]','[{\"text\":\" \",\"italic\":false}]']}}"
 }
-item_modifier add_main_slowness1{
+item_modifier add_slowness1{
   "function": "minecraft:set_nbt",
-  "tag": "{CustomTags:[\"slowness1\"]}",
-  "slot": "mainhand"
+  "tag": "{CustomTags:[\"slowness1\"],display:{Lore:['[{\"text\":\"Selected spell:\",\"italic\":false,\"color\":\"green\"},{\"text\":\" Slowness1\",\"italic\":false,\"color\":\"dark_aqua\"}]','[{\"text\":\"Type:\",\"italic\":false,\"color\":\"green\"},{\"text\":\" Raycast\",\"italic\":false,\"color\":\"dark_aqua\"}]','[{\"text\":\"Cooldown:\",\"italic\":false,\"color\":\"green\"},{\"text\":\" 5\",\"italic\":false,\"color\":\"dark_aqua\"}]','[{\"text\":\"Effect:\",\"italic\":false,\"color\":\"green\"},{\"text\":\" Apply slowness 2 for 25 seconds\",\"italic\":false,\"color\":\"dark_aqua\"}]','[{\"text\":\" \",\"italic\":false}]']}}"
 }
-item_modifier add_main_haste1{
+item_modifier add_haste1{
   "function": "minecraft:set_nbt",
-  "tag": "{CustomTags:[\"haste1\"]}",
-  "slot": "mainhand"
+  "tag": "{CustomTags:[\"haste1\"],display:{Lore:['[{\"text\":\"Selected spell:\",\"italic\":false,\"color\":\"green\"},{\"text\":\" Haste1\",\"italic\":false,\"color\":\"dark_aqua\"}]','[{\"text\":\"Type:\",\"italic\":false,\"color\":\"green\"},{\"text\":\" Area [10 meters]\",\"italic\":false,\"color\":\"dark_aqua\"}]','[{\"text\":\"Cooldown:\",\"italic\":false,\"color\":\"green\"},{\"text\":\" 10\",\"italic\":false,\"color\":\"dark_aqua\"}]','[{\"text\":\"Effect:\",\"italic\":false,\"color\":\"green\"},{\"text\":\" Apply Haste 2 for 25 seconds\",\"italic\":false,\"color\":\"dark_aqua\"}]','[{\"text\":\" \",\"italic\":false}]']}}"
 }
-# Off hand item modifiers
-item_modifier add_off_default_damage{
-  "function": "minecraft:set_nbt",
-  "tag": "{CustomTags:[\"default_damage\"]}",
-  "slot": "offhand"
-}
-item_modifier add_off_slowness1{
-  "function": "minecraft:set_nbt",
-  "tag": "{CustomTags:[\"slowness1\"]}",
-  "slot": "offhand"
-}
-item_modifier add_off_haste1{
-  "function": "minecraft:set_nbt",
-  "tag": "{CustomTags:[\"haste1\"]}",
-  "slot": "offhand"
-}
+
 # MARK: Tags
 tag items all{
     blaze_powder

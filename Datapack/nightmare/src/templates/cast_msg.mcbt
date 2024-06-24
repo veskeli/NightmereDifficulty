@@ -1,0 +1,57 @@
+# Template to send info message to player
+
+# Syntax:
+# - cast_msg <type> <msg>
+
+# Accepted types:
+# - info | i
+# - warning | warn | w
+# - error | e
+# - debug | d
+# - select | s
+
+template cast_msg{
+    with log_type:word msg:raw{
+        <%%
+            let log_json = ["",{"text":"Magic","color":"dark_gray"},{"text":" | ","color":"white"}]
+
+            switch (log_type) {
+                case "info":
+                case "i":
+                    log_json.push({"text":"Cast","color":"aqua"})
+                    break
+
+                case "warning":
+                case "warn":
+                case "w":
+                    log_json.push({"text":"Cast Warning","color":"gold"})
+                    break
+
+                case "error":
+                case "e":
+                    log_json.push({"text":"Cast failed","color":"red"})
+                    break
+
+                case "debug":
+                case "d":
+                    log_json.push({"text":"debug","color":"blue"})
+                    break
+
+                case "select":
+                case "s":
+                    log_json.push({"text":"Selected spell","color":"green"})
+                    break
+
+                default:
+                    throw new Error(`[cast_msg TEMPLATE]: Invalid type '${log_type}'`)
+                    break
+            }
+
+            log_json.push({"text":" = ","color":"dark_gray"})
+
+            log_json.push({"text":msg,"color":"white"})
+
+            emit(`tellraw @s ${JSON.stringify(log_json)}`)
+        %%>
+    }
+}

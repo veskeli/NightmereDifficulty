@@ -2,6 +2,6 @@ template wand_area{
     with distance:int cooldown:int function_name:raw{
         # add cooldown
         scoreboard players set @s NDS_SpellCooldown <%cooldown%>
-        execute as @a[distance=..<%distance%>] run function <%function_name%>
+        execute at @s run execute as @a[distance=..<%distance%>] run function <%function_name%>
     }
 }

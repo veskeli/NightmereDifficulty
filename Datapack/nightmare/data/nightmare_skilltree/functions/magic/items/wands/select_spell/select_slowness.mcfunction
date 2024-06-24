@@ -3,11 +3,11 @@
 # add slowness
 # TODO: select correct player not closest one
 # make sure the player has wand in hand
-execute as @p[nbt={SelectedItem:{tag:{NDS_Wand:1b}}}] run function nightmare_skilltree:magic/items/wands/select_spell/zzz/4
+execute as @p[nbt={SelectedItem:{tag:{NDS_Wand:1b}}}] run function nightmare_skilltree:magic/items/wands/select_spell/check_slowness1_mainhand
 # return on success
 execute if entity @p[nbt={SelectedItem:{tag:{NDS_Wand:1b}}}] run return 0
 # if not then make sure the player has offhand in hand
-execute as @p[nbt={Inventory:[{Slot:-106b,tag:{NDS_Wand:1b}}]}] run function nightmare_skilltree:magic/items/wands/select_spell/zzz/5
+execute as @p[nbt={Inventory:[{Slot:-106b,tag:{NDS_Wand:1b}}]}] run function nightmare_skilltree:magic/items/wands/select_spell/check_slowness1_offhand
 # return on success
 execute if entity @p[nbt={Inventory:[{Slot:-106b,tag:{NDS_Wand:1b}}]}] run return 1
 # if not then say the player that he has no wand in hand

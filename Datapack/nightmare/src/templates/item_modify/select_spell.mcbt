@@ -3,10 +3,16 @@ template select_spell {
         # TODO: select correct player not closest one
 
         # make sure the player has wand in hand
-        execute as @p[nbt={SelectedItem:{tag:{NDS_Wand:1b}}}] run block{
-            item modify entity @s weapon.mainhand nightmare_skilltree:add_main_<%spell_name%>
+        execute as @p[nbt={SelectedItem:{tag:{NDS_Wand:1b}}}] run block check_<%spell_name%>_mainhand{
+            item modify entity @s weapon.mainhand nightmare_skilltree:add_<%spell_name%>
             # notify the player that the spell has been selected
-            say @s "You have selected <%spell_name%> spell"
+            <%%
+                let msg = ["",{"text":"Magic","color":"dark_gray"},{"text":" | ","color":"white"}]
+                msg.push({"text":"Selected spell","color":"green"})
+                msg.push({"text":" = ","color":"dark_gray"})
+                msg.push({"text":spell_name,"color":"white"})
+                emit(`tellraw @s ${JSON.stringify(msg)}`)
+            %%>
             # play sound indicating that the spell has been selected
             playsound minecraft:block.note_block.harp master @s ~ ~ ~ 1 1
         }
@@ -14,10 +20,16 @@ template select_spell {
         execute if entity @p[nbt={SelectedItem:{tag:{NDS_Wand:1b}}}] run return 0
 
         # if not then make sure the player has offhand in hand
-        execute as @p[nbt={Inventory:[{Slot:-106b,tag:{NDS_Wand:1b}}]}] run block{
-            item modify entity @s weapon.offhand nightmare_skilltree:add_off_<%spell_name%>
+        execute as @p[nbt={Inventory:[{Slot:-106b,tag:{NDS_Wand:1b}}]}] run block check_<%spell_name%>_offhand{
+            item modify entity @s weapon.offhand nightmare_skilltree:add_<%spell_name%>
             # notify the player that the spell has been selected
-            say @s "You have selected <%spell_name%> spell"
+            <%%
+                let msg = ["",{"text":"Magic","color":"dark_gray"},{"text":" | ","color":"white"}]
+                msg.push({"text":"Selected spell","color":"green"})
+                msg.push({"text":" = ","color":"dark_gray"})
+                msg.push({"text":spell_name,"color":"white"})
+                emit(`tellraw @s ${JSON.stringify(msg)}`)
+            %%>
             # play sound indicating that the spell has been selected
             playsound minecraft:block.note_block.harp master @s ~ ~ ~ 1 1
         }
