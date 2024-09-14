@@ -1,5 +1,6 @@
 # Generated with MC-Build
 
+playsound minecraft:entity.illusioner.prepare_blindness player @a ~ ~ ~ 1 2
 # add cooldown
 scoreboard players set @s NDS_SpellCooldown 10
 execute at @s run execute as @a[distance=..10] run function nightmare_skilltree:magic/items/wands/haste1/entity_hit

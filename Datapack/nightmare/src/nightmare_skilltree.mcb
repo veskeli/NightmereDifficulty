@@ -89,39 +89,51 @@ dir magic{
             execute if score @s NDS_SpellCooldown matches 1.. run return 1
 
             wand_check default_damage nightmare_skilltree:magic/items/wands/default_damage/start
-            wand_check slowness1 nightmare_skilltree:magic/items/wands/slowness1/start_raycast
-            wand_check haste1 nightmare_skilltree:magic/items/wands/haste1/start_raycast
+            wand_check slowness1 nightmare_skilltree:magic/items/wands/slowness1/start
+            wand_check haste1 nightmare_skilltree:magic/items/wands/haste1/start
         }
         dir wands{
             dir default_damage{
                 function start{
+                    execute at @s run playsound minecraft:entity.illusioner.mirror_move player @a ~ ~ ~ 1 0.2
                     wand_entity flame 5 nightmare_skilltree:magic/items/wands/default_damage/entity_hit
                 }
                 function entity_hit{
                     # damage if owner is holding the wand in the main hand
-                    execute if entity @a[limit=1,tag=raycasting,sort=nearest,nbt={SelectedItem:{id:"minecraft:warped_fungus_on_a_stick",tag:{NDS_TestWand:1b}}}] run damage @s 10 minecraft:magic by @a[limit=1,tag=raycasting,sort=nearest,nbt={SelectedItem:{id:"minecraft:warped_fungus_on_a_stick",tag:{NDS_TestWand:1b}}}]
+                    execute if entity @a[limit=1,tag=raycasting,sort=nearest,nbt={SelectedItem:{id:"minecraft:warped_fungus_on_a_stick",tag:{NDS_TestWand:1b}}}] run block {
+                        damage @s 10 minecraft:magic by @a[limit=1,tag=raycasting,sort=nearest,nbt={SelectedItem:{id:"minecraft:warped_fungus_on_a_stick",tag:{NDS_TestWand:1b}}}]
+                        playsound minecraft:entity.arrow.hit player @a ~ ~ ~ 1 0.4
+                    }
                     # retrun if success
                     execute if entity @a[limit=1,tag=raycasting,sort=nearest,nbt={SelectedItem:{id:"minecraft:warped_fungus_on_a_stick",tag:{NDS_TestWand:1b}}}] run return 1
                     # damage if owner is holding the wand in the off hand
-                    execute if entity @a[limit=1,tag=raycasting,sort=nearest,nbt={Inventory:[{id:"minecraft:warped_fungus_on_a_stick",Slot:-106b,tag:{NDS_TestWand:1b}}]}] run damage @s 10 minecraft:magic by @a[limit=1,tag=raycasting,sort=nearest,nbt={Inventory:[{id:"minecraft:warped_fungus_on_a_stick",Slot:-106b,tag:{NDS_TestWand:1b}}]}]
+                    execute if entity @a[limit=1,tag=raycasting,sort=nearest,nbt={Inventory:[{id:"minecraft:warped_fungus_on_a_stick",Slot:-106b,tag:{NDS_TestWand:1b}}]}] run block{
+                        damage @s 10 minecraft:magic by @a[limit=1,tag=raycasting,sort=nearest,nbt={Inventory:[{id:"minecraft:warped_fungus_on_a_stick",Slot:-106b,tag:{NDS_TestWand:1b}}]}]
+                        playsound minecraft:entity.arrow.hit player @a ~ ~ ~ 1 0.4
+                    }
                 }
             }
             dir slowness1{
                 function start{
+                    playsound minecraft:entity.illusioner.prepare_blindness player @a ~ ~ ~ 1 1.5
                     wand_entity soul_fire_flame 5 nightmare_skilltree:magic/items/wands/slowness1/entity_hit
                 }
                 function entity_hit{
+                    execute if score .distance NDS_Item_Ray_steps matches ..6 run return 1
                     effect give @s minecraft:slowness 25 1 true
+                    cast_msg i Got Slowness 2 for 25 seconds
                 }
             }
             dir haste1{
                 function start{
+                    playsound minecraft:entity.illusioner.prepare_blindness player @a ~ ~ ~ 1 2
                     wand_area 10 10 nightmare_skilltree:magic/items/wands/haste1/entity_hit
                     cast_msg i Applied Haste 2 for 25 seconds to all players in 10 meters
                 }
                 function entity_hit{
                     effect give @s minecraft:haste 25 1 true
                     cast_msg i Got Haste 2 for 25 seconds
+                    playsound minecraft:block.enchantment_table.use master @s ~ ~ ~ 1 1
                 }
             }
             dir select_spell{
@@ -204,7 +216,7 @@ dir wizard{
 # Main hand item modifiers
 item_modifier add_default_damage{
   "function": "minecraft:set_nbt",
-  "tag": "{CustomTags:[\"default_damage\"],display:{Lore:['[{\"text\":\"Selected spell:\",\"italic\":false,\"color\":\"green\"},{\"text\":\" Haste1\",\"italic\":false,\"color\":\"dark_aqua\"}]','[{\"text\":\"Type:\",\"italic\":false,\"color\":\"green\"},{\"text\":\" Raycast\",\"italic\":false,\"color\":\"dark_aqua\"}]','[{\"text\":\"Cooldown:\",\"italic\":false,\"color\":\"green\"},{\"text\":\" 5\",\"italic\":false,\"color\":\"dark_aqua\"}]','[{\"text\":\"Damage:\",\"italic\":false,\"color\":\"green\"},{\"text\":\" 6 [Magic]\",\"italic\":false,\"color\":\"dark_aqua\"}]','[{\"text\":\" \",\"italic\":false}]']}}"
+  "tag": "{CustomTags:[\"default_damage\"],display:{Lore:['[{\"text\":\"Selected spell:\",\"italic\":false,\"color\":\"green\"},{\"text\":\" Default Damage\",\"italic\":false,\"color\":\"dark_aqua\"}]','[{\"text\":\"Type:\",\"italic\":false,\"color\":\"green\"},{\"text\":\" Raycast\",\"italic\":false,\"color\":\"dark_aqua\"}]','[{\"text\":\"Cooldown:\",\"italic\":false,\"color\":\"green\"},{\"text\":\" 5\",\"italic\":false,\"color\":\"dark_aqua\"}]','[{\"text\":\"Damage:\",\"italic\":false,\"color\":\"green\"},{\"text\":\" 6 [Magic]\",\"italic\":false,\"color\":\"dark_aqua\"}]','[{\"text\":\" \",\"italic\":false}]']}}"
 }
 item_modifier add_slowness1{
   "function": "minecraft:set_nbt",
